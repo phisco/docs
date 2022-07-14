@@ -146,6 +146,14 @@
   align-items: center;
 }
 
+.social-icons > a {
+  text-decoration: none;
+}
+
+.social-icons > a:not(:last-of-type) {
+  margin-right: 20px;
+}
+
 .footer-sub {
   display: flex;
   flex-direction: column;
@@ -160,6 +168,30 @@
   color: rgb(90, 113, 132);
   font-size: 16px;
   text-align: center;
+}
+
+.unomena-logo {
+  width: 80px;
+}
+
+.cncf-image {
+  width: 233px;
+  height: 37px;
+  margin-bottom: 32px;
+}
+
+.now-hiring {
+  font-family: Avenir-Black, Arial, sans-serif;
+  font-weight: 700;
+  display: flex;
+  border-radius: 40px;
+  background-color: rgb(0, 51, 62);
+  color: rgb(0, 182, 122);
+  min-width: 86px;
+  padding: 4px 10px;
+  font-size: 12px;
+  line-height: 20px;
+  margin-left: 4px;
 }
 
 :root {
