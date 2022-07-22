@@ -1,10 +1,12 @@
 ---
-title: "Welcome to Upbound Documentation"
+title: "Welcome to Upbound Documentation 1"
 icon: "Home"
 metaTitle: "Welcome"
-metaDescription: "Upbound Documentation"
+metaDescription: "Upbound Documentation 1"
 rank: 0
 ---
+
+Upbound Documentation 1
 
 Upbound is the company behind the open source project,
 [Crossplane]. Our mission is to enable a new era of
