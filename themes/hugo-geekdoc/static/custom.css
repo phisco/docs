@@ -1,6 +1,7 @@
 /* Global customization */
 html {
   letter-spacing: 0;
+  line-height: normal;
 }
 
 /* Navigation */  
@@ -17,7 +18,7 @@ html {
   padding: 0 50px;
 }
 
-.gdoc-brand__img {
+.gdoc-header .gdoc-brand__img {
   margin-right: 1rem;
   width: 117px;
   height: 31px;
@@ -49,7 +50,7 @@ html {
   opacity: 0.5;
   text-decoration: none;
   font-size: 17px;
-  font-family: Avenir-Roman, Arial, sans-serif;
+  font-family: 'Avenir-Roman', 'Arial', sans-serif;
   font-weight: normal;
   font-size: 17px;
   line-height: 17px;
@@ -96,7 +97,7 @@ html {
   padding: 6px 16px;
   text-transform: none;
   transition: all 0.3s cubic-bezier(0.47, 1.64, 0.41, 0.8) 0s;
-  font-family: Avenir-Roman, Arial, sans-serif;
+  font-family: 'Avenir-Roman', 'Arial', sans-serif;
   font-weight: normal;
   font-size: 14px;
   line-height: 14px;
@@ -114,6 +115,10 @@ html {
 
 
 /* Footer */
+.gdoc-footer {
+  background-color: #0B1C28;
+}
+
 .gdoc-footer > .container {
   display: flex;
   flex-direction: column;
@@ -122,6 +127,11 @@ html {
   max-width: 1440px;
   font-family: 'Avenir-Roman', 'Arial', sans-serif;
   letter-spacing: 0;
+}
+
+.gdoc-footer .gdoc-brand__img {
+  width: 120px;
+  height: 29px;
 }
 
 .footer-columns {
@@ -149,7 +159,7 @@ html {
   margin: 0px 0px 28px;
   line-height: normal;
   color: rgb(90, 113, 132);
-  font-family: Avenir-Black, Arial, sans-serif;
+  font-family: 'Avenir-Black', Arial, sans-serif;
   font-weight: 700;
   font-size: 18px;
 }
@@ -157,7 +167,7 @@ html {
 .footer-columns .footer-column > a {
   cursor: pointer;
   transition: all 0.2s ease-in-out 0s;
-  font-family: Avenir-Roman, Arial, sans-serif;
+  font-family: 'Avenir-Roman', 'Arial', sans-serif;
   font-weight: normal;
   display: flex;
   align-items: center;
@@ -167,9 +177,13 @@ html {
   color: inherit;
 }
 
+.footer-columns .footer-column:not(.footer-column-first) > a:last-of-type {
+  margin-bottom: 0;
+}
+
 .footer-columns .footer-column-first > p {
   margin: 0px 0px 20px;
-  font-family: Avenir-Roman, Arial, sans-serif;
+  font-family: 'Avenir-Roman', 'Arial', sans-serif;
   color: rgb(90, 113, 132);
   font-size: 16px;
   line-height: 28px;
@@ -182,6 +196,11 @@ html {
   line-height: 28px;
   font-weight: 600;
   margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.social-icons {
   display: flex;
   align-items: center;
 }
@@ -203,7 +222,7 @@ html {
 .footer-sub > p {
   margin: 0px;
   line-height: normal;
-  font-family: Avenir-Roman, Arial, sans-serif;
+  font-family: 'Avenir-Roman', 'Arial', sans-serif;
   font-weight: 400;
   color: rgb(90, 113, 132);
   font-size: 16px;
@@ -216,8 +235,8 @@ html {
 
 .cncf-image {
   width: 233px;
-  height: 37px;
-  margin-bottom: 32px;
+  height: 38px;
+  margin-bottom: 31px;
 }
 
 .now-hiring {
