@@ -1,5 +1,9 @@
 /* Global customization */
+html {
+  letter-spacing: 0;
+}
 
+/* Navigation */  
 .gdoc-header {
   border-bottom: none;
   height: 88px;
@@ -10,8 +14,7 @@
 .gdoc-header > .container {
   width: 100%;
   max-width: 1440px;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding: 0 50px;
 }
 
 .gdoc-brand__img {
@@ -27,6 +30,7 @@
 .header-center-items {
   flex: 1;
   display: flex;
+  justify-content: center;
 }
 
 .header-center-items > .header-link-items > a {
@@ -74,6 +78,42 @@
   margin-right: 18px;
 }
 
+.header-right-items > .header-link-items > .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  outline: 0px;
+  border: 0px;
+  margin: 0px;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  appearance: none;
+  text-decoration: none;
+  min-width: 64px;
+  padding: 6px 16px;
+  text-transform: none;
+  transition: all 0.3s cubic-bezier(0.47, 1.64, 0.41, 0.8) 0s;
+  font-family: Avenir-Roman, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 14px;
+  border-radius: 20px;
+  height: 38px;
+  background-color: rgb(211, 231, 247);
+  color: rgb(11, 28, 40);
+  opacity: 1;
+}
+
+.header-right-items > .header-link-items > .btn:hover {
+  transform: scale(1.05);
+  background-color: rgb(211, 231, 247);
+}
+
+
+/* Footer */
 .gdoc-footer > .container {
   display: flex;
   flex-direction: column;
