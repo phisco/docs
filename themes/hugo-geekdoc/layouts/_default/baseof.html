@@ -29,6 +29,7 @@
       {{ $navEnabled := default true .Page.Params.GeekdocNav }}
       {{ partial "site-header" (dict "Root" . "MenuEnabled" $navEnabled) }}
 
+      {{ partial "product-nav" (dict "Root" . "MenuEnabled" $navEnabled) }}
 
       <main class="container flex flex-even">
         {{ if $navEnabled }}
