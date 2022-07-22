@@ -1,0 +1,77 @@
+<div id="product-nav">
+  <nav>
+    <ul>
+      <li>
+        <a href="/">Primary Product</a>
+      </li>
+      <li>
+        <a href="/">Secondary Product</a>
+      </li>
+      <li>
+        <a href="/">Tertiary Product</a>
+      </li>
+      <li>
+        <a href="/">Quaternary Product</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="header-right-items">
+
+    {{ partial "search" . }}
+
+    <div class="switcher-header">  
+      <div class="gdoc-menu-header">
+        <span class="gdoc-menu-header__items">
+          {{ if .Root.Site.Data.menu.extra.header }}
+          {{ partial "menu-extra" (dict "current" .Root "source" .Root.Site.Data.menu.extra.header "target" "header") }}
+          {{ end }}
+
+
+          <span id="gdoc-dark-mode">
+            <svg class="gdoc-icon gdoc_brightness_dark">
+              <title>{{ i18n "button_toggle_dark" }}</title>
+              <use xlink:href="#gdoc_brightness_dark"></use>
+            </svg>
+            <svg class="gdoc-icon gdoc_brightness_light">
+              <title>{{ i18n "button_toggle_dark" }}</title>
+              <use xlink:href="#gdoc_brightness_light"></use>
+            </svg>
+            <svg class="gdoc-icon gdoc_brightness_auto">
+              <title>{{ i18n "button_toggle_dark" }}</title>
+              <use xlink:href="#gdoc_brightness_auto"></use>
+            </svg>
+          </span>
+
+          <span class="gdoc-menu-header__home">
+            <a href="{{ .Root.Site.BaseURL }}" class="gdoc-header__link">
+              <svg class="gdoc-icon gdoc_home">
+                <title>{{ i18n "button_homepage" }}</title>
+                <use xlink:href="#gdoc_home"></use>
+              </svg>
+            </a>
+          </span>
+
+          {{ partial "language" .Root }}
+
+
+          <span class="gdoc-menu-header__control">
+            <label for="menu-header-control">
+              <svg class="gdoc-icon gdoc_keyboard_arrow_right">
+                <use xlink:href="#gdoc_keyboard_arrow_right"></use>
+                <title>{{ i18n "button_menu_close" }}</title>
+              </svg>
+            </label>
+          </span>
+        </span>
+        <label for="menu-header-control" class="gdoc-menu-header__control">
+          <svg class="gdoc-icon gdoc_keyboard_arrow_left">
+            <use xlink:href="#gdoc_keyboard_arrow_left"></use>
+            <title>{{ i18n "button_menu_open" }}</title>
+          </svg>
+        </label>
+      </div>
+    </div>
+
+  </div>
+</div>
