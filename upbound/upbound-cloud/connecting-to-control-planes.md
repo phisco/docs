@@ -24,7 +24,7 @@ Token". We're going to name our new token `test-token`.
 **Make sure to copy the token string and store it somewhere safe** like a
 password manager. This is the last time Upbound will display it to you.
 
-![Create an API Token](../images/upbound/create-api-token.gif)
+![Create an API Token](/images/upbound/create-api-token.gif)
 
 ## Connect to Control Plane
 

@@ -19,7 +19,7 @@ UXP enables platform teams to define their own opinionated control plane - their
 own APIs - that can orchestrate anything with an API. These control plane APIs
 can then be offered to app teams to enable safe, guided self-service.
 
-![Separation of concerns](../images/separation-of-concerns.png)
+![Separation of concerns](/images/separation-of-concerns.png)
 
 Platform teams configure UXP by installing Providers and Configurations.
 
@@ -48,7 +48,7 @@ control planes to Upbound.
 One powerful way to leverage UXP as your control plane is to take advantage of
 GitOps practices and integrate it with your existing CI/CD pipelines.
 
-![GitOps and UXP](../images/gitops-and-uxp.png)
+![GitOps and UXP](/images/gitops-and-uxp.png)
 
 Platform teams typically define their XRs and Compositions in git, using a CI/CD
 system to build and push Configurations to the Upbound Marketplace. The deployed

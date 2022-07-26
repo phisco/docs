@@ -93,7 +93,7 @@ Because our control plane is attached to Upbound, we can view our infrastructure
 and the relationship between the claim (XRC) we created and the resources that
 represent the external infrastructure that was provisioned.
 
-![Deploy](../images/deploy-infra.png)
+![Deploy](/images/deploy-infra.png)
 
 # Next Steps
 

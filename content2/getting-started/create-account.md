@@ -44,7 +44,7 @@ Upbound Enterprise users must sign up with their email address.
 
 Sign up using your provider of choice by following the prompts.
 
-![Register](../images/cloud-register.png)
+![Register](/images/cloud-register.png)
 
 # Create an Organization
 
@@ -62,7 +62,7 @@ to register.
 To experience the full capabilities of Upbound, go ahead and create an
 organization while registering. 
 
-![Organization](../images/enterprise-org.png)
+![Organization](/images/enterprise-org.png)
 
 # Invite a Teammate
 
@@ -72,7 +72,7 @@ join your organization as either a _Member_ or an _Admin_. The invited user will
 receive an email with a link to join the organization. If they do not already
 have an account, they will be prompted to register before joining.
 
-![Invite](../images/org-invite.png)
+![Invite](/images/org-invite.png)
 
 # Login with `up`
 

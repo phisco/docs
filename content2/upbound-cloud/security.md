@@ -91,7 +91,7 @@ highly available and reliable. Self-hosted UXPs run outside of Upbound’s VPCs,
 but are managed using Upbound Cloud. Upbound Cloud uses the same secure
 communication architecture for both hosted and self-hosted deployments of UXP.
 
-![Security Diagram](../images/security-diagram.png)
+![Security Diagram](/images/security-diagram.png)
 
 The Upbound Agent - an open source component of UXP - establishes a connection
 to Upbound Cloud using [NATS]. Upbound Cloud uses short lived [JSON Web

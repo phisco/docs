@@ -9,12 +9,12 @@ UXP is available to install into Kubernetes clusters managed by Rancher via the
 Rancher Catalog.
 
 1. Navigate to `Apps & Marketplace` in the upper left corner of the Rancher UI
-    ![apps and marketplaces](../images/uxp/apps-and-marketplace-navigation.png)
+    ![apps and marketplaces](/images/uxp/apps-and-marketplace-navigation.png)
 1. In the filter box, type "Upbound" and select the UXP listing which will 
 apear in the results
 1. You'll be taken to the installation page where you can configure UXP and 
 install it into your cluster.
-    ![Rancher catalog install page](../images/uxp/rancher-catalog-uxp-install-page.png)
+    ![Rancher catalog install page](/images/uxp/rancher-catalog-uxp-install-page.png)
 1. Once configured (see more below) and installed, follow the instructions on
    the README to connect your UXP deployment to Upbound for easy management.
 

@@ -30,7 +30,7 @@ even search for types to more easily find the one we are looking for.
 The type browser will display both composed resource types as well as the
 managed resources they are made of.
 
-![Exploring Types](../images/upbound/xrm-explorer-types.gif)
+![Exploring Types](/images/upbound/xrm-explorer-types.gif)
 
 ### Favorites
 
@@ -39,7 +39,7 @@ types as "favorites". Doing so will cause the type to appear in the navigation
 for quick access later on. This essentially enables you to build out your own
 custom console of the types that you use frequently.
 
-![Favoriting](../images/upbound/xrm-explorer-favorites.gif)
+![Favoriting](/images/upbound/xrm-explorer-favorites.gif)
 
 ## Creating Resources
 
@@ -65,7 +65,7 @@ composed resources will take you to the details page for them as well,
 effectively enabling you to navigate through your composite resource hierarchies
 and explore their status and relationships in real time.
 
-![Exploring Resources](../images/upbound/xrm-explorer-resources.gif)
+![Exploring Resources](/images/upbound/xrm-explorer-resources.gif)
 
 <!-- Links -->
 [UXP]: ../../uxp
