@@ -9,6 +9,11 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+input:focus,
+input:focus-visible {
+  outline: none;
+}
+
 /* Landing page global styling */ 
 .upbound-docs {
   background-color: #0B1C28;
