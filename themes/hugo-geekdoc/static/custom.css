@@ -4,9 +4,11 @@ body {
   letter-spacing: 0;
   line-height: normal;
   font-family: 'Avenir-Roman', 'Arial', sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Landing page*/ 
+/* Landing page global styling */ 
 .upbound-docs {
   background-color: #0B1C28;
   color: #D3E7F7;
@@ -24,6 +26,7 @@ body {
   text-decoration: none;
   outline: 0;
 }
+
 .upbound-docs .abs-link {
   position: absolute;
   top: 0;
@@ -33,6 +36,7 @@ body {
   cursor: pointer;
 }
 
+/* Card deck layouts */
 .card-deck {
   display: grid;
   grid-row-gap: 1.875rem;
@@ -79,11 +83,94 @@ body {
   }
 }
 
+/* Card */
 .card-deck .card {
   background-color: rgb(27, 53, 73);
   border-radius: 10px;
   width: 100%;
 }
+
+/* Card body */
+.card-deck .card-body {
+  padding: 22px;
+}
+
+.card-deck .card .card-body h4 {
+  margin: 0px 0px 12px;
+  font-family: 'Avenir-Black', Arial, sans-serif;
+  /* font-weight: 700; */
+  color: rgb(211, 231, 247);
+  font-size: 22px;
+  line-height: 30px;
+}
+.card-deck .card .card-body p {
+  margin: 0px;
+  /* font-family: Avenir-Roman, Arial, sans-serif; */
+  /* font-weight: normal; */
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 0px;
+  color: rgb(211, 231, 247);
+}
+.card-deck .card .card-body ul {
+  margin-top: 22px;
+  margin-bottom: 0;
+}
+.card-deck .card .card-body ul li:not(:last-of-type) {
+  margin-bottom: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .card-deck .card .card-body h4 {
+    font-size: 30px;
+    line-height: 36px;
+  }
+}
+
+/* Card footer */
+.card-deck .card .card-footer {
+  border: none;
+  background-color: transparent;
+  padding: 22px;
+  padding-top: 0;
+}
+
+/* Card full top img */
+.card-deck .card .img-fill {
+  position: relative;
+  max-height: 260px;
+  width: 100%;
+  display: flex;
+}
+.card-deck .card .img-fill img {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Card icon img */
+.card-deck .card.icon-card {
+  text-align: center;
+}
+.card-deck .card.icon-card .img-icon {
+  padding: 22px;
+  padding-bottom: 0;
+}
+.card-deck .card.icon-card .img-icon > div {
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+.card-deck .card.icon-card .img-icon > div img {
+  width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Card no-style */
 .card-deck .card.no-style {
   background-color: transparent;
   border-radius: 0;
@@ -94,42 +181,18 @@ body {
   padding-left: 0;
   padding-right: 0;
 }
+
 .card-deck .card.no-style .img-fill img {
   border-radius: 0;
 }
 
-.card-deck .card .card-footer {
-  border: none;
-  background-color: transparent;
-  padding-top: 0;
-}
-
-.card-deck .card .img-fill {
-  position: relative;
-  max-height: 240px;
-  width: 100%;
-  display: flex;
-}
-
-.card-deck .card .img-fill img {
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  width: 100%;
-  object-fit: cover;
-}
-
+/* Landing page */
 .upbound-docs nav {
   background-color: #0B1C28;
 }
 
 .upbound-docs header {
   padding: 120px 0;
-}
-
-.upbound-docs header h1 {
-  background: linear-gradient(45deg, #6D64F5, #3DE2CB);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .upbound-docs h1 {
@@ -163,7 +226,6 @@ body {
 .header-fancy span {
   position: relative;
   font-size: 17px;
-  font-weight: 500;
   letter-spacing: 3px;
   line-height: 24px;
   text-transform: uppercase;
@@ -236,8 +298,8 @@ body {
   opacity: 0.5;
   text-decoration: none;
   font-size: 17px;
-  font-family: 'Avenir-Roman', 'Arial', sans-serif;
-  font-weight: normal;
+  /* font-family: 'Avenir-Roman', 'Arial', sans-serif; */
+  /* font-weight: normal; */
   font-size: 17px;
   line-height: 17px;
   transition: all 0.25s ease 0s;
@@ -311,7 +373,7 @@ body {
   padding: 78px 140px;
   margin: 0px auto;
   max-width: 1440px;
-  font-family: 'Avenir-Roman', 'Arial', sans-serif;
+  /* font-family: 'Avenir-Roman', 'Arial', sans-serif; */
   letter-spacing: 0;
 }
 
@@ -345,16 +407,17 @@ body {
   margin: 0px 0px 28px;
   line-height: normal;
   color: rgb(90, 113, 132);
+  /* font-family: 'Avenir','Arial Black',sans-serif; */
   font-family: 'Avenir-Black', Arial, sans-serif;
-  font-weight: 700;
+  /* font-weight: 700; */
   font-size: 18px;
 }
 
 .footer-columns .footer-column > a {
   cursor: pointer;
   transition: all 0.2s ease-in-out 0s;
-  font-family: 'Avenir-Roman', 'Arial', sans-serif;
-  font-weight: normal;
+  /* font-family: 'Avenir-Roman', 'Arial', sans-serif; */
+  /* font-weight: normal; */
   display: flex;
   align-items: center;
   font-size: 16px;
@@ -369,7 +432,8 @@ body {
 
 .footer-columns .footer-column-first > p {
   margin: 0px 0px 20px;
-  font-family: 'Avenir-Roman', 'Arial', sans-serif;
+  /* font-family: 'Avenir','Arial Black',sans-serif; */
+  /* font-family: 'Avenir-Roman', 'Arial', sans-serif; */
   color: rgb(90, 113, 132);
   font-size: 16px;
   line-height: 28px;
@@ -408,8 +472,8 @@ body {
 .footer-sub > p {
   margin: 0px;
   line-height: normal;
-  font-family: 'Avenir-Roman', 'Arial', sans-serif;
-  font-weight: 400;
+  /* font-family: 'Avenir-Roman', 'Arial', sans-serif; */
+  /* font-weight: 400; */
   color: rgb(90, 113, 132);
   font-size: 16px;
   text-align: center;
@@ -426,8 +490,8 @@ body {
 }
 
 .now-hiring {
-  font-family: Avenir-Black, Arial, sans-serif;
-  font-weight: 700;
+  font-family: 'Avenir-Black', Arial, sans-serif;
+  /* font-weight: 700; */
   display: flex;
   border-radius: 40px;
   background-color: rgb(0, 51, 62);
