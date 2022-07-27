@@ -22,8 +22,7 @@
         <div class="gdoc-menu-header">
           <span class="gdoc-menu-header__items">
             {{ if .Root.Site.Data.menu.extra.header }}
-            {{ partial "menu-extra" (dict "current" .Root "source" .Root.Site.Data.menu.extra.header "target" "header")
-            }}
+            {{ partial "menu-extra" (dict "current" .Root "source" .Root.Site.Data.menu.extra.header "target" "header") }}
             {{ end }}
 
 
