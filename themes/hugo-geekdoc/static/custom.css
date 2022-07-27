@@ -64,9 +64,15 @@ input:focus-visible {
 .upbound-docs a:hover,
 .upbound-docs a:focus,
 .upbound-docs a:active {
-  color: #3DE2CB;
   text-decoration: none;
   outline: 0;
+}
+
+.upbound-docs main a,
+.upbound-docs main a:hover,
+.upbound-docs main a:focus,
+.upbound-docs main a:active {
+  color: #3DE2CB;
 }
 
 .upbound-docs .abs-link {
@@ -313,6 +319,10 @@ input:focus-visible {
   margin-right: 1rem;
   width: 117px;
   height: 31px;
+}
+
+.gdoc-header .gdoc-brand__title {
+  font-size: 16px;
 }
 
 .header-left-items {
