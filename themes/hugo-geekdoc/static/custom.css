@@ -1,3 +1,39 @@
+@font-face {
+  font-family: 'Avenir-Roman';
+  src: url("fonts/Avenir-Roman.eot"); /* IE9 Compat Modes */
+  src: url("fonts/Avenir-Roman.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+       url("fonts/Avenir-Roman.woff2") format("woff2"), /* Super Modern Browsers */
+       url("fonts/Avenir-Roman.woff") format("woff"), /* Pretty Modern Browsers */
+       url("fonts/Avenir-Roman.ttf") format("truetype"); /* Safari, Android, iOS */
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir-Black';
+  src: url("fonts/Avenir-Black.eot"); /* IE9 Compat Modes */
+  src: url("fonts/Avenir-Black.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+       url("fonts/Avenir-Black.woff2") format("woff2"), /* Super Modern Browsers */
+       url("fonts/Avenir-Black.woff") format("woff"), /* Pretty Modern Browsers */
+       url("fonts/Avenir-Black.ttf") format("truetype"); /* Safari, Android, iOS */
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Consolas';
+  src: url("fonts/Consolas.eot"); /* IE9 Compat Modes */
+  src: url("fonts/Consolas.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+       url("fonts/Consolas.woff2") format("woff2"), /* Super Modern Browsers */
+       url("fonts/Consolas.woff") format("woff"), /* Pretty Modern Browsers */
+       url("fonts/Consolas.ttf") format("truetype"); /* Safari, Android, iOS */
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Global customization */
 html,
 body {
@@ -28,7 +64,7 @@ input:focus-visible {
 .upbound-docs a:hover,
 .upbound-docs a:focus,
 .upbound-docs a:active {
-  color: #FAAD13;
+  color: #3DE2CB;
   text-decoration: none;
   outline: 0;
 }
@@ -94,17 +130,17 @@ input:focus-visible {
   background-color: rgb(27, 53, 73);
   border-radius: 10px;
   width: 100%;
+  max-width: 416px;
 }
 
 /* Card body */
 .card-deck .card-body {
-  padding: 22px;
+  padding: 40px 30px;
 }
 
 .card-deck .card .card-body h4 {
   margin: 0px 0px 12px;
   font-family: 'Avenir-Black', Arial, sans-serif;
-  /* font-weight: 700; */
   color: rgb(211, 231, 247);
   font-size: 22px;
   line-height: 30px;
@@ -119,11 +155,11 @@ input:focus-visible {
   color: rgb(211, 231, 247);
 }
 .card-deck .card .card-body ul {
-  margin-top: 22px;
+  margin-top: 30px;
   margin-bottom: 0;
 }
 .card-deck .card .card-body ul li:not(:last-of-type) {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 @media screen and (min-width: 768px) {
@@ -137,7 +173,7 @@ input:focus-visible {
 .card-deck .card .card-footer {
   border: none;
   background-color: transparent;
-  padding: 22px;
+  padding: 40px 30px;
   padding-top: 0;
 }
 
@@ -160,7 +196,7 @@ input:focus-visible {
   text-align: center;
 }
 .card-deck .card.icon-card .img-icon {
-  padding: 22px;
+  padding: 40px 30px;
   padding-bottom: 0;
 }
 .card-deck .card.icon-card .img-icon > div {
@@ -434,9 +470,8 @@ input:focus-visible {
 }
 
 .footer-columns .footer-column-first > p {
-  font-family: 'Avenir-Black', Arial, sans-serif;
-  /* font-family: 'Avenir-Roman', 'Arial', sans-serif; */
-  /* font-weight: 600; */
+  font-family: 'Avenir-Roman', 'Arial', sans-serif;
+  font-weight: 600;
   margin: 0px 0px 16.5px;
   color: rgb(90, 113, 132);
   font-size: 16px;
@@ -448,9 +483,8 @@ input:focus-visible {
 }
 
 .footer-columns .footer-column-first > .site-by {
-  font-family: 'Avenir-Black', Arial, sans-serif;
-  /* font-family: 'Avenir-Roman', 'Arial', sans-serif; */
-  /* font-weight: 600; */
+  font-family: 'Avenir-Roman', 'Arial', sans-serif;
+  font-weight: 600;
   color: rgb(90, 113, 132);
   font-size: 13px;
   line-height: 28px;
