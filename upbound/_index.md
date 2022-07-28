@@ -1,8 +1,8 @@
 ---
-title: "Welcome to Upbound Documentation 1"
+title: "Welcome to Upbound Documentation"
 icon: "Home"
 metaTitle: "Welcome"
-metaDescription: "Upbound Documentation 1"
+metaDescription: "Upbound Documentation"
 rank: 0
 ---
 
