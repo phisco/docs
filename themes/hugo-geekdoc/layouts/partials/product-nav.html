@@ -21,9 +21,9 @@
       <div class="switcher-header">
         <div class="gdoc-menu-header">
           <span class="gdoc-menu-header__items">
-            {{ if .Root.Site.Data.menu.extra.header }}
+            <!-- {{ if .Root.Site.Data.menu.extra.header }}
             {{ partial "menu-extra" (dict "current" .Root "source" .Root.Site.Data.menu.extra.header "target" "header") }}
-            {{ end }}
+            {{ end }} -->
 
 
             <span id="gdoc-dark-mode">
@@ -41,16 +41,16 @@
               </svg>
             </span>
 
-            <span class="gdoc-menu-header__home">
+            <!-- <span class="gdoc-menu-header__home">
               <a href="{{ .Root.Site.BaseURL }}" class="gdoc-header__link">
                 <svg class="gdoc-icon gdoc_home">
                   <title>{{ i18n "button_homepage" }}</title>
                   <use xlink:href="#gdoc_home"></use>
                 </svg>
               </a>
-            </span>
+            </span> -->
 
-            {{ partial "language" .Root }}
+            <!-- {{ partial "language" .Root }}
 
 
             <span class="gdoc-menu-header__control">
@@ -67,7 +67,7 @@
               <use xlink:href="#gdoc_keyboard_arrow_left"></use>
               <title>{{ i18n "button_menu_open" }}</title>
             </svg>
-          </label>
+          </label> -->
         </div>
       </div>
 

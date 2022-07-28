@@ -1,1 +1,15 @@
 <!-- You can add custom elements to the page header here. -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    let subNavLink = $('#product-nav .sub-nav ul li a').text()
+
+    $('#product-nav .sub-nav ul li a').each(function() {
+      if (window.location.href.indexOf(subNavLink)) {
+        $(this).parent().addClass('active')
+      } else {
+        $(this).parent().removeClass('active')
+      }
+    })
+  });
+</script>

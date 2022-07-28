@@ -1,23 +1,10 @@
 <header class="gdoc-header">
-  <div class="container flex align-center">
+  <div class="nav-container flex align-center">
     <div class="header-left-items">
-      <!-- {{ if .MenuEnabled }}
-      <label for="menu-control" class="gdoc-nav__control" tabindex="0">
-        <svg class="gdoc-icon gdoc_menu">
-          <title>{{ i18n "button_nav_open" }}</title>
-          <use xlink:href="#gdoc_menu"></use>
-        </svg>
-        <svg class="gdoc-icon gdoc_arrow_back">
-          <title>{{ i18n "button_nav_close" }}</title>
-          <use xlink:href="#gdoc_arrow_back"></use>
-        </svg>
-      </label>
-      {{ end }} -->
       <div>
         <a class="gdoc-brand gdoc-header__link" href="/">
           <span class="flex align-center">
-            <img class="gdoc-brand__img" src="{{ (default " brand.svg" .Root.Site.Params.GeekdocLogo) | relURL }}"
-              alt="" />
+            <img class="gdoc-brand__img" src="/img/upbound-logo-white.svg" alt="">
             <span class="gdoc-brand__title">| DOCS</span>
           </span>
         </a>
