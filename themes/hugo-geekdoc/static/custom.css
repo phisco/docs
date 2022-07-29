@@ -55,8 +55,13 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-a.gdoc-nav__entry:hover {
-  text-decoration: none;
+.gdoc-nav__entry:hover,
+.gdoc-nav__entry.is-active,
+.gdoc-search__entry:hover,
+.gdoc-search__entry.is-active,
+.gdoc-language__entry:hover,
+.gdoc-language__entry.is-active {
+  text-decoration: none !important;
 }
 
 input:focus,
