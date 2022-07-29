@@ -55,6 +55,10 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+a.gdoc-nav__entry:hover {
+  text-decoration: none;
+}
+
 input:focus,
 input:focus-visible {
   outline: none;
