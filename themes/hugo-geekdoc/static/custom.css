@@ -780,40 +780,351 @@ input:focus-visible {
   --footer-link-color-visited: #6d64f5;
 }
 
-/* @media (prefers-color-scheme: light) {
-  :root {
-    --header-background: #0b1c28;
-    --header-font-color: #ffffff;
-
-    --body-background: #ffffff;
-    --body-font-color: #343a40;
-
-    --mark-color: #ffab00;
-
-    --button-background: #62cb97;
-    --button-border-color: #4ec58a;
-
-    --link-color: #6d64f5;
-    --link-color-visited: #6d64f5;
-
-    --code-background: #f5f6f8;
-    --code-accent-color: #e3e7eb;
-    --code-accent-color-lite: #eff1f3;
-    --code-font-color: #5f5f5f;
-
-    --code-copy-background: #f5f6f8;
-    --code-copy-font-color: #6b7784;
-    --code-copy-border-color: #adb4bc;
-    --code-copy-success-color: #00c853;
-
-    --accent-color: #e9ecef;
-    --accent-color-lite: #f8f9fa;
-
-    --control-icons: #b2bac1;
-
-    --footer-background: #0b1c28;
-    --footer-font-color: #ffffff;
-    --footer-link-color: #6d64f5;
-    --footer-link-color-visited: #6d64f5;
-  }
-} */
+/* CODE BLOCKS COLOR FOR AUTO OVERRIDE */
+.chroma {
+  color: var(--code-font-color);
+}
+:root .chroma code {
+  background-color: var(--code-background);
+  display: block;
+  line-height: 1.45;
+  font-size: .85em;
+  border-radius: .15rem;
+}
+:root .chroma .lntable {
+  max-height: var(--code-max-height);
+}
+:root .chroma .lntable code {
+  max-height: none;
+}
+:root .chroma .lntable td:first-child code {
+  border-radius: 0;
+  border-top-left-radius: .15rem;
+  border-bottom-left-radius: .15rem;
+}
+:root .chroma .lntable td:nth-child(2) code {
+  border-radius: 0;
+  border-top-right-radius: .15rem;
+  border-bottom-right-radius: .15rem;
+  padding-left: .5em;
+}
+:root .chroma .lntable td:nth-child(2) code .hl {
+  width: auto;
+  margin-left: -0.5em;
+  padding: 0 .5em;
+}
+:root .highlight {
+  overflow: auto;
+  max-height: var(--code-max-height);
+}
+:root .highlight pre.chroma {
+  margin: 0;
+}
+:root .highlight>pre.chroma code {
+  padding: 1rem;
+  width: 100%;
+  overflow-x: auto;
+}
+:root .chroma .lntable {
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: 100%;
+  display: block;
+}
+:root .chroma .lntable td:first-child code {
+  background-color: var(--code-accent-color-lite);
+  border-right: 1px solid var(--code-accent-color);
+  padding: .5em 0;
+}
+:root .chroma .lntable td code {
+  padding: .5em 0;
+}
+:root .chroma .lntable td:nth-child(2) {
+  width: 100%;
+  margin-left: 2em;
+}
+:root .chroma .x {
+  color: inherit;
+}
+:root .chroma .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+:root .chroma .lntd {
+  vertical-align: top;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+:root .chroma .hl {
+  display: block;
+  width: 100%;
+  background-color: #ffc;
+}
+:root .chroma .lnt {
+  padding: 0 .8em;
+}
+:root .chroma .ln {
+  margin-right: .4em;
+  padding: 0 .4em 0 .4em;
+}
+:root .chroma .k {
+  color: #000;
+  font-weight: bold;
+}
+:root .chroma .kc {
+  color: #000;
+  font-weight: bold;
+}
+:root .chroma .kd {
+  color: #000;
+  font-weight: bold;
+}
+:root .chroma .kn {
+  color: #000;
+  font-weight: bold;
+}
+:root .chroma .kp {
+  color: #000;
+  font-weight: bold;
+}
+:root .chroma .kr {
+  color: #000;
+  font-weight: bold;
+}
+:root .chroma .kt {
+  color: #458;
+  font-weight: bold;
+}
+:root .chroma .n {
+  color: inherit;
+}
+:root .chroma .na {
+  color: #006767;
+}
+:root .chroma .nb {
+  color: #556165;
+}
+:root .chroma .bp {
+  color: #676767;
+}
+:root .chroma .nc {
+  color: #458;
+  font-weight: bold;
+}
+:root .chroma .no {
+  color: #006767;
+}
+:root .chroma .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+:root .chroma .ni {
+  color: purple;
+}
+:root .chroma .ne {
+  color: #900;
+  font-weight: bold;
+}
+:root .chroma .nf {
+  color: #900;
+  font-weight: bold;
+}
+:root .chroma .fm {
+  color: inherit;
+}
+:root .chroma .nl {
+  color: #900;
+  font-weight: bold;
+}
+:root .chroma .nn {
+  color: #555;
+}
+:root .chroma .nx {
+  color: inherit;
+}
+:root .chroma .py {
+  color: inherit;
+}
+:root .chroma .nt {
+  color: navy;
+}
+:root .chroma .nv {
+  color: #006767;
+}
+:root .chroma .vc {
+  color: #006767;
+}
+:root .chroma .vg {
+  color: #006767;
+}
+:root .chroma .vi {
+  color: #006767;
+}
+:root .chroma .vm {
+  color: inherit;
+}
+:root .chroma .l {
+  color: inherit;
+}
+:root .chroma .ld {
+  color: inherit;
+}
+:root .chroma .s {
+  color: #d14;
+}
+:root .chroma .sa {
+  color: #d14;
+}
+:root .chroma .sb {
+  color: #d14;
+}
+:root .chroma .sc {
+  color: #d14;
+}
+:root .chroma .dl {
+  color: #d14;
+}
+:root .chroma .sd {
+  color: #d14;
+}
+:root .chroma .s2 {
+  color: #d14;
+}
+:root .chroma .se {
+  color: #d14;
+}
+:root .chroma .sh {
+  color: #d14;
+}
+:root .chroma .si {
+  color: #d14;
+}
+:root .chroma .sx {
+  color: #d14;
+}
+:root .chroma .sr {
+  color: #009926;
+}
+:root .chroma .s1 {
+  color: #d14;
+}
+:root .chroma .ss {
+  color: #990073;
+}
+:root .chroma .m {
+  color: #027e83;
+}
+:root .chroma .mb {
+  color: #027e83;
+}
+:root .chroma .mf {
+  color: #027e83;
+}
+:root .chroma .mh {
+  color: #027e83;
+}
+:root .chroma .mi {
+  color: #027e83;
+}
+:root .chroma .il {
+  color: #027e83;
+}
+:root .chroma .mo {
+  color: #027e83;
+}
+:root .chroma .o {
+  color: #000;
+  font-weight: bold;
+}
+:root .chroma .ow {
+  color: #000;
+  font-weight: bold;
+}
+:root .chroma .p {
+  color: inherit;
+}
+:root .chroma .c {
+  color: #676765;
+  font-style: italic;
+}
+:root .chroma .ch {
+  color: #676765;
+  font-style: italic;
+}
+:root .chroma .cm {
+  color: #676765;
+  font-style: italic;
+}
+:root .chroma .c1 {
+  color: #676765;
+  font-style: italic;
+}
+:root .chroma .cs {
+  color: #676767;
+  font-weight: bold;
+  font-style: italic;
+}
+:root .chroma .cp {
+  color: #676767;
+  font-weight: bold;
+  font-style: italic;
+}
+:root .chroma .cpf {
+  color: #676767;
+  font-weight: bold;
+  font-style: italic;
+}
+:root .chroma .g {
+  color: inherit;
+}
+:root .chroma .gd {
+  color: #000;
+  background-color: #fdd;
+}
+:root .chroma .ge {
+  color: #000;
+  font-style: italic;
+}
+:root .chroma .gr {
+  color: #a00;
+}
+:root .chroma .gh {
+  color: #676767;
+}
+:root .chroma .gi {
+  color: #000;
+  background-color: #dfd;
+}
+:root .chroma .go {
+  color: #6f6f6f;
+}
+:root .chroma .gp {
+  color: #555;
+}
+:root .chroma .gs {
+  font-weight: bold;
+}
+:root .chroma .gu {
+  color: #5f5f5f;
+}
+:root .chroma .gt {
+  color: #a00;
+}
+:root .chroma .gl {
+  text-decoration: underline;
+}
+:root .chroma .w {
+  color: #bbb;
+}
+:root .dark-mode-dim .gdoc-markdown img {
+  filter: none;
+}
+:root .gdoc-markdown .gdoc-hint, :root .gdoc-markdown .admonitionblock, :root .gdoc-markdown .gdoc-post__codecopy--success {
+  filter: none;
+}
+:root .gdoc-markdown .gdoc-hint__title, :root .gdoc-markdown .admonitionblock table td:first-child {
+  background-color: rgba(134, 142, 150, .05);
+}
