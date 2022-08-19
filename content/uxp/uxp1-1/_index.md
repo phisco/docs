@@ -1,9 +1,9 @@
 ---
-title: "Upbound Universal Crossplane (UXP) 1.1"
+title: "Upbound Universal Crossplane (UXP)"
 rank: 10
-version: 1.1
-product: UXP
 geekdocCollapseSection: true
+cascade:
+    version: 1.1
 ---
 
 Upbound Universal Crossplane (UXP) is the Upbound official enterprise-grade
