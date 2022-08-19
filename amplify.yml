@@ -11,7 +11,7 @@ frontend:
     build:
       commands:
         # Run Hugo and build the site. Render draft pages for staging
-        - if [ "${AWS_BRANCH}" = "staging" ]; then hugo -D --baseURL https://staging.$AWS_APP_ID.amplifyapp.com  ; fi
+        - if [ "${AWS_BRANCH}" != "main" ]; then hugo -D --baseURL https://$AWS_BRANCH.$AWS_APP_ID.amplifyapp.com  ; fi
         - if [ "${AWS_BRANCH}" = "main" ]; then hugo --baseURL https://main.$AWS_APP_ID.amplifyapp.com ; fi
         # Print the full file list for build troubleshooting
         - echo $AWS_APP_ID
