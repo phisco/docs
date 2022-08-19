@@ -1,7 +1,11 @@
 {{ $title := "" }}
 
 {{ if .Title }}
+  {{ if and (ne .Page.Params.version nil) (eq .Page.Kind "section") }}
+  {{ $title = (printf "%s v%s" .Title (string .Page.Params.version)) }}
+  {{ else }}
   {{ $title = .Title }}
+  {{ end }}
 {{ else if and .IsSection .File }}
   {{ $title = path.Base .File.Dir | humanize | title }}
 {{ else if and .IsPage .File }}
