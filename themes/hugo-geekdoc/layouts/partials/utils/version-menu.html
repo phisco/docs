@@ -1,0 +1,27 @@
+{{ if .Page.Params.version }}
+    <label class="dropdown">
+
+      <div class="dd-button">
+        v{{ .Page.Params.version }}
+      </div>
+
+      <input type="checkbox" class="dd-input" id="test">
+
+      <ul class="dd-menu">
+        {{ $versionList := slice }}
+        {{ range where .Site.Pages ".Page.Params.product" .Page.Params.product }}
+        {{/* Semver sorting from https://discourse.gohugo.io/t/sort-strings-based-on-semver/14425 */}}
+        {{- $ver_major_minor := (float (replaceRE "([0-9]+\\.[0-9]+).*" "${1}" .Page.Params.version)) -}}
+        {{- $ver_micro_str := (replaceRE "[0-9]+\\.[0-9]+(.*)" "${1}" .Page.Params.version | replaceRE "-DEV" "-0.01") -}}
+        {{- $ver_micro := (div (float (or $ver_micro_str "0")) 100.00) -}}
+        {{- $ver_float := (add $ver_major_minor $ver_micro) -}}
+        {{- $versionList = $versionList | append $ver_float -}}
+        {{ end }}
+
+        {{ range ((where .Site.Pages ".Page.Params.product" .Page.Params.Product).ByParam "version").Reverse }}
+            <li><a href="{{.Page.RelPermalink}}">v{{ .Page.Params.version }}</a></li>
+        {{ end }}
+      </ul>
+
+    </label>
+{{ end }}
