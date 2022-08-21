@@ -4,7 +4,7 @@
       {{ if ne .Page.Params.version nil }}
         v{{ .Page.Params.version }}
       {{ else }}
-        Version
+        {{.Page.Params.Product }} Version
       {{ end }}
       </div>
 
