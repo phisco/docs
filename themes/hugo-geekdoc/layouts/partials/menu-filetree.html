@@ -1,5 +1,5 @@
 {{ $current := . }}
-{{ template "tree-nav" dict "sect" .Site.Home.Sections "current" $current }}
+{{ template "tree-nav" dict "sect" (where .Site.Home.Sections ".Page.Params.type" .Page.Params.type) "current" $current }}
 
 
 <!-- templates -->

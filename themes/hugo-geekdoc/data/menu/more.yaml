@@ -1,0 +1,18 @@
+---
+more:
+  - name: Docs Contributor Guide
+    ref: "contributing"
+    external: false
+    icon: "gdoc_bookmark"
+  - name: Upbound Support
+    ref: "support"
+    extertnal: false
+    icon: "gdoc_person"
+  - name: Crossplane Community Slack
+    ref: https://slack.crossplane.io/
+    external: true
+    icon: "gdoc_tag"
+  - name: "View Source"
+    ref: "https://github.com/upbound/docs"
+    external: true
+    icon: "gdoc_github"

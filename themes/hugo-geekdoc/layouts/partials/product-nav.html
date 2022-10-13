@@ -1,0 +1,73 @@
+<div id="product-nav">
+  <div class="container">
+    {{ if .MenuEnabled }}
+    <label for="menu-control" class="gdoc-nav__control sidebar"  tabindex="0">
+      <svg class="gdoc-icon gdoc_menu">
+        <title>{{ i18n "button_nav_open" }}</title>
+        <use xlink:href="#gdoc_menu"></use>
+      </svg>
+      <svg class="gdoc-icon gdoc_arrow_back">
+        <title>{{ i18n "button_nav_close" }}</title>
+        <use xlink:href="#gdoc_arrow_back"></use>
+      </svg>
+    </label>
+    {{ end }}
+    
+    <div class="sub-nav">
+      <ul>
+        {{- $currentproduct := .Root.Page.Params.product | default "Upbound" -}}
+        {{range .Root.Site.Params.products }}
+          <li
+          {{- if eq $currentproduct .name }} class="active" {{- end -}}
+          >
+            <a href="{{ .path }}">{{ .name }}</a>
+          </li>
+       {{ end }}
+      </ul>
+    </div>
+
+    <div class="header-right-items d-flex">
+      <div class="gdoc-search flex align-center">
+        <svg class="gdoc-icon gdoc_search"><use xlink:href="#gdoc_search"></use></svg>
+        <input type="text" id="gdoc-search-input" class="gdoc-search__input" placeholder="Search" aria-label="Search the Docs" maxlength="64" data-site-base-url="{{ .Site.BaseURL }}/" data-site-lang="en">
+        <div class="gdoc-search__spinner spinner hidden"></div>
+        <ul id="gdoc-search-results" class="gdoc-search__list"></ul>
+      </div>
+      <div class="switcher-header">
+        <div class="gdoc-menu-header">
+          <span class="gdoc-menu-header__items">
+            <span id="gdoc-color-theme">
+              <svg class="gdoc-icon gdoc_brightness_dark">
+                <title>{{ i18n "button_toggle_dark" }}</title>
+                <use xlink:href="#gdoc_brightness_dark"></use>
+              </svg>
+              <svg class="gdoc-icon gdoc_brightness_light">
+                <title>{{ i18n "button_toggle_dark" }}</title>
+                <use xlink:href="#gdoc_brightness_light"></use>
+              </svg>
+              <svg class="gdoc-icon gdoc_brightness_auto">
+                <title>{{ i18n "button_toggle_dark" }}</title>
+                <use xlink:href="#gdoc_brightness_auto"></use>
+              </svg>
+            </span>
+        </div>
+      </div>
+    </div>
+    {{ if .ToCEnabled }}
+      {{ $hide_toc_class := "" }}
+      {{ if lt (len .Root.TableOfContents) 100 }}
+      {{ $hide_toc_class = "d-none" }}
+    {{ end }}
+    <label for="menu-toc-control" class="gdoc-nav__control toc {{$hide_toc_class}}" tabindex="0">
+      <svg class="gdoc-icon gdoc_menu">
+        <title>{{ i18n "button_nav_open" }}</title>
+        <use xlink:href="#gdoc_menu"></use>
+      </svg>
+      <svg class="gdoc-icon gdoc_arrow_back">
+        <title>{{ i18n "button_nav_close" }}</title>
+        <use xlink:href="#gdoc_arrow_back"></use>
+      </svg>
+    </label>
+    {{ end }}
+  </div>
+</div>

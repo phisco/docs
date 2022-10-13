@@ -1,78 +1,77 @@
-<header class="gdoc-header">
-  <div class="container flex align-center justify-between">
-    {{ if .MenuEnabled }}
-      <label for="menu-control" class="gdoc-nav__control" tabindex="0">
-        <svg class="gdoc-icon gdoc_menu">
-          <title>{{ i18n "button_nav_open" }}</title>
-          <use xlink:href="#gdoc_menu"></use>
-        </svg>
-        <svg class="gdoc-icon gdoc_arrow_back">
-          <title>{{ i18n "button_nav_close" }}</title>
-          <use xlink:href="#gdoc_arrow_back"></use>
-        </svg>
+<div class="gdoc-header">
+  <nav id="navbar">
+    <div class="nav-container">
+      <div id="brand">
+        <a class="gdoc-brand gdoc-header__link" href="/">
+          <span class="flex align-center">
+            <img class="gdoc-brand__img" src="/upbound-images/upbound-logo-white.svg" alt="">
+            <span class="gdoc-brand__title">| DOCS</span>
+          </span>
+        </a>
+      </div>
+      <input type="checkbox" id="chkToggle"></input>
+      <label id="#hamburgerIcon" class="navbar-toggle" for="chkToggle">
+          <span class="bars"></span>
       </label>
-    {{ end }}
-    <div>
-      <a class="gdoc-brand gdoc-header__link" href="{{ .Root.Site.BaseURL }}">
-        <span class="flex align-center">
-          <img
-            class="gdoc-brand__img"
-            src="{{ (default "brand.svg" .Root.Site.Params.GeekdocLogo) | relURL }}"
-            alt=""
-          />
-          <span class="gdoc-brand__title">{{ .Root.Site.Title }}</span>
-        </span>
-      </a>
-    </div>
-    <div class="gdoc-menu-header">
-      <span class="gdoc-menu-header__items">
-        {{ if .Root.Site.Data.menu.extra.header }}
-          {{ partial "menu-extra" (dict "current" .Root "source" .Root.Site.Data.menu.extra.header "target" "header") }}
-        {{ end }}
 
-
-        <span id="gdoc-dark-mode">
-          <svg class="gdoc-icon gdoc_brightness_dark">
-            <title>{{ i18n "button_toggle_dark" }}</title>
-            <use xlink:href="#gdoc_brightness_dark"></use>
-          </svg>
-          <svg class="gdoc-icon gdoc_brightness_light">
-            <title>{{ i18n "button_toggle_dark" }}</title>
-            <use xlink:href="#gdoc_brightness_light"></use>
-          </svg>
-          <svg class="gdoc-icon gdoc_brightness_auto">
-            <title>{{ i18n "button_toggle_dark" }}</title>
-            <use xlink:href="#gdoc_brightness_auto"></use>
-          </svg>
-        </span>
-
-        <span class="gdoc-menu-header__home">
-          <a href="{{ .Root.Site.BaseURL }}" class="gdoc-header__link">
-            <svg class="gdoc-icon gdoc_home">
-              <title>{{ i18n "button_homepage" }}</title>
-              <use xlink:href="#gdoc_home"></use>
-            </svg>
+      <ul id="menu" class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a href="https://www.upbound.io/products/universal-cloud-platform" target="_blank">
+            Products
           </a>
-        </span>
+        </li>
+        <li class="nav-item">
+          <a href="https://marketplace.upbound.io/" target="_blank">
+            Marketplace
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="https://blog.upbound.io/" target="_blank">
+            Learn
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="https://www.upbound.io/about" target="_blank">
+            About
+          </a>
+        </li>
+        <div class="mobile-btns d-xl-none d-flex">
+          <a class="btn" href="https://accounts.upbound.io/register">Try For Free</a>
+          <a class="btn" href="https://accounts.upbound.io/login">Sign in</a>
+        </div>
+      </ul>
 
-        {{ partial "language" .Root }}
+      <div class="header-right-items d-none d-xl-flex">
+        <div class="header-link-items">
+          <a href="https://www.upbound.io/partners" target="_blank">
+            <span class="header-link-item-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(-1)" stroke="#fff" fill="none" fill-rule="evenodd">
+                  <rect x="5.5" y=".5" width="5" height="5" rx="2.5"></rect>
+                  <path d="M5 3s-2.615.4-3.19 3.843" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <rect transform="rotate(-120 4.3 11.054)" x="1.799" y="8.554" width="5" height="5" rx="2.5"></rect>
+                  <path d="M5.8 13.652s1.653 2.064 4.923.841" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <rect transform="rotate(119 13.065 9.945)" x="10.565" y="7.445" width="5" height="5" rx="2.5"></rect>
+                  <path d="M14.52 7.321s.917-2.48-1.815-4.653" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+              </svg>
+            </span>
+            Partners
+          </a>
+          <a href="https://accounts.upbound.io/login" target="_blank">
+            <span class="header-link-item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 10 13" xml:space="preserve">
+                <circle cx="5" cy="3.8" r="2.8" fill="none" stroke="#fff"></circle>
+                <path d="M1.1 12.1C1.1 10 2.8 8.3 5 8.3s3.9 1.7 3.9 3.8" fill="none" stroke="#fff" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            Sign In
+          </a>
+          <a href="https://accounts.upbound.io/register" class="btn" target="_blank">Try For Free</a>
+        </div>
+      </div>
 
-
-        <span class="gdoc-menu-header__control">
-          <label for="menu-header-control">
-            <svg class="gdoc-icon gdoc_keyboard_arrow_right">
-              <use xlink:href="#gdoc_keyboard_arrow_right"></use>
-              <title>{{ i18n "button_menu_close" }}</title>
-            </svg>
-          </label>
-        </span>
-      </span>
-      <label for="menu-header-control" class="gdoc-menu-header__control">
-        <svg class="gdoc-icon gdoc_keyboard_arrow_left">
-          <use xlink:href="#gdoc_keyboard_arrow_left"></use>
-          <title>{{ i18n "button_menu_open" }}</title>
-        </svg>
-      </label>
     </div>
-  </div>
-</header>
+  </nav>
+</div>

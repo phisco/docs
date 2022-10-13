@@ -5,11 +5,11 @@
     <title>{{ i18n "error_page_title" }}</title>
 
     {{ partial "head/favicons" . }}
-    {{ partial "head/others" . }}
+    {{ partial "head/styles" . }}
   </head>
 
   <body>
-    {{ partial "svg-icon-symbols" . }}
+
 
 
     <div class="wrapper">
@@ -34,7 +34,7 @@
       </main>
 
       {{ partial "site-footer" . }}
-
+      {{ partial "svg-icon-symbols" . }}
     </div>
   </body>
 </html>

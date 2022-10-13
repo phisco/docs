@@ -3,12 +3,13 @@ enableRobotsTXT: True
 languageCode: "en-us"
 title: "Upbound Documentation"
 theme: "hugo-geekdoc"
-
-# Required to get well formatted code blocks
-pygmentsUseClasses: true
-pygmentsCodeFences: true
+enableGitInfo: true
 disablePathToLower: true
-enableGitInfo: false
+disableKinds:
+  - RSS
+
+sitemap:
+  changefreq: weekly
 
 markup:
   goldmark:
@@ -18,11 +19,35 @@ markup:
   tableOfContents:
     startLevel: 1
     endLevel: 9
+  highlight:
+    codeFences: true
+    noClasses: false
+    linenos: true
+    LineNumbersInTable: true
+    anchorLineNos: true
 
-taxonomies:
-  tag: tags
+module:
+  mounts:
+  - source: content
+    target: content
+  - source: assets
+    target: assets
+  - source: content
+    target: assets/content
+    includeFiles:
+      - "**/**.png"
+      - "**/**.jpg"
+      - "**/**.jpeg"
+      - "**/**.gif"
+
 
 params:
+  products:
+    - "name": Upbound
+      "path": "/"
+  #   - "name": "Knowledge Base"
+  #     "path": "/knowledge-base"
+
   # (Optional, default 6) Set how many table of contents levels to be showed on page.
   # Use false to hide ToC, note that 0 will default to 6 (https://gohugo.io/functions/default/)
   # You can also specify this parameter per page in front matter.
@@ -30,7 +55,7 @@ params:
 
   # (Optional, default static/brand.svg) Set the path to a logo for the Geekdoc
   # relative to your 'static/' folder.
-  # geekdocLogo: logo.png
+  geekdocLogo: upbound-logo-white.svg
 
   # (Optional, default false) Render menu from data file in 'data/menu/main.yaml'.
   # See also https://geekdocs.de/usage/menus/#bundle-menu.
@@ -46,7 +71,7 @@ params:
 
   # (Optional, default true) Show a breadcrumb navigation bar at the top of each docs page.
   # You can also specify this parameter per page in front matter.
-  # geekdocBreadcrumb: false
+  geekdocBreadcrumb: false
 
   # (Optional, default none) Set source repository location. Used for 'Edit page' links.
   # You can also specify this parameter per page in front matter.
@@ -59,12 +84,12 @@ params:
 
   # (Optional, default true) Enables search function with flexsearch.
   # Index is built on the fly and might slow down your website.
-  # geekdocSearch: false
+  geekdocSearch: true
 
   # (Optional, default false) Display search results with the parent folder as prefix. This
   # option allows you to distinguish between files with the same name in different folders.
   # NOTE: This parameter only applies when 'geekdocSearch: true'.
-  # geekdocSearchShowParent: true
+  geekdocSearchShowParent: true
 
   # (Optional, default none) Add a link to your Legal Notice page to the site footer.
   # It can be either a remote url or a local file path relative to your content directory.

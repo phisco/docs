@@ -1,23 +1,11 @@
 ---
 title: "Support"
-icon: "PhoneOutgoing"
-metaTitle: "Support"
-metaDescription: "Support"
 rank: 60
 ---
 
-Welcome to the Upbound support page! We have several resources for you to learn
-about our support offerings and get your questions answered.
+Detailed information about the Upbound support policies and SLAs are available in the [Upbound Service Agreement](https://upbound-5557732.hs-sites.com/en/service-agreement).
+## Open a ticket
+Customers with support accounts, use [Zendesk](https://upbound.zendesk.com/) to get help from the Upbound support team.
 
-1. [Tour](../) the documentation
-2. [Submit a feature request] if you find something missing
-3. [Visit the Crossplane Slack] for community support
-4. [Login to our Zendesk] if you're an Upbound Enterprise customer for priority
-support
-5. [Contact sales] to upgrade your account or extend your Upbound Enterprise
-trial
+If you don't have a Zendesk account, [create one](https://upbound.zendesk.com/hc/en-us/restricted?return_to=https%3A%2F%2Fupbound.zendesk.com%2Fhc%2Fen-us).
 
-[Login to our Zendesk]: https://upbound.zendesk.com/
-[Submit a feature request]: https://upbound.canny.io/upbound
-[Contact sales]: mailto:sales@upbound.io
-[Visit the Crossplane Slack]: https://crossplane.slack.com/archives/upbound

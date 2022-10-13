@@ -2,7 +2,7 @@
 title: "Configuration"
 metaTitle: "Upbound CLI - Configuration"
 metaDescription: "Configuration for the Upbound CLI"
-rank: 22
+weight: 105
 ---
 
 `up` interacts with a variety of systems, each of which may have information
@@ -79,7 +79,7 @@ To add or update a profile, users can execute `up login` with the appropriate
 credentials and a profile name specified. For instance, the following command
 would add a new profile named `test`:
 
-```console
+```shell
 up login --profile test -u hasheddan -p cool-password
 ```
 
@@ -118,4 +118,4 @@ sessions".
 <!-- Named Links -->
 [Upbound Cloud]: ../../upbound-cloud
 [Upbound Enterprise]: ../../upbound-enterprise
-[Upbound Cloud login page]: https://cloud.upbound.io/login
+[Upbound Cloud login page]: https://accounts.upbound.io/login

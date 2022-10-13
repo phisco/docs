@@ -1,0 +1,9 @@
+cryptography
+selenium == 4.2.0
+webdriver-manager == 3.7.0
+pillow == 9.1.1
+Selenium-Screenshot == 1.7.0
+robotframework == 5.0.1
+robotframework-seleniumlibrary == 6.0.0
+webdrivermanager == 0.10.0
+# webdrivermanager firefox chrome --linkpath /usr/local/bin

@@ -1,38 +1,70 @@
 <footer class="gdoc-footer">
   <nav class="container flex">
-    <div>
-      <section class="flex flex-wrap align-center">
-        <span class="gdoc-footer__item gdoc-footer__item--row">
-          {{ i18n "footer_build_with" | safeHTML }}
-        </span>
-        {{ with .Site.Params.GeekdocLegalNotice }}
-          <span class="gdoc-footer__item gdoc-footer__item--row">
-            <a href="{{ . | relURL }}" class="gdoc-footer__link">
-              {{ i18n "footer_legal_notice" }}
-            </a>
-          </span>
-        {{ end }}
-        {{ with .Site.Params.GeekdocPrivacyPolicy }}
-          <span class="gdoc-footer__item gdoc-footer__item--row">
-            <a href="{{ . | relURL }}" class="gdoc-footer__link">
-              {{ i18n "footer_privacy_policy" }}
-            </a>
-          </span>
-        {{ end }}
-      </section>
-      {{ with .Site.Params.GeekdocContentLicense }}
-        <section class="flex flex-wrap align-center">
-          <span class="gdoc-footer__item">
-            {{ i18n "footer_content_license_prefix" }}
-            <a href="{{ .link }}" class="gdoc-footer__link no-wrap">{{ .name }}</a>
-          </span>
-        </section>
-      {{ end }}
-    </div>
-    {{ if (default true .Site.Params.GeekdocBackToTop) }}
-      <div class="flex flex-25 justify-end">
+    <div class="footer-columns">
+      <div class="footer-column footer-column-first">
+        <a href="https://www.upbound.io/" class="css-h0n0xi" target="_blank">
+          <img loading="lazy" class="gdoc-brand__img" src="/upbound-images/upbound-logo-white.svg" alt="Go to Upbound.io" />
+        </a>
+        <p>
+          Copyright © {{ .Site.LastChange.Format "2006" }}.<br>Crafted with love from our globally distributed team.
+        </p>
+        <div class="social-icons">
+          <a href="https://twitter.com/upbound_io" class="css-156h6mm" target="_blank">
+            <img loading="lazy" class="twitter-image" src="/upbound-images/twitter.webp" alt="twitter" width="18px" height="16px"/>
+          </a>
+          <a href="https://www.github.com/upbound/" class="css-156h6mm" target="_blank">
+            <img loading="lazy" class="github-image" src="/upbound-images/github.webp" alt="github" width="18px" height="18px" />
+          </a>
+          <a href="https://www.linkedin.com/company/upbound-io/" class="css-156h6mm" target="_blank">
+            <img loading="lazy" class="linkedin-image" src="/upbound-images/linkedin.webp" alt="linkedin" width="16px" height="17px" />
+          </a>
+          <a href="https://www.youtube.com/channel/UCm_v2HL0pdqtShHD-ZDDTaA" class="css-156h6mm" target="_blank">
+            <img loading="lazy" class="youtube-image" src="/upbound-images/youtube.webp" alt="youtube" width="19px" height="13px" />
+          </a>
+        </div>
+        <div class="site-by">
+          Site by
+          <a href="http://www.unomena.com" target="_blank" rel="noreferrer" class="unomena-link">
+            <img loading="lazy" class="unomena-logo" src="/upbound-images/unomena-logo.webp" alt="unomena-logo" width="80px" height="14px"/>
+          </a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <p>Product</p>
+        <a href="https://www.upbound.io/products/universal-cloud-platform" target="_blank">Upbound Cloud</a>
+        <a href="https://www.upbound.io/products/universal-crossplane" target="_blank">Universal Crossplane</a>
+        <a href="https://marketplace.upbound.io/" target="_blank">Marketplace</a>
+        <a href="https://upbound.hubspotpagebuilder.com/contact" target="_blank">Request Demo</a>
+        <!-- <a href="https://www.upbound.io/pricing" target="_blank">Plans &amp; Pricing</a> -->
+        <a href="https://www.upbound.io/partners" target="_blank">Partner Program</a>
+      </div>
+      <div class="footer-column">
+        <p>Learn</p>
+        <a href="https://docs.upbound.io" target="_blank">Documentation</a>
+        <a href="https://www.upbound.io/faq" target="_blank">FAQs</a>
+        <a href="https://status.upbound.io/" target="_blank">System Status</a>
+      </div>
+      <div class="footer-column">
+        <p>Company</p>
+        <a href="https://www.upbound.io/about" target="_blank">About Us</a>
+        <a href="https://boards.greenhouse.io/upbound" target="_blank">
+          Careers
+          <div class="now-hiring">
+            Now Hiring</div>
+        </a>
+        <a href="https://blog.upbound.io/" target="_blank">Blog</a>
+        <a href="https://upbound.hubspotpagebuilder.com/contact" target="_blank">Contact Us</a>
+      </div>
+      <div class="footer-column mb-0">
+        <p>More</p>
+        <a href="https://www.upbound.io/terms" target="_blank">Terms &amp; Conditions</a>
+        <a href="https://www.upbound.io/privacy" target="_blank">Privacy Policy</a>
+        <a href="https://www.upbound.io/sitemap-0.xml" target="_blank">Sitemap</a>
+      </div>
+      {{ if (default true .Site.Params.GeekdocBackToTop) }}
+      <div class="anchor-top flex flex-25 justify-end">
         <span class="gdoc-footer__item text-right">
-          <a class="gdoc-footer__link fake-link" href="#" aria-label="{{ i18n "nav_top" }}">
+          <a class="gdoc-footer__link fake-link" href="#" aria-label="Back to Top">
             <svg class="gdoc-icon gdoc_keyboard_arrow_up">
               <use xlink:href="#gdoc_keyboard_arrow_up"></use>
             </svg>
@@ -40,6 +72,46 @@
           </a>
         </span>
       </div>
-    {{ end }}
+      {{ end }}
+    </div>
+    <div class="footer-column footer-column-first d-block d-lg-none footer-column-mobile">
+      <a href="https://www.upbound.io/" class="css-h0n0xi" target="_blank">
+        <img loading="lazy" class="gdoc-brand__img" src="/upbound-images/upbound-logo-white.svg" alt="Go to Upbound.io" />
+      </a>
+      <p>
+        Copyright © {{ .Site.LastChange.Format "2006" }}.<br>Crafted with love from our globally distributed team.
+      </p>
+      <div class="social-icons">
+        <a href="https://twitter.com/upbound_io" class="css-156h6mm" target="_blank">
+          <img loading="lazy" class="twitter-image" src="/upbound-images/twitter.webp" alt="twitter" width="18px" height="16px"/>
+        </a>
+        <a href="https://www.github.com/upbound/" class="css-156h6mm" target="_blank">
+          <img loading="lazy" class="github-image" src="/upbound-images/github.webp" alt="github" width="18px" height="18px" />
+        </a>
+        <a href="https://www.linkedin.com/company/upbound-io/" class="css-156h6mm" target="_blank">
+          <img loading="lazy" class="linkedin-image" src="/upbound-images/linkedin.webp" alt="linkedin" width="16px" height="17px" />
+        </a>
+        <a href="https://www.youtube.com/channel/UCm_v2HL0pdqtShHD-ZDDTaA" class="css-156h6mm" target="_blank">
+          <img loading="lazy" class="youtube-image" src="/upbound-images/youtube.webp" alt="youtube" width="19px" height="13px" />
+        </a>
+      </div>
+      <div class="site-by">
+        Site by
+        <a href="http://www.unomena.com" target="_blank" rel="noreferrer" class="unomena-link">
+          <img loading="lazy" class="unomena-logo" src="/upbound-images/unomena-logo.webp" alt="unomena-logo" width="80px" height="14px"/>
+        </a>
+      </div>
+    </div>
+    <div class="footer-sub">
+      <div>
+        <a href="https://www.cncf.io/" target="_blank">
+          <img loading="lazy" class="cncf-image" src="/upbound-images/cncf-icon.webp" alt="cncf-icon" />
+        </a>
+        <p>
+          Upbound is an active contributor to Crossplane and the Cloud Native Computing Foundation
+        </p>
+      </div>
+    </div>
   </nav>
+
 </footer>

@@ -1,3 +1,5 @@
-This is the future home for Upbound documentation.
+This repository is the home of the [Upbound documentation](http://docs.upbound.io). 
 
-You are probably looking for the current prod repo [upbound-docs](http://github.com/upbound/upbound-docs).
+For information on contributing read the [Contributor's Guide](http://docs.upbound.io/contributing).
+
+The Upbound Vale repository is at [upbound/vale](http://github.com/upbound/vale).

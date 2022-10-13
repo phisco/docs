@@ -65,6 +65,7 @@ coverage
 logs
 npm-debug.log*
 node_modules
+package-lock.json
 
 /_output
 
@@ -79,5 +80,11 @@ node_modules
 
 /build
 /public
+scratch/*
 
-orig.html
+# Ignore robot framework generated files #
+######################
+log.html
+output.xml
+report.html
+static/images/selenium-*screenshot-*

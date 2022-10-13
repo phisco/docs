@@ -1,0 +1,225 @@
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+
+# Check required plugins
+REQUIRED_PLUGINS_LIBVIRT = %w(vagrant-libvirt)
+exit unless REQUIRED_PLUGINS_LIBVIRT.all? do |plugin|
+  Vagrant.has_plugin?(plugin) || (
+    puts "The #{plugin} plugin is required. Please install it with:"
+    puts "$ vagrant plugin install #{plugin}"
+    false
+  )
+end
+
+Vagrant.require_version ">= 2.0.2"
+
+# NUM_CONTROLLER_NODE = 1
+NUM_WORKER_NODE = 2
+HOST_INTERFACE = "enp36s0f0"
+
+Vagrant.configure("2") do |config|
+  config.ssh.forward_agent = true
+  config.vm.box = "generic/ubuntu2004"
+
+  # (1..NUM_CONTROLLER_NODE).each do |i|
+  (1..1).each do |i|
+    config.vm.define "kubecontroller-0#{i}" do |node|
+      node.vm.hostname = "kubecontroller-0#{i}"
+      node.vm.synced_folder ".", "/vagrant", disabled: true
+      node.vm.network "public_network", bridge: HOST_INTERFACE , dev: HOST_INTERFACE, ip: "172.16.1.80"
+
+      node.vm.provider :libvirt do |v|
+        v.memory = 4096
+        v.cpus = 4
+      end
+
+      node.vm.provision :shell, privileged: true, inline: $configure_linux
+      node.vm.provision :shell, privileged: true, inline: $install_tools
+      if ARGV.include? '--provision-with'
+        node.vm.provision "eks", type: 'shell', env: {"AWS_ACCESS_KEY_ID"=>ENV['AWS_ACCESS_KEY_ID'], "AWS_SECRET_ACCESS_KEY"=>ENV['AWS_SECRET_ACCESS_KEY'], "AWS_DEFAULT_REGION"=>ENV['AWS_DEFAULT_REGION']}, inline: <<-SHELL
+          echo "Installing AWS CLI"
+          curl --silent "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip -q awscliv2.zip
+          sudo ./aws/install
+          echo "Installing eksctl"
+          curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+          sudo mv /tmp/eksctl /usr/local/bin
+          echo "Applying AWS credentials"
+          mkdir -p /home/vagrant/.aws/
+          echo "[default]" >> /home/vagrant/.aws/credentials
+          echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> /home/vagrant/.aws/credentials
+          echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> /home/vagrant/.aws/credentials
+          echo "region=$AWS_DEFAULT_REGION" >> /home/vagrant/.aws/credentials
+          chown vagrant:vagrant /home/vagrant/.aws/credentials
+          echo "complete -C '/usr/local/bin/aws_completer' aws" >> /home/vagrant/.bashrc
+          echo ". <(eksctl completion bash)" >> /home/vagrant/.bashrc
+          chown vagrant:vagrant /home/vagrant/.bashrc
+          echo "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" > /home/vagrant/.profile
+          echo "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> /home/vagrant/.profile
+          echo "export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION" >> /home/vagrant/.profile
+          cat /home/vagrant/.profile
+        SHELL
+      end
+      node.vm.provision :shell, privileged: true, inline: $install_cri
+      node.vm.provision :shell, privileged: true, inline: <<-SCRIPT
+      cat << 'EOF' > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+# Note: This dropin only works with kubeadm and kubelet v1.11+
+[Service]
+Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
+Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml --node-ip=172.16.1.80"
+# This is a file that "kubeadm init" and "kubeadm join" generates at runtime, populating the KUBELET_KUBEADM_ARGS variable dynamically
+EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
+# This is a file that the user can use for overrides of the kubelet args as a last resort. Preferably, the user should use
+# the .NodeRegistration.KubeletExtraArgs object in the configuration files instead. KUBELET_EXTRA_ARGS should be sourced from this file.
+EnvironmentFile=-/etc/default/kubelet
+ExecStart=
+ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
+EOF
+      sudo systemctl daemon-reload
+      sudo systemctl restart kubelet.service
+      SCRIPT
+      node.vm.provision :shell, privileged: true, inline: $configure_kube_controller
+      node.vm.provision :shell, privileged: true, inline: $install_up_cli
+
+    end
+  end
+
+    # Provision Worker Nodes
+  (1..NUM_WORKER_NODE).each do |i|
+    config.vm.define "kubenode-0#{i}" do |node|
+      node.vm.hostname = "kubenode-0#{i}"
+      node.vm.synced_folder ".", "/vagrant", disabled: true
+      node.vm.network "public_network", bridge: HOST_INTERFACE , dev: HOST_INTERFACE, ip: "172.16.1.8#{i}"
+
+      node.vm.provider :libvirt do |v|
+        v.memory = 4096
+        v.cpus = 4
+      end
+
+      node.vm.provision :shell, privileged: true, inline: $configure_linux
+      node.vm.provision :shell, privileged: true, inline: $install_cri
+      node.vm.provision :shell, privileged: true, inline: <<-SCRIPT
+      cat << 'EOF' > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+# Note: This dropin only works with kubeadm and kubelet v1.11+
+[Service]
+Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
+Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml --node-ip=172.16.1.8#{i}"
+# This is a file that "kubeadm init" and "kubeadm join" generates at runtime, populating the KUBELET_KUBEADM_ARGS variable dynamically
+EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
+# This is a file that the user can use for overrides of the kubelet args as a last resort. Preferably, the user should use
+# the .NodeRegistration.KubeletExtraArgs object in the configuration files instead. KUBELET_EXTRA_ARGS should be sourced from this file.
+EnvironmentFile=-/etc/default/kubelet
+ExecStart=
+ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
+EOF
+      sudo systemctl daemon-reload
+      sudo systemctl restart kubelet.service
+      SCRIPT
+      node.vm.provision :shell, privileged: true, inline: $configure_kube_worker
+      node.vm.provision :shell, privileged: true, inline: $install_tools
+
+    end
+  end
+end
+
+$configure_linux = <<-SCRIPT
+echo "Applying Linux system settings"
+
+# Fixes "stdin: is not a tty" and "mesg: ttyname failed : Inappropriate ioctl for device"  messages --> https://github.com/mitchellh/vagrant/issues/1673
+(sudo grep -q 'mesg n' /root/.profile 2>/dev/null && sudo sed -i '/mesg n/d' /root/.profile  2>/dev/null) || true;
+
+# Disable AAAA records; speeds up APT for v4 only networks
+echo -e "precedence ::ffff:0:0/96  100" >> /etc/gai.conf
+
+# Disable swap to prevent kubeadm warnings
+swapoff -a
+sed -i '/ swap / s/^/#/' /etc/fstab
+
+# Enable k8s related networking settings
+modprobe br_netfilter
+echo -e "br_netfilter" > /etc/modules-load.d/k8s.conf
+echo -e "net.bridge.bridge-nf-call-ip6tables = 1" >> /etc/sysctl.d/k8s.conf
+echo -e "net.bridge.bridge-nf-call-iptables = 1"  >> /etc/sysctl.d/k8s.conf
+sed -i 's/^#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.d/99-sysctl.conf
+
+# Revert systemd change that breaks sysctl command (commit https://github.com/systemd/systemd-stable/commit/5d4fc0e665a3639f92ac880896c56f9533441307#)
+# Fix is in procps https://gitlab.com/procps-ng/procps/-/issues/191
+sed 's/net.ipv4.conf.\*.promote_secondaries = 1//' /usr/lib/sysctl.d/50-default.conf > /usr/lib/sysctl.d/50-default.conf
+sed 's/-net.ipv4.conf.all.promote_secondaries//' /usr/lib/sysctl.d/50-default.conf > /usr/lib/sysctl.d/50-default.conf
+
+sudo sysctl --system > /dev/null 2>&1
+
+
+SCRIPT
+
+$install_tools = <<-SCRIPT
+echo "Installing additional software packages"
+DEBIAN_FRONTEND=noninteractive apt-get install -y git htop chrony tree jq bat > /dev/null 2>&1
+SCRIPT
+
+$install_cri = <<-SCRIPT
+echo "Installing containerd and Kubeadm"
+
+curl --retry 30  -fsSL https://download.docker.com/linux/ubuntu/gpg | DEBIAN_FRONTEND=noninteractive apt-key add - > /dev/null 2>&1
+echo deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable > /etc/apt/sources.list.d/docker.list
+curl --retry 30  -fsSL https://baltocdn.com/helm/signing.asc | DEBIAN_FRONTEND=noninteractive sudo apt-key add - > /dev/null 2>&1
+
+curl --retry 30 -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | DEBIAN_FRONTEND=noninteractive apt-key add - > /dev/null 2>&1
+echo "deb [arch=amd64] https://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
+echo "deb https://baltocdn.com/helm/stable/debian/ all main" > /etc/apt/sources.list.d/helm.list
+
+#kube_ver=1.23.6-00
+kube_ver=1.24.0-00
+DEBIAN_FRONTEND=noninteractive apt-get update > /dev/null 2>&1
+DEBIAN_FRONTEND=noninteractive apt-get install -y kubeadm=$kube_ver kubelet=$kube_ver kubectl=$kube_ver containerd.io helm > /dev/null 2>&1
+DEBIAN_FRONTEND=noninteractive apt-mark hold kubelet kubeadm kubectl > /dev/null 2>&1
+
+# Remove the stock containerd config file and let it auto generate
+rm -f /etc/containerd/config.toml
+systemctl restart containerd.service > /dev/null 2>&1
+
+
+echo -e "set ts=2 sw=2 expandtab smarttab ruler" >> /home/vagrant/.vimrc
+chown vagrant:vagrant /home/vagrant/.vimrc
+SCRIPT
+
+$configure_kube_controller = <<-SCRIPT
+echo "Configuring Kube Controller"
+# CLI magic to pull the IP address for future multi-controller setups ip -f inet addr show eth1 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p'
+kubeadm init --apiserver-advertise-address 172.16.1.80 --pod-network-cidr 10.244.0.0/16  > /dev/null 2>&1
+
+# Generate a known token for workers to join the cluster.
+kubeadm token create 123456.abcdefghijklmnop  > /dev/null 2>&1
+
+# Enable kubectl for root and vagrant users
+mkdir -p /root/.kube
+sudo cp -i /etc/kubernetes/admin.conf /root/.kube/config
+sudo chown root:root /root/.kube/config
+mkdir -p /home/vagrant/.kube
+cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
+chown -R vagrant:vagrant /home/vagrant/.kube/
+
+# Install Flannel
+kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml > /dev/null 2>&1
+
+echo "source <(kubectl completion bash)" >> /root/.bashrc # add autocomplete permanently to your bash shell.
+echo "source <(kubectl completion bash)" >> /home/vagrant/.bashrc
+echo "alias k=kubectl" >> /root/.bashrc
+echo "alias k=kubectl" >> /home/vagrant/.bashrc
+echo "complete -F __start_kubectl k" >> /root/.bashrc
+echo "complete -F __start_kubectl k" >> /home/vagrant/.bashrc
+
+
+SCRIPT
+
+$configure_kube_worker = <<-SCRIPT
+echo "Kube Worker joining the cluster"
+# Join the worker to the cluster
+kubeadm join 172.16.1.80:6443 --token 123456.abcdefghijklmnop --discovery-token-unsafe-skip-ca-verification > /dev/null 2>&1
+
+SCRIPT
+
+$install_up_cli = <<-SCRIPT
+echo "Installing Up CLI"
+curl -sL "https://cli.upbound.io" | sh > /dev/null 2>&1
+mv up /usr/local/bin/ > /dev/null 2>&1
+SCRIPT

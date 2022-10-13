@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upbound Docs</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <meta property="og:site_name" content="Documentation">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Welcome to Upbound Documentation">
+
+    <link rel="preload" href="/custom.css" as="style">
+    <link rel="stylesheet" href="/custom.css" media="all">
+</head>
+
+<body class="upbound-docs">
+    <div class="wrapper">
+      {{ partial "site-header" . }}
+        <main>
+            <header class="home-banner">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h1>Documentation</h1>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <section class="pt-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h3 class="header-fancy"><span>Read the Docs</span></h3>
+                        </div>
+                        <div class="col-12">
+                            <div class="card-deck three-across">
+                                <div class="card">
+                                    <div class="img-fill">
+                                        <a href="{{ .Site.BaseURL }}docs" class="abs-link"></a>
+                                        <img src="/upbound-images/upbound-doc-thumb.webp" alt="placeholder" class="mb-6">
+                                    </div>
+                                    <div class="card-body">
+                                        <h4>Upbound</h4>
+                                        <ul class="list-unstyled">
+                                            <li><a href="/upbound-marketplace/">Upbound Marketplace</a></li>
+                                            <li><a href="/cli/">Up Command-Line</a></li>
+                                            <li><a href="/uxp/">Upbound Universal Crossplane (UXP)</a></li>
+                                            <li><a href="/users/">Upbound User Management</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- <section class="pt-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h3 class="header-fancy"><span>Additional Resources</span></h3>
+                        </div>
+                        <div class="col-12">
+                            <div class="card-deck four-across">
+                                <div class="card">
+                                    <a href="" class="abs-link"></a>
+                                    <div class="img-fill">
+                                        <img src="/images/placeholder.png" alt="placeholder" class="mb-6">
+                                    </div>
+                                    <div class="card-body">
+                                        <h4>Card Title</h4>
+                                        <p>Card body</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="mb-0">Link</p>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <a href="" class="abs-link"></a>
+                                    <div class="img-fill">
+                                        <img src="/images/placeholder.png" alt="placeholder" class="mb-6">
+                                    </div>
+                                    <div class="card-body">
+                                        <h4>Card Title</h4>
+                                        <p>Card body</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="mb-0">Link</p>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <a href="" class="abs-link"></a>
+                                    <div class="img-fill">
+                                        <img src="/images/placeholder.png" alt="placeholder" class="mb-6">
+                                    </div>
+                                    <div class="card-body">
+                                        <h4>Card Title</h4>
+                                        <p>Card body</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="mb-0">Link</p>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <a href="" class="abs-link"></a>
+                                    <div class="img-fill">
+                                        <img src="/images/placeholder.png" alt="placeholder" class="mb-6">
+                                    </div>
+                                    <div class="card-body">
+                                        <h4>Card Title</h4>
+                                        <p>Card body</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="mb-0">Link</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> -->
+            <!-- <section class="pt-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h3 class="header-fancy"><span>Additional Products and Content</span></h3>
+                        </div>
+                        <div class="col-12">
+                            <div class="card-deck two-across">
+                                <div class="card icon-card">
+                                    <a href="" class="abs-link"></a>
+                                    <div class="img-icon">
+                                        <div>
+                                            <img src="/images/placeholder.png" alt="placeholder">
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h4>Getting Started</h4>
+                                        <ul class="list-unstyled">
+                                            <li><a href="/upbound/getting-started/build-control-plane/">Build Your Control Plane</a></li>
+                                            <li><a href="/upbound/getting-started/create-account/">Create Account</a></li>
+                                            <li><a href="/upbound/getting-started/deploy-infrastructure/">Deploy Infrastructure</a></li>
+                                            <li><a href="/upbound/getting-started/install-and-setup/">Install & Setup</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card icon-card">
+                                    <a href="" class="abs-link"></a>
+                                    <div class="img-icon">
+                                        <div>
+                                            <img src="/images/placeholder.png" alt="placeholder">
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h4>Universal Crossplane</h4>
+                                        <ul class="list-unstyled">
+                                            <li><a href="/upbound/uxp/build-configuration/">Build a Configuration</a></li>
+                                            <li><a href="/upbound/uxp/installing-from-rancher-catalog/">Installing from Rancher Catalog</a></li>
+                                            <li><a href="/upbound/uxp/concepts/">UXP Concepts</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> -->
+        </main>
+      {{ partial "site-footer" . }}
+    </div>
+</body>
+
+</html>

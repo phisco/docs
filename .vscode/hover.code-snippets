@@ -1,0 +1,9 @@
+{
+    "Hover to Highlight": {
+    "prefix": ["hover"],
+    "body": [
+        "{{< hover label=\"$1\" line=\"$2\" >}}$TM_SELECTED_TEXT{{< /hover >}}$0",
+
+    ],
+    "description": "Generate Hugo shortcode tags for a blue note box"
+    }

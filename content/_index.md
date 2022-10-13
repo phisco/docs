@@ -1,25 +1,17 @@
 ---
-title: "Welcome to Upbound Documentation"
-icon: "Home"
-metaTitle: "Welcome"
-metaDescription: "Upbound Documentation"
-rank: 0
+title: "Upbound Documentation"
+weight: 0
+cascade:
+    product: "Upbound"
+    type: user-docs
 ---
 
-Upbound is the company behind the open source project,
-[Crossplane]. Our mission is to enable a new era of
-infrastructure management that is automated, reliable, efficient and empowers
-application teams to self-service and deliver software faster, accelerating
-innovation.
+Upbound is the industry's first platform for building internal cloud platforms. Designed around control planes, Upbound offers a new way for building an internal cloud platform, purpose-built for your organization. Customers can build, deploy, manage, secure, and use their platforms all from a single point of control. 
 
-`youtube: https://www.youtube.com/embed/jyv0SBXoVXA`
+Upbound provides a commercially supported version of Crossplane as well as tools and features to simplify the life of operators and developers, including:
 
-Our products help customers deploy control plane architectures to production and
-manage them at scale. We offer plans which meet the needs of both individual
-community members and large enterprises managing some of the most complicated
-infrastructure environments in the world.
+* [Universal Crossplane (UXP)]({{<ref "uxp">}}) - UXP is an [open source](https://github.com/upbound/universal-crossplane) Crossplane distribution managed and maintained by Upbound. 
+* [Up command-line]({{<ref "cli">}}) - The Upbound `up` command-line simplifies the installation and configuration of UXP.
+* [Upbound Marketplace]({{<ref "upbound-marketplace">}}) - Upbound Marketplace is a collection of maintained and community Crossplane `Providers`, configurations and API documentation. 
 
-Let's [get started]!
-
-[Crossplane]: https://crossplane.io
-[get started]: getting-started/install-and-setup
+To try Upbound now, read the [quickstart guide]({{<ref "quickstart" >}}).

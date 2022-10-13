@@ -1,0 +1,16 @@
+{{- $search := resources.Get (index (index .Site.Data.assets "main.js") "src" | relURL) }}
+{{- $searchConfigFile := printf "search/%s.config.json" .Language.Lang -}}
+{{- $searchConfig := resources.Get "search/config.json" | resources.ExecuteAsTemplate $searchConfigFile . | resources.Minify -}}
+{{- $searchConfig.Publish -}}
+
+<script defer src="{{ $search.Permalink }}" ></script>
+{{- $mainmap := resources.Get (printf "%s.map" (index (index .Site.Data.assets "main.js") "src")) -}}
+{{- $mainmap.Publish -}}
+
+{{- if .Page.HasShortcode "img" -}}
+{{ $lightbox := resources.Get (index (index .Site.Data.assets "lightbox.js") "src" | relURL)  }}
+<script defer src="{{$lightbox.Permalink}}"></script>
+{{- $lightboxmap := resources.Get (printf "%s.map" (index (index .Site.Data.assets "lightbox.js") "src")) -}}
+{{- $lightboxmap.Publish -}}
+
+{{- end -}}

@@ -1,3 +1,0 @@
----
-title: "Upbound Enterprise"
----

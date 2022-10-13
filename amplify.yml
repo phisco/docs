@@ -1,0 +1,22 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo ************** Installing Hugo **************
+        - wget -q https://github.com/gohugoio/hugo/releases/download/v0.101.0/hugo_extended_0.101.0_Linux-64bit.tar.gz
+        - tar -xf hugo_extended_0.101.0_Linux-64bit.tar.gz hugo
+        - mv hugo /usr/bin/hugo
+        - echo ************** Successfully Installed Hugo **************
+    build:
+      commands:
+        # Run Hugo and build the site. Render draft pages for staging
+        - if [ "${AWS_BRANCH}" != "main" ]; then hugo --environment development -D --baseURL https://$AWS_BRANCH.$AWS_APP_ID.amplifyapp.com  ; fi
+        - if [ "${AWS_BRANCH}" = "main" ]; then hugo --baseURL https://docs.upbound.io --minify ; fi
+        # Print the full file list for build troubleshooting
+        - echo $AWS_APP_ID
+        - tree
+  artifacts:
+    files:
+      - '**/*'
+    baseDirectory: public

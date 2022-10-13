@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Lang }}" class="color-toggle-hidden">
+<html lang="{{ .Site.Language.Lang }}" class="color-toggle-hidden" {{ if default false .Site.Params.GeekdocDarkModeCode }}code-theme="dark"{{ end }} >
   <head>
     {{ partial "head/meta" . }}
+
     <title>
       {{- if eq .Kind "home" -}}
         {{ .Site.Title }}
@@ -9,26 +10,25 @@
         {{ printf "%s | %s" (partial "utils/title" .) .Site.Title }}
       {{- end -}}
     </title>
-
+    {{ partial "head/styles" . }}
     {{ partial "head/favicons" . }}
-    {{ partial "head/rel-me" . }}
+  {{ if hugo.IsProduction }}
+    {{ partial "head/trackers" . }}
+  {{ end }}
     {{ partial "head/microformats" . }}
-    {{ partial "head/others" . }}
-    {{ partial "head/custom" . }}
   </head>
 
   <body itemscope itemtype="https://schema.org/WebPage">
-    {{ partial "svg-icon-symbols" . }}
+    <div class="wrapper {{ if default false .Site.Params.GeekdocDarkModeDim }}dark-mode-dim{{ end }}" >
+      <input type="checkbox" class="hidden checkbox" id="menu-control" />
+      <input type="checkbox" class="hidden checkbox" id="menu-header-control" />
+      <input type="checkbox" class="hidden checkbox" id="menu-toc-control" />
+      {{ partial "site-header" }}
 
-
-    <div
-      class="wrapper {{ if default false .Site.Params.GeekdocDarkModeDim }}dark-mode-dim{{ end }}"
-    >
-      <input type="checkbox" class="hidden" id="menu-control" />
-      <input type="checkbox" class="hidden" id="menu-header-control" />
       {{ $navEnabled := default true .Page.Params.GeekdocNav }}
-      {{ partial "site-header" (dict "Root" . "MenuEnabled" $navEnabled) }}
+      {{ $tocLevels := default true .Page.Params.GeekdocToC }}
 
+      {{ partial "product-nav" (dict "Root" . "MenuEnabled" $navEnabled "ToCEnabled" $tocLevels) }}
 
       <main class="container flex flex-even">
         {{ if $navEnabled }}
@@ -41,16 +41,20 @@
         <div class="gdoc-page">
           {{ template "main" . }}
 
-
           <div class="gdoc-page__footer flex flex-wrap justify-between">
             {{ partial "menu-nextprev" . }}
           </div>
         </div>
+        {{ if and $tocLevels (gt (len .TableOfContents) 100) }}
+        <aside class="gdoc-toc">
+          {{ .TableOfContents }}
+        </aside>
+        {{ end }}
       </main>
-
       {{ partial "site-footer" . }}
     </div>
 
-    {{ partial "foot" . }}
+    {{ partial "end-of-page-js" . }}
+    {{ partial "svg-icon-symbols" . }}
   </body>
 </html>
