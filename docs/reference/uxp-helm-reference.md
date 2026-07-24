@@ -153,7 +153,7 @@ This reference provides detailed documentation on the UXP Helm chart. This Helm 
 | image.ignoreTag | bool | `false` | Do not use the {{ .image.tag }} value to compute the image uri. |
 | image.pullPolicy | string | `"IfNotPresent"` | The image pull policy used for Crossplane and RBAC Manager pods. |
 | image.repository | string | `"xpkg.upbound.io/upbound/crossplane"` | Repository for the Crossplane pod image. |
-| image.tag | string | `"v2.3.3-up.3"` | The Crossplane image tag. Defaults to the value of `appVersion` in `Chart.yaml`. |
+| image.tag | string | `"v2.3.4-up.1"` | The Crossplane image tag. Defaults to the value of `appVersion` in `Chart.yaml`. |
 | imagePullSecrets | list | `[]` | The imagePullSecret names to add to the Crossplane ServiceAccount. |
 | leaderElection | bool | `true` | Enable [leader election](https://docs.crossplane.io/latest/guides/pods/#leader-election) for the Crossplane pod. |
 | metrics.enabled | bool | `true` | Enable Prometheus path, port and scrape annotations and expose port 8080 for both the Crossplane and RBAC Manager pods. |
@@ -224,6 +224,7 @@ This reference provides detailed documentation on the UXP Helm chart. This Helm 
 | upbound.manager.image.repository | string | `"xpkg.upbound.io/upbound/controller-manager"` | Repository for the Upbound Controller Manager pod image. |
 | upbound.manager.image.tag | string | `""` | The Upbound Controller Manager image tag. Defaults to the value of `appVersion` in `Chart.yaml`. |
 | upbound.manager.imagePullSecrets | list | `[]` | The imagePullSecret names to add to the Upbound Controller Manager ServiceAccount. |
+| upbound.manager.initResources | object | `{}` | Resource requests and limits for the Upbound Controller Manager `initialize-crds` init container. |
 | upbound.manager.leaderElection | bool | `true` | Enable [leader election](https://docs.crossplane.io/latest/concepts/pods/#leader-election) for the Upbound Controller Manager pod. |
 | upbound.manager.measurement.enabled | bool | `true` | Enable the measurement server. |
 | upbound.manager.measurement.port | string | `""` | The port the measurement server listens on. |
@@ -294,6 +295,7 @@ This reference provides detailed documentation on the UXP Helm chart. This Helm 
 | upbound.manager.tolerations | list | `[]` | Add `tolerations` to the Upbound Controller Manager pod deployment. |
 | upbound.manager.topologySpreadConstraints | list | `[]` | Add `topologySpreadConstraints` to the Upbound Controller Manager pod deployment. |
 | upbound.secretsProxy.apiServerSecretSuffixes | string | `"-tls-client,-tls-server,-root-ca"` | Comma-separated list of suffixes. Secrets with names containing any of these suffixes will be sent directly to the API server instead of the secrets proxy. |
+| upbound.secretsProxy.caInit.resources | object | `{}` | Resource requests and limits for the `ca-init` init container (only deployed when `secretsProxy.enabled` is true). |
 | upbound.secretsProxy.caSecretName | string | `"secrets-proxy-ca"` | Name of the CA secret to create. |
 | upbound.secretsProxy.certSecretName | string | `"secrets-proxy-certs"` | Name of the certificate secret to create. |
 | upbound.secretsProxy.enabled | bool | `false` | Enable secrets proxy CA initialization and webhook. |

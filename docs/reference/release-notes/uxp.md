@@ -14,6 +14,60 @@ Any important warnings or necessary information
 - User-facing changes
 -->
 
+## v2.3.4-up.1
+
+### Release Date: 2026-07-24
+
+#### What's Changed
+
+Based on Crossplane [v2.3.4](https://github.com/crossplane/crossplane/releases/tag/v2.3.4).
+
+- Security: the `uxp-apollo` subchart updated to v0.4.19, bumping `google.golang.org/grpc` to v1.82.1 (GHSA-hrxh-6v49-42gf).
+- Security: Upbound Controller Manager dependency updates — `github.com/sigstore/sigstore-go` v1.2.0 (CVE-2026-49834), `google.golang.org/grpc` v1.82.1 (GHSA-hrxh-6v49-42gf), `oras.land/oras-go/v2` v2.6.2 (CVE-2026-50163), and `golang.org/x/text` v0.39.0 (CVE-2026-56852).
+
+## v2.2.4-up.1
+
+### Release Date: 2026-07-24
+
+#### What's Changed
+
+Based on Crossplane [v2.2.4](https://github.com/crossplane/crossplane/releases/tag/v2.2.4).
+
+- Security: the `uxp-apollo` subchart updated to v0.4.19, bumping `google.golang.org/grpc` to v1.82.1 (GHSA-hrxh-6v49-42gf).
+- Security: Upbound Controller Manager dependency updates — `github.com/sigstore/sigstore-go` v1.2.0 (CVE-2026-49834), `google.golang.org/grpc` v1.82.1 (GHSA-hrxh-6v49-42gf), `oras.land/oras-go/v2` v2.6.2 (CVE-2026-50163), `golang.org/x/net` v0.56.0 (CVE-2026-46600), and `golang.org/x/text` v0.39.0 (CVE-2026-56852).
+
+## v2.1.8-up.1
+
+### Release Date: 2026-07-24
+
+#### What's Changed
+
+Based on Crossplane [v2.1.8](https://github.com/crossplane/crossplane/releases/tag/v2.1.8).
+
+- Security: the `uxp-apollo` subchart updated to v0.2.21, bumping `google.golang.org/grpc` to v1.82.1 (GHSA-hrxh-6v49-42gf).
+- Security: Upbound Controller Manager dependency updates — `google.golang.org/grpc` v1.82.1 (GHSA-hrxh-6v49-42gf), `oras.land/oras-go/v2` v2.6.2 (CVE-2026-50163), and `golang.org/x/text` v0.39.0 (CVE-2026-56852).
+
+## v2.0.8-up.6
+
+### Release Date: 2026-07-24
+
+#### What's Changed
+
+Based on Crossplane [v2.0.8](https://github.com/crossplane/crossplane/releases/tag/v2.0.8).
+
+- Security: the `uxp-apollo` subchart updated to v0.2.21, bumping `google.golang.org/grpc` to v1.82.1 (GHSA-hrxh-6v49-42gf).
+- Security: Upbound Controller Manager dependency updates — `google.golang.org/grpc` v1.82.1 (GHSA-hrxh-6v49-42gf), `oras.land/oras-go/v2` v2.6.2 (CVE-2026-50163), `golang.org/x/net` v0.56.0 (CVE-2026-46600), and `golang.org/x/text` v0.39.0 (CVE-2026-56852).
+
+## v1.20.11-up.1
+
+### Release Date: 2026-07-24
+
+#### What's Changed
+
+Based on Crossplane [v1.20.11](https://github.com/crossplane/crossplane/releases/tag/v1.20.11).
+
+- Security: dependency updates — `golang.org/x/net` v0.56.0 (CVE-2026-46600) and `golang.org/x/text` v0.39.0 (CVE-2026-56852).
+
 ## v2.3.3-up.3
 
 ### Release Date: 2026-07-14
