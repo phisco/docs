@@ -24,6 +24,25 @@ Any important warnings or necessary information
 
 -->
 
+## v0.52.0
+
+### Release Date: 2026-07-24
+
+##### What's Changed
+
+- Users can now configure patterns to ignore within a project with the
+  `spec.ignore` field in `upbound.yaml`. Files and directories matching any of
+  the ignored patterns will be ignored by `up project build`, `up test run`, and
+  related commands, but will be available to function build processes during `up
+  project build`. This allows users to ignore shared cache or library
+  directories that reside under `functions/`.
+- Added a new API dependency type, `crossplane`, enabling schema generation for
+  core Crossplane and UXP resource types.
+- Fix an issue where application of invalid init reosurces or extra resources
+  during `up test run` and `up project run` would be retried
+  indefinitely. Validation errors for such resources are now surfaced
+  immediately and treated as permanent failures.
+
 ## v0.51.0
 
 ### Release Date: 2026-07-13
