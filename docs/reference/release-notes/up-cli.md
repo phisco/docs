@@ -24,6 +24,24 @@ Any important warnings or necessary information
 
 -->
 
+## v0.53.0
+
+### Release Date: 2026-07-28
+
+##### What's Changed
+
+- The `up composition render` command now resolves transitive dependencies. It
+  runs any functions that are transitively depended upon and provides required
+  schemas from transitive provider dependencies.
+- Fixed handling of OCI registries containing a port number in `up dependency
+  add`.
+- Fixed several bugs in Go code generation, particularly related to handling of
+  `oneOf` and `anyOf` OpenAPI specifiers.
+- Fixed a panic in `xpls` when dependencies are specified using the modern
+  `apiVersion` and `kind` style.
+- Updated `up controlplane migration import` to wait for CRDs to be established
+  before applying CRs.
+
 ## v0.52.0
 
 ### Release Date: 2026-07-24
