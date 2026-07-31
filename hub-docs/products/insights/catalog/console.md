@@ -25,8 +25,13 @@ summary panel on the right shows aggregate counts across the full catalog.
 
 ## Searching and filtering
 
-Use the search bar above the table to search across package names and
-descriptions. A filter panel offers two facets:
+Use the search bar above the table to search packages and the API types they
+declare. A query matches a package's repository path, title, and description,
+along with the kind, API group, version, short names, and categories of every
+type it declares. Searching `bucket` finds a package that declares a `Bucket`
+kind, not only packages with `bucket` in their name.
+
+A filter panel offers two facets:
 
 - **Package Type**: checkboxes for Provider, Configuration, and Function.
   Select one or more to narrow the list.
