@@ -3,6 +3,7 @@ title: Helm values
 sidebar_label: Helm values
 description: Configuration reference for the Hub Helm charts, generated from each chart's values.
 sidebar_position: 3
+hide_table_of_contents: true
 ---
 
 The tables below list every configurable value in the Hub Helm charts, generated
