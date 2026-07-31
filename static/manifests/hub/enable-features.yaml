@@ -1,0 +1,16 @@
+hub-core:
+  api:
+    featureFlags:
+      gates:
+        Catalog: true
+        Registry: true
+        Metrics: true
+
+# Required whenever the Metrics gate is on.
+  otelGateway:
+    enabled: true
+    metrics:
+      backend: prometheus
+      queryURL: http://prometheus-server.monitoring.svc
+      prometheus:
+        writeEndpoint: http://prometheus-server.monitoring.svc/api/v1/write

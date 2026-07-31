@@ -156,7 +156,7 @@ Next, you need to add the necessary dependencies to enable Upbound communication
 with your cloud providers and services. Proceed to the [add dependencies to your
 project][add-dependencies-to-your-project] guide.
 
-[quickstart]: /getstarted/introduction/project
+[quickstart]: /getstarted/builders-workshop/project-foundations
 [workshop]: /getstarted/builders-workshop/project-foundations
 [up-project-init]: /reference/cli-reference
 [cli-reference-documentation]: /reference/cli-reference

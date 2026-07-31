@@ -41,6 +41,29 @@ html[data-theme='dark'] .sidebarLink:global(.menu__link--active) {
   color: var(--brand-purple-200) !important;
 }
 
+/* Status badge (e.g. "Preview") shown beside a sidebar category label */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.4rem;
+  border-radius: 9999px;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  white-space: nowrap;
+  border: 1px solid var(--brand-purple-300);
+  color: var(--grape);
+  background: var(--brand-purple-50);
+}
+html[data-theme='dark'] .statusBadge {
+  border-color: var(--brand-purple-300);
+  color: var(--brand-purple-200);
+  background: rgba(196, 167, 255, 0.15);
+}
+
 /* Plan Badge Base Styles*/
 .planBadge {
   display: inline-flex;

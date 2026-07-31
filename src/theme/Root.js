@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LanguageProvider } from '@site/src/components/GlobalLanguageSelector';
+import { VersionProvider } from '@site/src/components/VersionSelector';
 import { SessionProvider } from '@site/src/contexts/SessionProvider';
 import { FeatureFlagsProvider } from '@site/src/contexts/FeatureFlagsProvider';
 
@@ -143,7 +144,9 @@ export default function Root({ children }) {
       <SessionProvider>
         <FeatureFlagsProvider>
           <LanguageProvider>
-            {children}
+            <VersionProvider>
+              {children}
+            </VersionProvider>
           </LanguageProvider>
         </FeatureFlagsProvider>
       </SessionProvider>

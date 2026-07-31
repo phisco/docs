@@ -100,6 +100,14 @@ func (f *Function) RunFunction(_ context.Context, req *fnv1.RunFunctionRequest) 
 
 The following example function composes an S3 bucket based on a simplified bucket XRD:
 
+:::tip
+The generated model type name matches your XRD's `kind` exactly. This example
+assumes a `v2` XRD (`apiextensions.crossplane.io/v2`) with `kind: StorageBucket`.
+If your XRD uses the legacy `v1` API (`apiextensions.crossplane.io/v1`), your
+XRD's `kind` uses an `X` prefix, for example `kind: XStorageBucket`, so import
+`v1alpha1.XStorageBucket` instead.
+:::
+
 ```go
 package main
 
@@ -138,7 +146,7 @@ func (f *Function) RunFunction(_ context.Context, req *fnv1.RunFunctionRequest) 
 		return rsp, nil
 	}
 
-	var xr v1alpha1.XStorageBucket
+	var xr v1alpha1.StorageBucket
 	if err := convertViaJSON(&xr, observedComposite.Resource); err != nil {
 		response.Fatal(rsp, errors.Wrap(err, "cannot convert xr"))
 		return rsp, nil
@@ -209,8 +217,8 @@ import (
 
 	"dev.upbound.io/models/com/example/platform/v1alpha1"
 	"dev.upbound.io/models/io/upbound/aws/s3/v1beta1"
-	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/function-sdk-go/errors"
+	"github.com/crossplane/function-sdk-go/logging"
 	fnv1 "github.com/crossplane/function-sdk-go/proto/v1"
 	"github.com/crossplane/function-sdk-go/request"
 	"github.com/crossplane/function-sdk-go/resource"
@@ -243,7 +251,7 @@ func (f *Function) RunFunction(_ context.Context, req *fnv1.RunFunctionRequest) 
 		return rsp, nil
 	}
 
-	var xr v1alpha1.XStorageBucket
+	var xr v1alpha1.StorageBucket
 	if err := convertViaJSON(&xr, observedComposite.Resource); err != nil {
 		response.Fatal(rsp, errors.Wrap(err, "cannot convert xr"))
 		return rsp, nil
@@ -520,7 +528,7 @@ if err != nil {
 	return rsp, nil
 }
 
-var xr v1alpha1.XStorageBucket
+var xr v1alpha1.StorageBucket
 if err := convertViaJSON(&xr, observedComposite.Resource); err != nil {
 	response.Fatal(rsp, errors.Wrap(err, "cannot convert xr"))
 	return rsp, nil

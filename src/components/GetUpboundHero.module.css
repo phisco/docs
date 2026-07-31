@@ -1,0 +1,141 @@
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 2.5rem;
+  overflow: hidden;
+  margin: 0 0 2.5rem;
+  padding: 2.75rem;
+  border-radius: 1rem;
+  background: linear-gradient(
+    135deg,
+    var(--brand-purple-900) 0%,
+    var(--brand-neutral-800) 100%
+  );
+}
+
+.mark {
+  position: absolute;
+  top: 50%;
+  right: -8%;
+  width: 26rem;
+  height: auto;
+  transform: translateY(-50%);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.text {
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--brand-purple-200);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 1rem;
+  color: white;
+  font-family: var(--ifm-heading-font-family);
+  font-size: 2.25rem;
+  font-weight: 550;
+  line-height: 1.15;
+}
+
+.description {
+  margin: 0;
+  max-width: 34rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.terminal {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border: 1px solid var(--brand-neutral-700);
+  border-radius: 0.75rem;
+  background-color: var(--brand-neutral-800);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.terminalHeader {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--brand-neutral-700);
+  border-bottom: 1px solid var(--brand-neutral-600);
+}
+
+.dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+}
+
+.dotRed {
+  background-color: var(--brand-accent-red);
+}
+
+.dotYellow {
+  background-color: var(--brand-accent-yellow);
+}
+
+.dotGreen {
+  background-color: var(--brand-accent-green);
+}
+
+.terminalBody {
+  padding: 1.25rem;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+
+.command,
+.output {
+  margin: 0 0 0.5rem;
+}
+
+.command {
+  color: var(--brand-accent-green);
+}
+
+.output {
+  color: var(--brand-neutral-300);
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
+
+  .mark {
+    right: -20%;
+    width: 20rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero {
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .terminalBody {
+    font-size: 0.75rem;
+  }
+}

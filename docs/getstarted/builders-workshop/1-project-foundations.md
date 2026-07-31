@@ -131,7 +131,7 @@ you want to apply to this `StorageBucket` resource.
 
 Paste this XR into your XR file:
 
-<Tabs>
+<Tabs groupId="cloud-provider">
 <TabItem value="aws" label="AWS">
 
 ```yaml title="upbound-hello-world/examples/storagebucket/example.yaml"

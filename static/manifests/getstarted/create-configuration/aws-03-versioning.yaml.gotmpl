@@ -1,0 +1,21 @@
+# code: language=yaml
+# yaml-language-server: $schema=../../.up/json/models/index.schema.json
+
+#{{ if $params.versioning }}
+# Don't create the BucketVersioning until the bucket name is available.
+#{{ if $bucket_external_name }}
+---
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: BucketVersioning
+metadata:
+  annotations:
+    {{ setResourceNameAnnotation "versioning" }}
+spec:
+  forProvider:
+    region: "{{ $params.region }}"
+    bucket: "{{ $bucket_external_name }}"
+    versioningConfiguration:
+      - status: Enabled
+
+#{{ end }}
+#{{ end }}

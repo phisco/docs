@@ -33,7 +33,7 @@ VALE_BINARY := vale_$(VALE_VERSION)_$(VALE_OS)_$(VALE_ARCH).tar.gz
 VALE_INSTALL_DIR := ./bin
 VALE_EXEC := $(VALE_INSTALL_DIR)/vale
 
-.PHONY: help install-vale vale vale-docs vale-file vale-summary clean build start serve process-crds
+.PHONY: help install-vale vale vale-docs vale-file vale-summary clean build start serve
 
 # Default target
 help: ## Show this help message
@@ -46,7 +46,7 @@ help: ## Show this help message
 install: ## Install dependencies
 	npm install
 
-build: process-crds ## Build the documentation site
+build: ## Build the documentation site
 	npm run build
 
 start: ## Start local development server
@@ -54,9 +54,6 @@ start: ## Start local development server
 
 serve: ## Serve built documentation
 	npm run serve
-
-process-crds: ## Process CRDs for documentation
-	npm run process-crds
 
 # Vale installation and linting commands
 install-vale: ## Install Vale binary locally
@@ -130,7 +127,7 @@ dev: install start ## Install dependencies and start development server
 
 # CI/CD targets
 ci-lint: install-vale vale-summary ## Run linting for CI/CD pipeline
-ci-build: install process-crds build ## Build for CI/CD pipeline
+ci-build: install build ## Build for CI/CD pipeline
 
 # Version info
 version: ## Show versions of tools

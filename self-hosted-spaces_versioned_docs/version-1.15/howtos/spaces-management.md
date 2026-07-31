@@ -195,7 +195,7 @@ kubectl delete controlplane ctp1
 
 
 [up-space-init]: /reference/cli-reference
-[quickstart]: /
+[quickstart]: /self-hosted-spaces/self-hosted-spaces-quickstart
 [aws]: /self-hosted-spaces/howtos/self-hosted-spaces-deployment 
 [azure]:/self-hosted-spaces/howtos/self-hosted-spaces-deployment  
 [gcp]:/self-hosted-spaces/howtos/self-hosted-spaces-deployment  

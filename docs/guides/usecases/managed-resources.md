@@ -198,6 +198,6 @@ external services:
 [functions]: /manuals/uxp/concepts/composition/composite-resource-definitions
 [operations]: /manuals/uxp/concepts/operations/overview
 [providers]:  /manuals/uxp/concepts/packages/providers
-[composition]: /getstarted/introduction/project
+[composition]: /getstarted/builders-workshop/project-foundations
 
 

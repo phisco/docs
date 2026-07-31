@@ -89,15 +89,19 @@ export default function UpboundSidebarItem({
   const pluginData = usePluginData('upbound-plan-plugin') || {};
   const { planData = {} } = pluginData;
   
-  const { 
-    items, 
-    label, 
-    href, 
-    docId, 
-    unlisted, 
+  const {
+    items,
+    label,
+    href,
+    docId,
+    unlisted,
     linkUnlisted,
-    ...cleanItemProps 
+    customProps,
+    ...cleanItemProps
   } = item;
+
+  // A free-form status badge (e.g. "Preview"), matching the category sidebar item.
+  const badge = customProps?.badge;
   
   const currentPath = activePath || location.pathname;
   const isActive = isActiveSidebarItem(item, currentPath);
@@ -161,6 +165,7 @@ export default function UpboundSidebarItem({
       >
         <div className={styles.sidebarItemContent}>
           <span className={styles.sidebarItemLabel}>{label}</span>
+          {badge && <span className={styles.statusBadge}>{badge}</span>}
           {plan && <PlanBadge plan={plan} />}
         </div>
         {!isInternalUrl(href) && <IconExternalLink />}

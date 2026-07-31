@@ -73,18 +73,13 @@ const config = {
     ],
     plugins: [
         [
-            "docusaurus-pushfeedback",
-            {
-                project: "0p5hvygqxb",
-            },
-        ],
-        [
             "@docusaurus/plugin-content-docs",
             {
                 id: "docs",
                 path: "docs",
                 routeBasePath: "/",
                 sidebarPath: require.resolve("./src/sidebars/main.js"),
+                remarkPlugins: [require("./scripts/manifest-embed-plugin")],
             },
         ],
         [
@@ -110,6 +105,23 @@ const config = {
                 path: "cloud-spaces-docs",
                 routeBasePath: "/cloud-spaces",
                 sidebarPath: require.resolve("./src/sidebars/cloud-spaces.js"),
+            },
+        ],
+        [
+            "@docusaurus/plugin-content-docs",
+            {
+                id: "hub",
+                path: "hub-docs",
+                routeBasePath: "/hub",
+                sidebarPath: require.resolve("./src/sidebars/hub.js"),
+                remarkPlugins: [require("./scripts/manifest-embed-plugin")],
+                includeCurrentVersion: true,
+                lastVersion: "current",
+                versions: {
+                    current: {
+                        label: "1.0",
+                    },
+                },
             },
         ],
                 "./scripts/plan-plugin.js",
@@ -184,7 +196,7 @@ const config = {
                     {
                         label: "Get Started",
                         position: "left",
-                        to: "/getstarted/",
+                        to: "/",
                     },
                     {
                         type: "dropdown",
@@ -225,12 +237,20 @@ const config = {
                                 to: "/self-hosted-spaces/overview/",
                             },
                             {
-                                label: "CLI",
-                                to: "/manuals/cli/overview/",
+                                label: "Hub",
+                                to: "/hub/",
                             },
                             {
                                 label: "Console",
                                 to: "/manuals/console/upbound-console/",
+                            },
+                            {
+                                label: "Platform",
+                                to: "/manuals/platform/overview/",
+                            },
+                            {
+                                label: "CLI",
+                                to: "/manuals/cli/overview/",
                             },
                             {
                                 label: "Packages",
@@ -239,10 +259,6 @@ const config = {
                             {
                                 label: "Marketplace",
                                 to: "/manuals/marketplace/overview/",
-                            },
-                            {
-                                label: "Platform",
-                                to: "/manuals/platform/overview/",
                             },
                         ],
                     },
@@ -295,7 +311,7 @@ const config = {
             prism: {
                 theme: prismThemes.github,
                 darkTheme: prismThemes.dracula,
-                additionalLanguages: ["bash", "yaml", "json", "go", "python"],
+                additionalLanguages: ["bash", "yaml", "json", "go", "python", "http"],
             },
             colorMode: {
                 defaultMode: "light",

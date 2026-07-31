@@ -211,6 +211,6 @@ When a project is loaded, the following defaults are applied if not specified:
 <!-- vale write-good.Passive = YES -->
 
 [configuration-overview]: /reference/apis/crossplane-api/
-[upgrade-to-projects]: /getstarted/upgrade-to-upbound/upgrade-to-projects/
+[upgrade-to-projects]: /manuals/uxp/upgrade-to-projects
 [builders-workshop]: /getstarted/builders-workshop/project-foundations/
 [cli-reference]: /reference/cli-reference/

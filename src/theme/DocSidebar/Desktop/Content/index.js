@@ -10,45 +10,68 @@ import {
 } from '@upbound/elements';
 import styles from './styles.module.css';
 
-const versionsJson = require('../../../../../self-hosted-spaces_versions.json');
-
 const LATEST = 'latest';
-// Must match `versions.current.label` for the self-hosted-spaces plugin in docusaurus.config.js.
-const LATEST_VERSION = '1.17';
 
-const versions = [
-  { label: `${LATEST_VERSION} (Latest)`, value: LATEST },
-  ...versionsJson.map((version) => ({ label: version, value: version })),
+// One entry per versioned docs plugin. `latestLabel` must match the plugin's
+// `versions.current.label` in docusaurus.config.js, and `versions` is its
+// `<id>_versions.json` file listing the archived versions.
+const VERSIONED_DOCS = [
+  {
+    basePath: 'self-hosted-spaces',
+    latestLabel: '1.17',
+    versions: require('../../../../../self-hosted-spaces_versions.json'),
+  },
+  {
+    basePath: 'hub',
+    latestLabel: '1.0',
+    versions: require('../../../../../hub_versions.json'),
+  },
 ];
+
+function getDocsConfig(pathname) {
+  const base = pathname.split('/').filter(Boolean)[0];
+  return VERSIONED_DOCS.find((docs) => docs.basePath === base);
+}
+
+function getVersionOptions(config) {
+  return [
+    { label: `${config.latestLabel} (Latest)`, value: LATEST },
+    ...config.versions.map((version) => ({ label: version, value: version })),
+  ];
+}
 
 function getVersionFromPath(pathname) {
   const segments = pathname.split('/').filter(Boolean);
-  if (segments[0] === 'self-hosted-spaces' && /^\d+\.\d+$/.test(segments[1])) {
+  if (/^\d+\.\d+$/.test(segments[1])) {
     return segments[1];
   }
   return LATEST;
 }
 
-function buildVersionPath(pathname, selectedVersion) {
+function buildVersionPath(pathname, basePath, selectedVersion) {
   const segments = pathname.split('/').filter(Boolean);
   const hasVersion = /^\d+\.\d+$/.test(segments[1]);
   const contentPath = '/' + segments.slice(hasVersion ? 2 : 1).join('/');
   return selectedVersion === LATEST
-    ? `/self-hosted-spaces${contentPath}`
-    : `/self-hosted-spaces/${selectedVersion}${contentPath}`;
+    ? `/${basePath}${contentPath}`
+    : `/${basePath}/${selectedVersion}${contentPath}`;
 }
 
 export default function DocSidebarDesktopContentWrapper(props) {
   const location = useLocation();
-  const isSelfHostedSpaces = location.pathname.startsWith('/self-hosted-spaces');
+  const docsConfig = getDocsConfig(location.pathname);
 
   function handleVersionChange(value) {
-    window.location.href = buildVersionPath(location.pathname, value);
+    window.location.href = buildVersionPath(
+      location.pathname,
+      docsConfig.basePath,
+      value,
+    );
   }
 
   return (
     <>
-      {isSelfHostedSpaces && (
+      {docsConfig && (
         <div className={styles.versionSelector}>
           <Select
             value={getVersionFromPath(location.pathname)}
@@ -58,7 +81,7 @@ export default function DocSidebarDesktopContentWrapper(props) {
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="spaces-version-content">
-              {versions.map((v) => (
+              {getVersionOptions(docsConfig).map((v) => (
                 <SelectItem key={v.value} value={v.value} className="spaces-version-item">
                   {v.label}
                 </SelectItem>

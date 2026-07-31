@@ -7,7 +7,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Start local docs server: `npm start`
 - Build documentation: `npm run build`
 - Serve built documentation: `npm run serve`
-- Process CRDs: `npm run process-crds`
 - Clear Docusaurus cache: `npm run clear`
 - Deploy documentation: `npm run deploy`
 - Generate translations: `npm run write-translations`
@@ -38,5 +37,4 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - This is a Docusaurus site, not Hugo
 - Requires Node.js 18.x and npm 9.x
 - Use `npm start` for local development with hot reloading
-- CRDs are processed via script before start/build commands
 - Site uses React components and MDX for enhanced functionality

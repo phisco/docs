@@ -1,6 +1,7 @@
 ---
 title: Develop with AI
 description: Connect AI coding assistants and AI operations to Upbound using MCP servers.
+sidebar_position: 5
 ---
 
 import Tabs from '@theme/Tabs';

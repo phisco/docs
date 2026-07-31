@@ -38,6 +38,11 @@ module.exports = {
             href: "/self-hosted-spaces/overview",
         },
         {
+            type: "link",
+            label: "Hub",
+            href: "/hub/",
+        },
+        {
             type: "category",
             label: "CLI",
             link: {

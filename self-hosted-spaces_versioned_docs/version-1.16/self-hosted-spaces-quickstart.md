@@ -8,7 +8,7 @@ tier: "business"
 Get started with Upbound Spaces using a local `kind` cluster. This guide walks you through deploying a self-hosted Space, creating your first control plane, and optionally connecting your Space to the Upbound Console.
 
 :::info
-Self-hosted Spaces are a business critical feature of Upbound and require a license token. [Contact Upbound](https://www.upbound.io/contact) if you want to try out self-hosted Spaces.
+Self-hosted Spaces are a business critical feature of Upbound and require a license token. [Contact Upbound](https://www.upbound.io/contact-us) if you want to try out self-hosted Spaces.
 :::
 
 ## Prerequisites

@@ -62,6 +62,5 @@ provide. Pick one or two offerings, or use any of the available [Configurations 
 <!-- vale Google.We = YES -->
 <!-- vale write-good.TooWordy = YES -->
 [configurations]: https://marketplace.upbound.io/configurations
-[bootstrap]: bootstrap.md
 
 [platformParts]: /img/solutions/platform-on-upbound.png

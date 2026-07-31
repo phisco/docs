@@ -1,120 +1,75 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { useRefCountedSet } from './GlobalLanguageSelector';
 
-let globalSelectedVersion = 'v1';
-let globalAvailableVersions = new Set();
-let globalInitialized = false;
-let globalUpdateCallbacks = new Set();
-
-// Create the context
 const VersionContext = createContext();
 
-// Create a provider component
 export function VersionProvider({ children }) {
   const [selectedVersion, setSelectedVersion] = useState('v1');
-  const [availableVersions, setAvailableVersions] = useState(new Set());
-  const [initialized, setInitialized] = useState(false);
+  const [availableVersions, registerVersion] = useRefCountedSet();
+
+  useEffect(() => {
+    setSelectedVersion(localStorage.getItem('selected-version') || 'v1');
+  }, []);
+
+  useEffect(() => {
+    if (availableVersions.size > 0 && !availableVersions.has(selectedVersion)) {
+      const firstVersion = Array.from(availableVersions)[0];
+      setSelectedVersion(firstVersion);
+      localStorage.setItem('selected-version', firstVersion);
+    }
+  }, [availableVersions, selectedVersion]);
+
+  const updateVersion = (version) => {
+    setSelectedVersion(version);
+    localStorage.setItem('selected-version', version);
+  };
 
   return (
-    <VersionContext.Provider 
-      value={{ 
-        selectedVersion, 
-        setSelectedVersion,
-        availableVersions, 
-        setAvailableVersions,
-        initialized,
-        setInitialized
-      }}
-    >
+    <VersionContext.Provider value={{ selectedVersion, availableVersions, updateVersion, registerVersion }}>
       {children}
     </VersionContext.Provider>
   );
 }
 
-// Custom hook to use the version context
 export function useVersionContext() {
   return useContext(VersionContext);
 }
 
-
-const initializeFromStorage = () => {
-  if (typeof window !== 'undefined' && !globalInitialized) {
-    const savedVersion = localStorage.getItem('selected-version') || 'v1';
-    globalSelectedVersion = savedVersion;
-    globalInitialized = true;
-  }
-};
-
-const updateGlobalVersion = (version) => {
-  globalSelectedVersion = version;
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('selected-version', version);
-  }
-  globalUpdateCallbacks.forEach(callback => callback());
-};
-
-const registerGlobalVersion = (version) => {
-  globalAvailableVersions.add(version);
-  globalUpdateCallbacks.forEach(callback => callback());
-};
-
-// Single component that does everything
 export default function VersionSelector({ version, children }) {
-  const [, forceUpdate] = useState({});
-  
-  // Initialize on first mount
-  useEffect(() => {
-    initializeFromStorage();
-    
-    // Register for updates
-    const callback = () => forceUpdate({});
-    globalUpdateCallbacks.add(callback);
-    
-    return () => globalUpdateCallbacks.delete(callback);
-  }, []);
+  const { selectedVersion, availableVersions, updateVersion, registerVersion } = useVersionContext();
 
-  // Register this version if provided
   useEffect(() => {
-    if (version) {
-      registerGlobalVersion(version);
-    }
-  }, [version]);
+    if (version) return registerVersion(version);
+  }, [version, registerVersion]);
 
-  // Auto-select first available if current selection isn't available
-  useEffect(() => {
-    if (globalAvailableVersions.size > 1 && !globalAvailableVersions.has(globalSelectedVersion)) {
-      const firstVersion = Array.from(globalAvailableVersions)[0];
-      updateGlobalVersion(firstVersion);
-    }
-  });
+  if (version) {
+    return version === selectedVersion ? <>{children}</> : null;
+  }
 
-  // If no version prop, show selector
-  if (!version) {
-    if (globalAvailableVersions.size === 0) {
-      return null;
-    }
-    
-    return (
-      <div className="global-language-selector">
-        <div className="selector-controls">
-          <div className="selector-group">
-            <label>Version:</label>
-            <select 
-              value={globalSelectedVersion} 
-              onChange={(e) => updateGlobalVersion(e.target.value)}
-              className="language-select"
-            >
-              {Array.from(globalAvailableVersions).sort().map(v => (
-                <option key={v} value={v}>
-                  {v.toUpperCase()}
-                </option>
-              ))}
-            </select>
+  if (availableVersions.size === 0) {
+    return null;
+  }
+
+  return (
+    <div className="global-language-selector">
+      <div className="selector-controls">
+        <div className="selector-group">
+          <span className="selector-group-label">Version</span>
+          <div className="selector-pills" role="group" aria-label="Version">
+            {Array.from(availableVersions).sort().map(v => (
+              <button
+                key={v}
+                type="button"
+                className="selector-pill"
+                aria-pressed={v === selectedVersion}
+                onClick={() => updateVersion(v)}
+              >
+                {v.toUpperCase()}
+              </button>
+            ))}
           </div>
         </div>
       </div>
-    );
-  }
-  
-  // If version prop provided, show/hide content
-  return version === globalSelectedVersion ? <>{children}</> : null;
+    </div>
+  );
 }

@@ -50,10 +50,9 @@ make check-vale-config
 | Command | Description |
 |---------|-------------|
 | `make install` | Install npm dependencies |
-| `make build` | Build the documentation site (includes CRD processing) |
+| `make build` | Build the documentation site |
 | `make start` | Start local development server with hot reload |
 | `make serve` | Serve the built documentation |
-| `make process-crds` | Process Custom Resource Definitions for documentation |
 | `make dev` | Install dependencies and start development server |
 | `make ci-build` | Full build process for CI/CD |
 

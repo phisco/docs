@@ -1,0 +1,17 @@
+.docHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.docHeader h1 {
+  margin-bottom: 0;
+}
+
+.docHeaderStandalone {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}

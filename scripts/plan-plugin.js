@@ -10,36 +10,28 @@ module.exports = function planPlugin(context, options) {
     async loadContent() {
       const planData = {};
       const docsPath = path.join(context.siteDir, 'docs');
-      
-      function processDirectory(dir, relativePath = '') {
-        const items = fs.readdirSync(dir);
-        
-        items.forEach(item => {
-          const itemPath = path.join(dir, item);
-          const stats = fs.statSync(itemPath);
-          
-          if (stats.isDirectory()) {
-            processDirectory(itemPath, path.join(relativePath, item));
-          } else if (item.endsWith('.md') || item.endsWith('.mdx')) {
-            const content = fs.readFileSync(itemPath, 'utf8');
-            const { data: frontmatter } = matter(content);
-            
-            if (frontmatter.plan) {
-              const docId = path.join(relativePath, item.replace(/\.(md|mdx)$/, ''));
-              planData[docId] = {
-                plan: frontmatter.plan,
-                title: frontmatter.title,
-                path: itemPath
-              };
-            }
+
+      if (fs.existsSync(docsPath)) {
+        const docFiles = fs
+          .readdirSync(docsPath, { recursive: true })
+          .filter((item) => item.endsWith('.md') || item.endsWith('.mdx'));
+
+        docFiles.forEach((relativePath) => {
+          const itemPath = path.join(docsPath, relativePath);
+          const content = fs.readFileSync(itemPath, 'utf8');
+          const { data: frontmatter } = matter(content);
+
+          if (frontmatter.plan) {
+            const docId = relativePath.replace(/\.(md|mdx)$/, '');
+            planData[docId] = {
+              plan: frontmatter.plan,
+              title: frontmatter.title,
+              path: itemPath
+            };
           }
         });
       }
-      
-      if (fs.existsSync(docsPath)) {
-        processDirectory(docsPath);
-      }
-      
+
       return { planData };
     },
     

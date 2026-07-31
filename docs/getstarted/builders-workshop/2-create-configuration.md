@@ -4,6 +4,8 @@ description: Create a composition function
 ---
 
 import GlobalLanguageSelector, { CodeBlock } from '@site/src/components/GlobalLanguageSelector';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 <GlobalLanguageSelector />
 
@@ -46,7 +48,7 @@ outputs.
 Generate the composition function scaffolding and choose your preferred
 language:
 
-<CodeBlock cloud="aws" language="kcl">
+<CodeBlock language="kcl">
 
 ```shell
 up function generate example-function apis/storagebuckets/composition.yaml --language=kcl
@@ -54,7 +56,7 @@ up function generate example-function apis/storagebuckets/composition.yaml --lan
 
 </CodeBlock>
 
-<CodeBlock cloud="aws" language="python">
+<CodeBlock language="python">
 
 ```shell
 up function generate example-function apis/storagebuckets/composition.yaml --language=python
@@ -62,40 +64,21 @@ up function generate example-function apis/storagebuckets/composition.yaml --lan
 
 </CodeBlock>
 
-
-<CodeBlock cloud="azure" language="kcl">
+<CodeBlock language="go">
 
 ```shell
-up function generate example-function apis/storagebuckets/composition.yaml --language=kcl
+up function generate example-function apis/storagebuckets/composition.yaml --language=go
 ```
 
 </CodeBlock>
 
-<CodeBlock cloud="azure" language="python">
+<CodeBlock language="go-templating">
 
 ```shell
-up function generate example-function apis/storagebuckets/composition.yaml --language=python
+up function generate example-function apis/storagebuckets/composition.yaml --language=go-templating
 ```
 
 </CodeBlock>
-
-
-<CodeBlock cloud="gcp" language="kcl">
-
-```shell
-up function generate example-function apis/storagebuckets/composition.yaml --language=kcl
-```
-
-</CodeBlock>
-
-<CodeBlock cloud="gcp" language="python">
-
-```shell
-up function generate example-function apis/storagebuckets/composition.yaml --language=python
-```
-
-</CodeBlock>
-
 
 This command creates a function directory and creates a new file based on your
 chosen language.
@@ -109,123 +92,7 @@ Next, create the actual program logic that builds your cloud resources.
 
 Paste the following into `main.k`:
 
-```yaml title="upbound-hello-world/functions/example-function/main.k"
-import models.io.upbound.awsm.s3.v1beta1 as awsms3v1beta1
-
-oxr = option("params").oxr      # observed composite resource
-params = oxr.spec.parameters    # extract parameter values from XR
-
-_metadata = lambda name: str -> any {
-    {
-        generateName = name         # due to global S3 naming restrictions we'll have 
-                                    # Crossplane generate a name to garauntee uniqueness
-        annotations = {
-            "krm.kcl.dev/composition-resource-name" = name
-        }
-    }
-}
-
-_items: [any] = [
-    # Create S3 Bucket
-    awsms3v1beta1.Bucket {
-        metadata: _metadata("{}-bucket".format(oxr.metadata.name))
-        spec = {
-            forProvider = {
-                region = params.region
-            }
-        }
-    },
-    
-    # Bucket BOC
-    awsms3v1beta1.BucketOwnershipControls {
-        metadata: _metadata("{}-boc".format(oxr.metadata.name))
-        spec = {
-            forProvider = {
-                bucketSelector: {
-                    matchControllerRef: True
-                }
-                region = params.region
-                rule = {
-                    objectOwnership = "BucketOwnerPreferred"
-                }
-            }
-        }
-    },
-    
-    # Bucket PAB
-    awsms3v1beta1.BucketPublicAccessBlock {
-        metadata: _metadata("{}-pab".format(oxr.metadata.name))
-        spec = {
-            forProvider = {
-                bucketSelector: {
-                    matchControllerRef: True
-                }
-                region = params.region
-                blockPublicAcls: False
-                ignorePublicAcls: False
-                restrictPublicBuckets: False
-                blockPublicPolicy: False
-            }
-        }
-    },
-    
-    # Bucket ACL
-    awsms3v1beta1.BucketACL {
-        metadata: _metadata("{}-acl".format(oxr.metadata.name))
-        spec = {
-            forProvider = {
-                bucketSelector: {
-                    matchControllerRef: True
-                }
-                region = params.region
-                acl = params.acl
-            }
-        }
-    },
-    
-    # Default encryption for the bucket
-    awsms3v1beta1.BucketServerSideEncryptionConfiguration {
-        metadata: _metadata("{}-encryption".format(oxr.metadata.name))
-        spec = {
-            forProvider = {
-                region = params.region
-                bucketSelector: {
-                    matchControllerRef: True
-                }
-                rule = [
-                    {
-                        applyServerSideEncryptionByDefault = {
-                            sseAlgorithm = "AES256"
-                        }
-                        bucketKeyEnabled = True
-                    }
-                ]
-            }
-        }
-    }
-]
-
-# Set up versioning for the bucket if desired
-if params.versioning:
-    _items += [
-        awsms3v1beta1.BucketVersioning{
-            metadata: _metadata("{}-versioning".format(oxr.metadata.name))
-            spec = {
-                forProvider = {
-                    region = params.region
-                    bucketSelector: {
-                        matchControllerRef: True
-                    }
-                    versioningConfiguration = {
-                        status = "Enabled"
-                    }
-                }
-            }
-        }
-    ]
-
-items = _items
-
+```yaml title="upbound-hello-world/functions/example-function/main.k" manifest="/manifests/getstarted/create-configuration/aws-main.k"
 ```
 
 </CodeBlock>
@@ -234,121 +101,7 @@ items = _items
 
 Paste the following into `main.py`:
 
-```python title="upbound-hello-world/functions/example-function/main.py"
-from crossplane.function import resource
-from crossplane.function.proto.v1 import run_function_pb2 as fnv1
-
-from .model.io.k8s.apimachinery.pkg.apis.meta import v1 as metav1
-from .model.com.example.platform.storagebucket import v1alpha1
-from .model.io.upbound.m.aws.s3.bucket import v1beta1 as mbucketv1beta1
-from .model.io.upbound.m.aws.s3.bucketacl import v1beta1 as maclv1beta1
-from .model.io.upbound.m.aws.s3.bucketownershipcontrols import v1beta1 as mbocv1beta1
-from .model.io.upbound.m.aws.s3.bucketpublicaccessblock import v1beta1 as mpabv1beta1
-from .model.io.upbound.m.aws.s3.bucketversioning import v1beta1 as mverv1beta1
-from .model.io.upbound.m.aws.s3.bucketserversideencryptionconfiguration import v1beta1 as mssev1beta1
-
-def resource_name(xr, resource):
-    return "{}-{}".format(xr.metadata.name, resource)
-
-def default_metadata(name):
-    return {
-        "generateName": name
-    }
-
-def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
-    params = observed_xr.spec.parameters
-
-    # Create S3 Bucket
-    desired_bucket = mbucketv1beta1.Bucket(
-        metadata = default_metadata(resource_name(observed_xr, "bucket")),
-        spec = mbucketv1beta1.Spec(
-            forProvider = mbucketv1beta1.ForProvider(
-                region = params.region,
-            ),
-        ),
-    )
-    resource.update(rsp.desired.resources["bucket"], desired_bucket)
-
-    # Bucket BOC
-    desired_boc = mbocv1beta1.BucketOwnershipControls(
-        metadata = default_metadata(resource_name(observed_xr, "boc")),
-        spec = mbocv1beta1.Spec(
-            forProvider = mbocv1beta1.ForProvider(
-                region = params.region,
-                bucketSelector = mbocv1beta1.BucketSelector(matchControllerRef = True),
-                rule = {
-                    "objectOwnership": "BucketOwnerPreferred"
-                }
-            )
-        ),
-    )
-    resource.update(rsp.desired.resources["boc"], desired_boc)
-
-    # Bucket PAB
-    desired_pab = mpabv1beta1.BucketPublicAccessBlock(
-        metadata = default_metadata(resource_name(observed_xr, "pab")),
-        spec=mpabv1beta1.Spec(
-            forProvider = mpabv1beta1.ForProvider(
-                region = params.region,
-                bucketSelector = mpabv1beta1.BucketSelector(matchControllerRef = True),
-                blockPublicAcls = False,
-                ignorePublicAcls = False,
-                restrictPublicBuckets = False,
-                blockPublicPolicy = False,
-            )
-        ),
-    )
-    resource.update(rsp.desired.resources["pab"], desired_pab)
-
-    # Bucket ACL
-    desired_acl = maclv1beta1.BucketACL(
-        metadata = default_metadata(resource_name(observed_xr, "acl")),
-        spec = maclv1beta1.Spec(
-            forProvider = maclv1beta1.ForProvider(
-                region = params.region,
-                bucketSelector = maclv1beta1.BucketSelector(matchControllerRef = True),
-                acl = params.acl,
-            ),
-        ),
-    )
-    resource.update(rsp.desired.resources["acl"], desired_acl)
-    
-    # Default encryption for the bucket
-    desired_sse = mssev1beta1.BucketServerSideEncryptionConfiguration(
-        metadata = default_metadata(resource_name(observed_xr, "encryption")),
-        spec = mssev1beta1.Spec(
-            forProvider = mssev1beta1.ForProvider(
-                region = params.region,
-                bucketSelector = mssev1beta1.BucketSelector(matchControllerRef = True),
-                rule = [
-                    mssev1beta1.RuleItem(
-                        applyServerSideEncryptionByDefault = {
-                            "sseAlgorithm": "AES256"
-                        },
-                        bucketKeyEnabled = True
-                    )
-                ]
-            ),
-        ),
-    )
-    resource.update(rsp.desired.resources["sse"], desired_sse)
-
-    # Set up versioning for the bucket if desired
-    if params.versioning:    
-        desired_versioning = mverv1beta1.BucketVersioning(
-            metadata = default_metadata(resource_name(observed_xr, "versioning")),
-            spec = mverv1beta1.Spec(
-                forProvider = mverv1beta1.ForProvider(
-                    region = params.region,
-                    bucketSelector = mverv1beta1.BucketSelector(matchControllerRef = True),
-                    versioningConfiguration = {
-                        "status": "Enabled"
-                    }
-                ),
-            ),
-        )
-        resource.update(rsp.desired.resources["versioning"], desired_versioning)
+```python title="upbound-hello-world/functions/example-function/main.py" manifest="/manifests/getstarted/create-configuration/aws-main.py"
 ```
 
 </CodeBlock>
@@ -358,84 +111,7 @@ def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
 
 Paste the following into `main.k`:
 
-```yaml title="upbound-hello-world/functions/example-function/main.k"
-
-import regex
-import models.io.upbound.azurem.v1beta1 as azuremv1beta1
-import models.io.upbound.azurem.storage.v1beta1 as azuremstoragev1beta1
-
-oxr = option("params").oxr      # observed composite resource
-params = oxr.spec.parameters    # extract parameter values from XR
-xr_metadata = oxr.metadata      # store XR metadata
-
-_metadata = lambda name: str -> any {
-    {
-        name = name
-        annotations = {
-            "krm.kcl.dev/composition-resource-name" = name
-        }
-    }
-}
-
-sanitize_azure_storage_account_name = lambda name: str -> str {
-    # Due to Azure's naming restrictions, storage account names must 
-    # be between 3-24 characters in length and use numbers and lower-case letters only
-
-    # lower string and remove illegal characters
-    sanitized = name.lower()
-    sanitized = regex.replace(sanitized, "[^a-z0-9]", "")
-    
-    # pad with 0s if string name less than 3 characters
-    if len(sanitized) < 3:
-        sanitized = "{:0<3}".format(sanitized)
-
-    # trim string to 24 characters
-    sanitized = sanitized[:24]
-}
-
-_items = [
-    azuremv1beta1.ResourceGroup {
-        metadata = _metadata("{}-group".format(xr_metadata.name))
-        spec = {
-            forProvider = {
-                location = params.location
-            }
-        }
-    },
-    azuremstoragev1beta1.Account {
-        metadata = _metadata(sanitize_azure_storage_account_name("{}account".format(xr_metadata.name)))
-        spec = {
-            forProvider = {
-                accountTier = "Standard"
-                accountReplicationType = "LRS"
-                location = params.location
-                blobProperties = {
-                    versioningEnabled = params.versioning
-                }
-                infrastructureEncryptionEnabled = True
-                resourceGroupNameSelector = {
-                    matchControllerRef = True
-                }
-            }
-        }
-    },
-    azuremstoragev1beta1.Container {
-        metadata: _metadata("{}-container".format(xr_metadata.name))
-        spec = {
-            forProvider = {
-                if params.acl == "public":
-                    containerAccessType = "blob"
-                else:
-                    containerAccessType = "private"
-                storageAccountNameSelector = {
-                    matchControllerRef = True
-                }
-            }
-        }
-    }
-]
-items = _items
-
+```yaml title="upbound-hello-world/functions/example-function/main.k" manifest="/manifests/getstarted/create-configuration/azure-main.k"
 ```
 
 </CodeBlock>
@@ -444,85 +120,7 @@ items = _items
 
 Paste the following into `main.py`:
 
-
-```python title="upbound-hello-world/functions/example-function/main.py"
-import re
-
-from crossplane.function import resource
-from crossplane.function.proto.v1 import run_function_pb2 as fnv1
-
-from .model.io.k8s.apimachinery.pkg.apis.meta import v1 as metav1
-from .model.io.upbound.m.azure.resourcegroup import v1beta1 as rgv1beta1
-from .model.io.upbound.m.azure.storage.account import v1beta1 as acctv1beta1
-from .model.io.upbound.m.azure.storage.container import v1beta1 as contv1beta1
-from .model.com.example.platform.storagebucket import v1alpha1
-
-def resource_name(xr, resource):
-    return "{}-{}".format(xr.metadata.name, resource)
-
-def default_metadata(name):
-    return {
-        "name": name
-    }
-
-def sanitize_azure_storage_account_name(account_name):
-    # Due to Azure's naming restrictions, storage account names must 
-    # be between 3-24 characters in length and use numbers and lower-case letters only
-
-    # Convert to lowercase and remove all non-alphanumeric characters
-    sanitized = re.sub(r'[^a-z0-9]', '', account_name.lower())
-    
-    # Ensure minimum length of 3
-    if len(sanitized) < 3:
-        sanitized = sanitized.ljust(3, '0')
-    
-    # Ensure maximum length of 24
-    if len(sanitized) > 24:
-        sanitized = sanitized[:24]
-    
-    return sanitized
-
-def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.StorageBucket(**resource.struct_to_dict(req.observed.composite.resource))
-    params = observed_xr.spec.parameters
-
-    desired_group = rgv1beta1.ResourceGroup(
-        metadata = default_metadata(resource_name(observed_xr, "group")),
-        spec = rgv1beta1.Spec(
-            forProvider = rgv1beta1.ForProvider(
-                location = params.location,
-            ),
-        ),
-    )
-    resource.update(rsp.desired.resources["group"], desired_group)
-
-    desired_acct = acctv1beta1.Account(
-        metadata = default_metadata(sanitize_azure_storage_account_name(resource_name(observed_xr, "account"))),
-        spec = acctv1beta1.Spec(
-            forProvider = acctv1beta1.ForProvider(
-                accountTier = "Standard",
-                accountReplicationType = "LRS",
-                location = params.location,
-                infrastructureEncryptionEnabled = True,
-                blobProperties = {
-                    "versioningEnabled": params.versioning
-                },
-                resourceGroupNameSelector = acctv1beta1.ResourceGroupNameSelector(matchControllerRef = True)
-            ),
-        ),
-    )
-    resource.update(rsp.desired.resources["account"], desired_acct)
-
-    desired_cont = contv1beta1.Container(
-        metadata = default_metadata(resource_name(observed_xr, "container")),
-        spec = contv1beta1.Spec(
-            forProvider = contv1beta1.ForProvider(
-                containerAccessType = "blob" if params.acl == "public" else "private",
-                storageAccountNameSelector = contv1beta1.StorageAccountNameSelector(matchControllerRef = True)
-            ),
-        ),
-    )
-    resource.update(rsp.desired.resources["container"], desired_cont)
+```python title="upbound-hello-world/functions/example-function/main.py" manifest="/manifests/getstarted/create-configuration/azure-main.py"
 ```
 
 </CodeBlock>
@@ -532,52 +130,7 @@ def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
 
 Paste the following into `main.k`:
 
-```yaml title="upbound-hello-world/functions/example-function/main.k"
-
-import models.io.upbound.gcpm.storage.v1beta1 as gcpmstoragev1beta1
-
-oxr = option("params").oxr      # observed composite resource
-params = oxr.spec.parameters    # extract parameter values from XR 
-
-_metadata = lambda name: str -> any {
-    {
-        name = name
-        annotations = {
-            "krm.kcl.dev/composition-resource-name" = name
-        }
-    }
-}
-
-_items: [any] = [
-    # Create GCP Bucket
-    gcpmstoragev1beta1.Bucket {
-        metadata: _metadata("{}-bucket".format(oxr.metadata.name))
-        spec = {
-            forProvider = {
-                location = params.location
-                versioning = {
-                    enabled = params.versioning
-                }
-            }
-        }
-    },
-
-    # Bucket ACL
-    gcpmstoragev1beta1.BucketACL {
-        metadata: _metadata("{}-acl".format(oxr.metadata.name))
-        spec = {
-            forProvider = {
-                predefinedAcl = params.acl
-                bucketSelector = {
-                    matchControllerRef = True
-                }
-            }
-        }
-    }
-]
-
-items = _items
-
+```yaml title="upbound-hello-world/functions/example-function/main.k" manifest="/manifests/getstarted/create-configuration/gcp-main.k"
 ```
 
 </CodeBlock>
@@ -586,57 +139,60 @@ items = _items
 
 Paste the following into `main.py`:
 
-```python title="upbound-hello-world/functions/example-function/main.py"
-
-from crossplane.function import resource
-from crossplane.function.proto.v1 import run_function_pb2 as fnv1
-
-from .model.io.upbound.m.gcp.storage.bucket import v1beta1 as mbucketv1beta1
-from .model.io.upbound.m.gcp.storage.bucketacl import v1beta1 as maclv1beta1
-from .model.com.example.platform.storagebucket import v1alpha1
-
-def resource_name(xr, resource):
-    return "{}-{}".format(xr.metadata.name, resource)
-
-def default_metadata(name):
-    return {
-        "name": name
-    }
-
-def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
-    params = observed_xr.spec.parameters
-
-    # Create GCP Bucket
-    desired_bucket = mbucketv1beta1.Bucket(
-        metadata = default_metadata(resource_name(observed_xr, "bucket")),
-        spec = mbucketv1beta1.Spec(
-            forProvider = mbucketv1beta1.ForProvider(
-                location = params.location,
-                versioning = {
-                    "enabled": params.versioning
-                }
-            ),
-        ),
-    )
-    resource.update(rsp.desired.resources["bucket"], desired_bucket)
-
-    # Bucket ACL
-    desired_acl = maclv1beta1.BucketACL(
-        metadata = default_metadata(resource_name(observed_xr, "acl")),
-        spec = maclv1beta1.Spec(
-            forProvider = maclv1beta1.ForProvider(
-                predefinedAcl=params.acl,
-                bucketSelector = maclv1beta1.BucketSelector(matchControllerRef = True)
-            ),
-        ),
-    )
-    resource.update(rsp.desired.resources["acl"], desired_acl)
-
+```python title="upbound-hello-world/functions/example-function/main.py" manifest="/manifests/getstarted/create-configuration/gcp-main.py"
 ```
 
 </CodeBlock>
 
+<CodeBlock cloud="aws" language="go">
+
+This example targets AWS. Paste the following into `fn.go`:
+
+```go title="upbound-hello-world/functions/example-function/fn.go" manifest="/manifests/getstarted/create-configuration/aws-fn.go"
+```
+
+For the full Go composition function guide, including working with generated
+models, see [Create a composition with Go][go-compositions].
+
+</CodeBlock>
+
+<CodeBlock cloud="aws" language="go-templating">
+
+This example targets AWS and covers the bucket, ACL, and versioning resources.
+Paste each file below into your function's directory, matching the filenames:
+
+<Tabs>
+<TabItem value="00-prelude" label="00-prelude.yaml.gotmpl">
+
+```yaml manifest="/manifests/getstarted/create-configuration/aws-00-prelude.yaml.gotmpl"
+```
+
+</TabItem>
+<TabItem value="01-bucket" label="01-bucket.yaml.gotmpl">
+
+```yaml manifest="/manifests/getstarted/create-configuration/aws-01-bucket.yaml.gotmpl"
+```
+
+</TabItem>
+<TabItem value="02-acl" label="02-acl.yaml.gotmpl">
+
+```yaml manifest="/manifests/getstarted/create-configuration/aws-02-acl.yaml.gotmpl"
+```
+
+</TabItem>
+<TabItem value="03-versioning" label="03-versioning.yaml.gotmpl">
+
+```yaml manifest="/manifests/getstarted/create-configuration/aws-03-versioning.yaml.gotmpl"
+```
+
+</TabItem>
+</Tabs>
+
+For the full Go templating guide, including the bucket ownership, public
+access block, and encryption resources this example skips, see [Create a
+composition with Go Templates][go-template-compositions].
+
+</CodeBlock>
 
 Save your composition file.
 
@@ -1522,3 +1078,5 @@ the built-in test suite.
 [up-cli]: /manuals/cli/overview
 [kubectl-installed]: https://kubernetes.io/docs/tasks/tools/
 [docker-desktop]: https://www.docker.com/products/docker-desktop/
+[go-compositions]: /manuals/cli/howtos/compositions/go
+[go-template-compositions]: /manuals/cli/howtos/compositions/go-template

@@ -120,9 +120,18 @@ Add the model to your function:
 
 ```python
 from crossplane.function.proto.v1 import run_function_pb2 as fnv1
-from .model.com.example.platform.xstoragebucket import v1alpha1
+from .model.com.example.platform.storagebucket import v1alpha1
 from .model.io.upbound.aws.s3.bucket import v1beta1 as bucketv1beta1
 ```
+
+:::tip
+The generated model module and class name match your XRD's `kind` exactly. The
+examples on this page assume a `v2` XRD (`apiextensions.crossplane.io/v2`) with
+`kind: StorageBucket`. If your XRD uses the legacy `v1` API
+(`apiextensions.crossplane.io/v1`), your XRD's `kind` uses an `X` prefix, for
+example `kind: XStorageBucket`, so import from `.model...xstoragebucket` and
+use `v1alpha1.XStorageBucket` instead.
+:::
 
 The imports in this example are specifically for AWS S3 buckets. They follow a
 similar structure for all resources:
@@ -153,7 +162,7 @@ using the resource's status model directly.
 from crossplane.function import resource
 from crossplane.function.proto.v1 import run_function_pb2 as fnv1
 
-from .model.com.example.platform.xstoragebucket import v1alpha1
+from .model.com.example.platform.storagebucket import v1alpha1
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
@@ -185,11 +194,11 @@ from crossplane.function import resource
 from crossplane.function.proto.v1 import run_function_pb2 as fnv1
 
 from .model.io.upbound.aws.s3.bucket import v1beta1 as bucketv1beta1
-from .model.org.example.xstoragebucket import v1alpha1
+from .model.org.example.storagebucket import v1alpha1
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.XStorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
 
     desired_bucket = bucketv1beta1.Bucket(
         spec=bucketv1beta1.Spec(
@@ -211,11 +220,11 @@ from crossplane.function import resource
 from crossplane.function.proto.v1 import run_function_pb2 as fnv1
 
 from .model.io.upbound.aws.s3.bucket import v1beta1 as bucketv1beta1
-from .model.org.example.xstoragebucket import v1alpha1
+from .model.org.example.storagebucket import v1alpha1
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.XStorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
 
     region = "us-west-2"
     if observed_xr.spec.region is not None:
@@ -239,11 +248,11 @@ from crossplane.function.proto.v1 import run_function_pb2 as fnv1
 
 from .model.io.k8s.apimachinery.pkg.apis.meta import v1 as metav1
 from .model.io.upbound.aws.s3.bucket import v1beta1 as bucketv1beta1
-from .model.org.example.xstoragebucket import v1alpha1
+from .model.org.example.storagebucket import v1alpha1
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.XStorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
 
     desired_bucket = bucketv1beta1.Bucket(
         from .model.io.k8s.apimachinery.pkg.apis.meta import v1 as metav1
@@ -268,13 +277,13 @@ Next, add the function logic. The example below creates an S3 bucket:
 from crossplane.function import resource
 from crossplane.function.proto.v1 import run_function_pb2 as fnv1
 
-from .model.com.example.platform.xstoragebucket import v1alpha1
+from .model.com.example.platform.storagebucket import v1alpha1
 from .model.io.upbound.aws.s3.bucket import v1beta1 as bucketv1beta1
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
     # Load the observed XR into a Pydantic model.
-    observed_xr = v1alpha1.XStorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
 
     # Create the cloud resource specification
     desired_bucket = bucketv1beta1.Bucket(
@@ -297,7 +306,7 @@ In the `RunFunctionRequest`, there are four _inputs_ that Crossplane can parse:
 
     ```python
     # The API request
-    observed_xr = v1alpha1.XStorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
     ```
 
 2. **Desired state**: What resources should exist?
@@ -350,7 +359,7 @@ from crossplane.function import resource
 from crossplane.function.proto.v1 import run_function_pb2 as fnv1
 
 from .model.io.k8s.apimachinery.pkg.apis.meta import v1 as metav1
-from .model.com.example.platform.xstoragebucket import v1alpha1
+from .model.com.example.platform.storagebucket import v1alpha1
 from .model.io.upbound.aws.s3.bucket import v1beta1 as bucketv1beta1
 from .model.io.upbound.aws.s3.bucketacl import v1beta1 as aclv1beta1
 from .model.io.upbound.aws.s3.bucketownershipcontrols import v1beta1 as bocv1beta1
@@ -362,7 +371,7 @@ from .model.io.upbound.aws.s3.bucketserversideencryptionconfiguration import (
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.XStorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
     params = observed_xr.spec.parameters
 
     desired_bucket = bucketv1beta1.Bucket(
@@ -517,7 +526,7 @@ the response:
 from crossplane.function import resource
 from crossplane.function.proto.v1 import run_function_pb2 as fnv1
 
-from .model.com.example.platform.xmytype import v1alpha1
+from .model.com.example.platform.mytype import v1alpha1
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):

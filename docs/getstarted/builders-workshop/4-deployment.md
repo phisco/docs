@@ -244,11 +244,31 @@ kubectl apply --filename examples/storagebucket/example.yaml
 Return the resource state with the up CLI.
 
 ```shell
-kubectl get storagebuckets.platform.example.com -o yaml
+kubectl get f examples/storagebucket/example.yaml -o yaml
+```
+
+<!--- TODO(tr0njavolta): CORRECT RETURN VALUES--->
+```shell-noCopy
+NAME     SYNCED   READY   COMPOSITION   AGE
+webapp   True     True    app-yaml      56s
+```
+
+
+<!--- TODO(tr0njavolta): CORRECT RESOURES IN COMMAND AND RETURN VALUES--->
+
+```shell {copy-lines="1"}
+
+kubectl get deploy,service -l crossplane.io/composite=webapp
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/webapp-2r2rk   2/2     2            2           11m
+
+NAME                   TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+service/webapp-xfkzg   ClusterIP   10.96.148.56   <none>        8080/TCP   11m
 ```
 
 Now, you can validate your results through the Upbound Console, and make any
 changes to test your resources required.
+
 
 
 ## Clean up
@@ -270,8 +290,8 @@ up project stop
 You just created an Upbound project from scratch with an embedded function and a
 resource claim.
 
-Next, try out an Intelligent Control Plane solution or build your own Internal
-Developer Platform.
+Continue the workshop with [Build and push your first
+Configuration][build-and-push] to package and share your control plane.
 
 For more information on projects and how to build control planes, checkout the [CLI
 Build][build] manuals.
@@ -284,3 +304,4 @@ Build][build] manuals.
 [kubectl-installed]: https://kubernetes.io/docs/tasks/tools/
 [docker-desktop]: https://www.docker.com/products/docker-desktop/
 [build]: /manuals/cli/howtos/project
+[build-and-push]: /getstarted/builders-workshop/build-and-push

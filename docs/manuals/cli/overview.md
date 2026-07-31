@@ -38,7 +38,7 @@ For example, to install version {versions.cli} use the following command:
 {`curl -sL "https://cli.upbound.io" | VERSION=v${versions.cli} sh`}
 </CodeBlock>
 
-Find the full list of versions in the <a href="https://cli.upbound.io/stable?prefix=stable/">Up command-line repository</a>.
+Find the full list of versions in the <a href="https://cli.upbound.io/?prefix=stable/">Up command-line repository</a>.
 :::
 
 </TabItem>

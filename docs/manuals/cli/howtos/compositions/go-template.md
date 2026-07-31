@@ -300,10 +300,17 @@ To update the composite resource's status, have your templates output a resource
 
 ---
 apiVersion: devexdemo.upbound.io/v1alpha1
-kind: XBucket
+kind: Bucket
 status:
   someInformation: cool-status
 ```
+
+:::tip
+The `kind` here must match your XRD's `kind` exactly. This example assumes a
+`v2` XRD (`apiextensions.crossplane.io/v2`) with `kind: Bucket`. If your XRD
+uses the legacy `v1` API (`apiextensions.crossplane.io/v1`), your XRD's `kind`
+uses an `X` prefix, for example `kind: XBucket`, so use that `kind` instead.
+:::
 
 To set conditions on the claim and composite, you can add a `ClaimConditions` resource to your templates:
 

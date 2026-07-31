@@ -52,7 +52,7 @@ Upbound runs UXP for you in our control planes-as-a-service Spaces hosting envir
 Read the [Get Started][get-started] guide to learn how to use UXP to build your own control plane.
 
 [crossplane]: https://docs.crossplane.io
-[control-plane]: /getstarted/#what-is-upbound
+[control-plane]: /#what-is-upbound
 [self-managed-uxp]: /manuals/uxp/howtos/uxp-deployment
 [licensing]: /manuals/uxp/howtos/license-management
 [intelligent-control-planes]: /manuals/uxp/concepts/intelligent-control-planes
@@ -60,7 +60,7 @@ Read the [Get Started][get-started] guide to learn how to use UXP to build your 
 [concepts]: /manuals/uxp/concepts/composition/overview
 [features]: /manuals/uxp/concepts/intelligent-control-planes
 [guides]: /manuals/uxp/howtos/uxp-deployment
-[get-started]: /getstarted
+[get-started]: /
 [backup-restore]: /manuals/uxp/howtos/backup-and-restore
 [function-scale-to-zero]: /manuals/uxp/howtos/function-scale-to-zero
 [official-package-support]: /manuals/uxp/official-package-support

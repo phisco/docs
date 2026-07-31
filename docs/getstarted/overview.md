@@ -1,9 +1,14 @@
 ---
-title: Get Upbound
+title: Welcome
 sidebar_position: 1
-slug: "/getstarted"
+slug: "/"
+pagination_prev: null
+pagination_next: null
 ---
-import { GetStarted } from '@site/src/components/GetStartedCallout';
+import CardGrid from '@site/src/components/CardGrid';
+import GetUpboundHero from '@site/src/components/GetUpboundHero';
+
+<GetUpboundHero />
 
 <!-- vale gitlab.SentenceLength = NO -->
 Welcome to Upbound, the enterprise platform for Crossplane that helps you build
@@ -21,55 +26,31 @@ reliability, performance, and developer experience.
 
 <!-- vale Microsoft.HeadingPunctuation = NO -->
 
-## Install Upbound Crossplane
+## Download the CLI
 <!-- vale Google.WordList = NO -->
-Install Upbound Crossplane (UXP) into a fresh Kubernetes cluster with Helm or
-the `up` CLI.
-
-:::important
-Already running open source Crossplane? Don't run the commands below — follow
-the [Upgrade Guide][upgrade] instead.
-:::
-
-<Tabs>
-
-<TabItem value="Helm Install">
-
-```shell
-helm repo add upbound-stable https://charts.upbound.io/stable && helm repo update
-helm install crossplane --namespace crossplane-system --create-namespace upbound-stable/crossplane --devel
-```
-
-</TabItem>
-
-
-<TabItem value="Up CLI">
-
-Download the `up` CLI and install UXP into the cluster pointed to by your
-current kubeconfig context.
-
-**Download the CLI:**
+Install the [up][up] CLI to get Upbound's tooling on your machine.
 
 ```shell
 curl -sL "https://cli.upbound.io" | sh
 ```
 
-**Install Upbound Crossplane:**
-
-```shell
-up uxp install
-```
-
-</TabItem>
-
-</Tabs>
-
+Find more installation methods on the [Up CLI installation guide][up].
 <!-- vale Google.WordList = YES -->
 
+## Choose your path
 
-## New to Crossplane and Upbound?
-
-<GetStarted />
+<CardGrid sections={[
+  {
+    title: 'New to Upbound?',
+    description: 'Follow the introduction guide to build your first control plane from scratch.',
+    link: '/getstarted/quickstart/install-the-hub'
+  },
+  {
+    title: 'Upgrade existing Crossplane to UXP',
+    description: 'Follow the upgrade guide to migrate your existing Crossplane install to Upbound Crossplane.',
+    link: '/manuals/uxp/upgrade-from-crossplane'
+  }
+]} />
 
 <!-- vale Microsoft.Contractions = NO -->
 ## What is Upbound?
@@ -93,17 +74,5 @@ define in your custom APIs. You define your resources and Upbound parses,
 connects with the service, and manages the lifecycle on your behalf.
 
 
-## Next steps
-
-<!-- vale Google.We = YES -->
-* Follow the [introduction][intro] guide to get started building your own control plane.
-* For OSS Crossplane users, follow the [Upgrade][upgrade] guide.
-
-
 <!-- vale gitlab.SentenceLength = YES -->
-[upgrade]: /getstarted/upgrade-to-upbound/upgrade-to-uxp
-[guides]: /guides
-[register]: https://www.upbound.io/register/?utm_source=docs&utm_medium=cta&utm_campaign=docs_get_started 
 [up]: /manuals/cli/overview
-[pricing]: https://upbound.io/pricing
-[intro]: /getstarted/introduction/project

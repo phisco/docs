@@ -90,7 +90,7 @@ You can write tests in KCL, Python, or Go.
 For example, to generate a composition test:
 
 
-<Tabs>
+<Tabs groupId="language">
 <TabItem value="Go" label="Go">
 ```shell {copy-lines="all"}
 up test generate my-test --language=go
@@ -123,7 +123,7 @@ exercise the Crossplane composition controller, which handles reconciliation and
 external resource management.
 
 
-<Tabs>
+<Tabs groupId="language">
 <TabItem value="Go" label="Go">
 
 ```go
@@ -286,7 +286,7 @@ You can write tests in KCL, Python, or Go.
 
 For example, to generate an end-to-end test:
 
-<Tabs>
+<Tabs groupId="language">
 <TabItem value="Go" label="Go">
 ```shell {copy-lines="all"}
 up test generate my-e2e-test --e2e --language=go
@@ -314,7 +314,7 @@ up test generate my-e2e-test --e2e --language=kcl
 End-to-end tests use the `E2ETest` API, written in KCL, Python, or Go.
 
 <!-- vale gitlab.SentenceSpacing = YES -->
-<Tabs>
+<Tabs groupId="language">
 
 <TabItem value="Go" label="Go">
 

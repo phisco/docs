@@ -76,25 +76,32 @@ export default function CategoryWrapper(props) {
   if (item.customProps?.plan) {
     categoryPlan = item.customProps.plan;
   }
-  
-  // Only modify if there's a plan to show
-  if (categoryPlan) {
+
+  // A free-form status badge (e.g. "Preview") set via customProps.badge
+  const badge = item.customProps?.badge;
+
+  // Only modify if there's a plan or a badge to show
+  if (categoryPlan || badge) {
     const modifiedItem = {
       ...item,
       label: (
-        <span style={{ 
-          display: 'inline-flex', 
-          alignItems: 'center', 
+        <span style={{
+          display: 'inline-flex',
+          alignItems: 'center',
           width: '100%',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          gap: '0.5rem'
         }}>
-          <span>{item.label}</span>
-          <PlanBadge plan={categoryPlan} />
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem' }}>
+            <span>{item.label}</span>
+            {badge && <span className={styles.statusBadge}>{badge}</span>}
+          </span>
+          {categoryPlan && <PlanBadge plan={categoryPlan} />}
         </span>
       )
     };
     return <Category {...props} item={modifiedItem} />;
   }
-  
+
   return <Category {...props} />;
 }

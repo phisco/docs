@@ -51,17 +51,17 @@ up project init --template="project-template-gcp-storage" --language="python" my
 ## Understand the project
 
 <!-- vale write-good.Passive = NO -->
-The project defines a resource type called `XStorageBucket`, which implements an
+The project defines a resource type called `StorageBucket`, which implements an
 opinionated storage bucket abstraction. The type is defined as a Crossplane
 Composite Resource Definition (XRD) in the file
-`apis/xstoragebuckets/definition.yaml`.
+`apis/storagebuckets/definition.yaml`.
 
 <!-- vale gitlab.FutureTense = NO -->
 <!-- vale Google.Will = NO -->
 <!-- vale gitlab.SentenceLength = NO -->
-A Crossplane Composition defines the function pipeline that will run whenever an
-`XStorageBucket` is created or updated. The Composition for the `XStorageBucket`
-type is in `apis/xstoragebuckets/composition.yaml` and contains two functions: a
+A Crossplane Composition defines the function pipeline that will run whenever a
+`StorageBucket` is created or updated. The Composition for the `StorageBucket`
+type is in `apis/storagebuckets/composition.yaml` and contains two functions: a
 project-specific one that creates resources, and a generic one that detects when
 the created resources become ready. The function that creates resources is
 implemented in the file `functions/compose-bucket/main.py`.
@@ -332,7 +332,7 @@ The `examples/` directory in the project contains example resource manifests
 that you can deploy to test your project. Deploy an example:
 
 ```shell
-kubectl apply -f examples/xstoragebuckets/example.yaml
+kubectl apply -f examples/storagebucket/example.yaml
 ```
 
 Navigate to the "Composite Resources" tab in the Web UI and click "Relationship
@@ -340,18 +340,18 @@ View" to explore the cloud resources Crossplane creates.
 
 ## Update the custom resource type
 
-You can add more fields to the `XStorageBucket` type to customize its
+You can add more fields to the `StorageBucket` type to customize its
 behavior. For example, you may want create a README file in every bucket with
 user-specified contents.
 
-Open the example resource `examples/xstoragebuckets/example.yaml` in your IDE of
+Open the example resource `examples/storagebucket/example.yaml` in your IDE of
 choice and add a new field:
 
 <Tabs groupId="cloud-provider">
 <TabItem value="aws" label="AWS">
-```yaml title="examples/xstoragebuckets/example.yaml"
+```yaml title="examples/storagebucket/example.yaml"
 apiVersion: platform.example.com/v1alpha1
-kind: XStorageBucket
+kind: StorageBucket
 metadata:
   name: example
 spec:
@@ -363,9 +363,9 @@ spec:
 ```
 </TabItem>
 <TabItem value="azure" label="Azure">
-```yaml title="examples/xstoragebuckets/example.yaml"
+```yaml title="examples/storagebucket/example.yaml"
 apiVersion: platform.example.com/v1alpha1
-kind: XStorageBucket
+kind: StorageBucket
 metadata:
   name: example
 spec:
@@ -377,9 +377,9 @@ spec:
 ```
 </TabItem>
 <TabItem value="gcp" label="GCP">
-```yaml title="examples/xstoragebuckets/example.yaml"
+```yaml title="examples/storagebucket/example.yaml"
 apiVersion: platform.example.com/v1alpha1
-kind: XStorageBucket
+kind: StorageBucket
 metadata:
   name: example
 spec:
@@ -398,17 +398,17 @@ prompted, confirm the overwrite:
 <Tabs groupId="cloud-provider">
 <TabItem value="aws" label="AWS">
 ```shell
-up xrd generate examples/xstoragebuckets/example.yaml --path xstoragebucket/definition.yaml
+up xrd generate examples/storagebucket/example.yaml --path apis/storagebuckets/definition.yaml
 ```
 </TabItem>
 <TabItem value="azure" label="Azure">
 ```shell
-up xrd generate examples/xstoragebuckets/example.yaml
+up xrd generate examples/storagebucket/example.yaml
 ```
 </TabItem>
 <TabItem value="gcp" label="GCP">
 ```shell
-up xrd generate examples/xstoragebuckets/example.yaml
+up xrd generate examples/storagebucket/example.yaml
 ```
 </TabItem>
 </Tabs>
@@ -424,7 +424,7 @@ from crossplane.function import resource
 from crossplane.function.proto.v1 import run_function_pb2 as fnv1
 
 from .model.io.k8s.apimachinery.pkg.apis.meta import v1 as metav1
-from .model.com.example.platform.xstoragebucket import v1alpha1
+from .model.com.example.platform.storagebucket import v1alpha1
 from .model.io.upbound.aws.s3.bucket import v1beta1 as bucketv1beta1
 from .model.io.upbound.aws.s3.bucketacl import v1beta1 as aclv1beta1
 from .model.io.upbound.aws.s3.bucketownershipcontrols import v1beta1 as bocv1beta1
@@ -437,7 +437,7 @@ from .model.io.upbound.aws.s3.bucketserversideencryptionconfiguration import (
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.XStorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
     params = observed_xr.spec.parameters
 
     desired_bucket = bucketv1beta1.Bucket(
@@ -573,11 +573,11 @@ from .model.io.upbound.azure.resourcegroup import v1beta1 as rgv1beta1
 from .model.io.upbound.azure.storage.account import v1beta1 as acctv1beta1
 from .model.io.upbound.azure.storage.container import v1beta1 as contv1beta1
 from .model.io.upbound.azure.storage.blob import v1beta1 as blobv1beta1
-from .model.com.example.platform.xstoragebucket import v1alpha1
+from .model.com.example.platform.storagebucket import v1alpha1
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.XStorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
     params = observed_xr.spec.parameters
 
     # Create the resource group
@@ -671,11 +671,11 @@ from crossplane.function.proto.v1 import run_function_pb2 as fnv1
 from .model.io.upbound.gcp.storage.bucket import v1beta1 as bucketv1beta1
 from .model.io.upbound.gcp.storage.bucketacl import v1beta1 as aclv1beta1
 from .model.io.upbound.gcp.storage.bucketobject import v1beta1 as objv1beta1
-from .model.com.example.platform.xstoragebucket import v1alpha1
+from .model.com.example.platform.storagebucket import v1alpha1
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.XStorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
     params = observed_xr.spec.parameters
 
     desired_bucket = bucketv1beta1.Bucket(
@@ -746,7 +746,7 @@ up project run --local
 If you haven't already deployed an example resource, do so now:
 
 ```shell
-kubectl apply -f examples/xstoragebuckets/example.yaml
+kubectl apply -f examples/storagebucket/example.yaml
 ```
 
 Use the Web UI to observe that Crossplane created the additional readme
@@ -758,10 +758,10 @@ kubectl get managed
 
 ## Clean up
 
-To avoid leaving cloud resources behind, delete your `XStorageBucket`:
+To avoid leaving cloud resources behind, delete your `StorageBucket`:
 
 ```shell
-kubectl delete -f examples/xstoragebuckets/example.yaml
+kubectl delete -f examples/storagebucket/example.yaml
 ```
 
 <!-- vale write-good.Passive = NO -->
@@ -775,7 +775,7 @@ up project stop
 
 ## Do more with your control plane
 
-The example above creates storage bucket resources whenever an `XStorageBucket`
+The example above creates storage bucket resources whenever a `StorageBucket`
 gets created. But what if you don't want to create buckets? The Upbound
 Marketplace is the hub for finding additional packages to extend your control
 plane, such as Providers, or pre-built Functions.

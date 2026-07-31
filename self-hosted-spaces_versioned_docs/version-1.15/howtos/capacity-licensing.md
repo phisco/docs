@@ -584,7 +584,7 @@ If your license shows as invalid:
 [CloudNativePG]: https://cloudnative-pg.io/
 [backups]: https://cloudnative-pg.io/documentation/current/backup_recovery/
 [backup-restore]: /self-hosted-spaces/howtos/backup-and-restore
-[sales]: https://www.upbound.io/contact
+[sales]: https://www.upbound.io/contact-us
 [eso]: https://external-secrets.io/
 [Observability]: /self-hosted-spaces/howtos/observability
 <!-- vale write-good.Weasel = YES -->

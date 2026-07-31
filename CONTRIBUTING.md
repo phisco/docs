@@ -57,6 +57,24 @@ make build
 
 All PRs require maintainer approval to merge, regardless of Vale status.
 
+## Updating CRDs
+
+CRD reference pages (`docs/reference/apis/*`) render live from raw CRD YAML
+files committed under `static/crds/<product>/`. There's no generation step —
+Docusaurus serves `static/` files as-is, and the `CrdDocViewer` component
+fetches the YAML client-side by URL:
+
+```mdx
+<CrdDocViewer crdUrl="/crds/testing/meta.dev.upbound.io_compositiontests.yaml" />
+```
+
+To add or update a CRD:
+
+1. Copy the CRD's YAML file from its source repo (UXP, Crossplane, Spaces,
+   etc.) into the matching `static/crds/<product>/` directory.
+2. Reference it from the relevant page with `<CrdDocViewer crdUrl="/crds/..." />`.
+3. Commit the YAML file alongside your doc changes in the same PR.
+
 ## VSCode Setup (Recommended)
 
 For the best documentation editing experience, install these extensions:

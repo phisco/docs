@@ -1,0 +1,17 @@
+# code: language=yaml
+# yaml-language-server: $schema=../../.up/json/models/index.schema.json
+
+# Don't create the ACL until the bucket name is available.
+#{{ if $bucket_external_name }}
+---
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: BucketACL
+metadata:
+  annotations:
+    {{ setResourceNameAnnotation "acl" }}
+spec:
+  forProvider:
+    region: "{{ $params.region }}"
+    bucket: "{{ $bucket_external_name }}"
+    acl: "{{ $params.acl }}"
+#{{ end }}
