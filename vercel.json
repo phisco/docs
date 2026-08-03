@@ -1459,6 +1459,56 @@
             "source": "/manuals/spaces/howtos/cloud-spaces/private-network-agent(/)?",
             "destination": "/cloud-spaces/howtos/private-network-agent",
             "permanent": true
+        },
+        {
+            "source": "/getstarted/introduction/build-and-push(/)?",
+            "destination": "/getstarted/builders-workshop/5-build-and-push",
+            "permanent": true
+        },
+        {
+            "source": "/getstarted/introduction/integrate-ai(/)?",
+            "destination": "/getstarted/builders-workshop/6-integrate-ai",
+            "permanent": true
+        },
+        {
+            "source": "/getstarted/introduction/project(/)?",
+            "destination": "/getstarted/builders-workshop/1-project-foundations",
+            "permanent": true
+        },
+        {
+            "source": "/getstarted/introduction/whats-next(/)?",
+            "destination": "/",
+            "permanent": true
+        },
+        {
+            "source": "/getstarted/platform-tutorial(/)?",
+            "destination": "/guides/platform-tutorial",
+            "permanent": true
+        },
+        {
+            "source": "/getstarted/upgrade-to-upbound/migrate-configurations-v2(/)?",
+            "destination": "/manuals/uxp/howtos/migrate-configurations-v2",
+            "permanent": true
+        },
+        {
+            "source": "/getstarted/upgrade-to-upbound/upgrade-to-mcps(/)?",
+            "destination": "/cloud-spaces/upgrade-to-mcps",
+            "permanent": true
+        },
+        {
+            "source": "/getstarted/upgrade-to-upbound/upgrade-to-projects(/)?",
+            "destination": "/manuals/uxp/upgrade-to-projects",
+            "permanent": true
+        },
+        {
+            "source": "/getstarted(/)?",
+            "destination": "/",
+            "permanent": true
+        },        
+        {
+            "source": "/getstarted/upgrade-to-upbound/upgrade-to-uxp(/)?",
+            "destination": "/manuals/uxp/howtos/upgrade-to-uxp",
+            "permanent": true
         }
     ]
 }

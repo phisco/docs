@@ -77,7 +77,7 @@ plane the connector speaks for.
 
 1. Open the [control planes page](https://hub.127.0.0.1.nip.io:8443/infrastructure/control-planes)
    and sign in as `admin` / `admin`.
-2. Create a ControlPlane in the `default` realm and name it `extra`.
+2. Register a ControlPlane in the `default` realm and name it `extra`.
 3. Copy the registration token. The hub displays it once.
 
 ![The Register a Control Plane dialog with realm and name fields](/img/quickstart/register-control-plane.png)
@@ -132,7 +132,7 @@ Select `extra` to see its resource counts and details:
 
 <CardGrid sections={[
   {
-    title: 'Create a managed resource',
+    title: 'Create a composite resource',
     description: 'Install UXP and a configuration. Then watch a resource reach the hub.',
     link: '/getstarted/quickstart/create-resources'
   }

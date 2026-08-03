@@ -5,7 +5,7 @@ const sections = [
   {
     title: 'Intelligent Control Planes',
     description: 'Advanced control plane patterns with dynamic resource composition, log analysis, and database scaling.',
-    link: '/guides/intelligent-control-planes/intelligent-control-planes/'
+    link: '/guides/intelligent-control-planes/'
   },
   {
     title: 'Solutions',

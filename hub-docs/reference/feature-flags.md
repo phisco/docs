@@ -91,7 +91,8 @@ in the `hub-connector` chart. See [Metrics](../products/insights/metrics/overvie
 ### Registry
 
 The `Registry` gate supplies the credentials Catalog uses to pull from private
-or self-hosted registries. See [Registry](../products/insights/registry/overview.md).
+or self-hosted registries. See
+[Registry].
 
 ## Enabling a feature gate
 
@@ -140,6 +141,6 @@ For teams that manage flag definitions themselves:
   `/ofrep`.
 
 <!-- vale write-good.Passive = YES -->
-
+[registry]: /hub/products/insights/catalog/external-registry/
 [feature-releases]: /hub/reference/feature-releases
 [ofrep]: https://openfeature.dev/specification/appendix-c/

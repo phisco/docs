@@ -143,6 +143,13 @@ planes, resources, and definitions the hub sees:
 
 ![The hub dashboard showing control plane, resource, and definition counts](/img/quickstart/dashboard.png)
 
+The [resources page](https://hub.127.0.0.1.nip.io:8443/explore/resources) lists
+every resource the hub sees, starting with the components the chart installed.
+Filter or search by name to see one of them, like Keycloak, as the Deployment,
+Pod, Service, and ConfigMap behind it:
+
+![The resources page filtered to resources whose name contains keycloak](/img/quickstart/resources.png)
+
 The [definitions page](https://hub.127.0.0.1.nip.io:8443/explore/definitions)
 lists every API kind across the connected control planes. See
 [Definitions][definitions] for what Insights correlates there:
