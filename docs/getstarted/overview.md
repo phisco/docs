@@ -48,7 +48,7 @@ Find more installation methods on the [Up CLI installation guide][up].
   {
     title: 'Upgrade existing Crossplane to UXP',
     description: 'Follow the upgrade guide to migrate your existing Crossplane install to Upbound Crossplane.',
-    link: '/manuals/uxp/upgrade-from-crossplane'
+    link: 'manuals/uxp/howtos/upgrade-to-uxp/'
   }
 ]} />
 
