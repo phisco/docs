@@ -52,6 +52,12 @@ module.exports = {
               label: "Metrics",
               customProps: { badge: "Preview" },
             },
+            {
+              type: "category",
+              label: "Agent skills",
+              link: { type: "doc", id: "products/insights/agent-skills/overview" },
+              items: ["products/insights/agent-skills/query-with-an-agent"],
+            },
           ],
         },
       ],

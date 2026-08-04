@@ -54,16 +54,6 @@ logs. Every gate in this release is alpha, and most default to `false`.
 | `Metrics` | `false` | The metrics ingest endpoint and the `metrics.hub.upbound.io` API group. Requires `hub-core.otelGateway.enabled=true`. |
 | `Registry` | `false` | The `registry.hub.upbound.io` API group, providing the `Connection` resource (with its `verify` subresource) and the `Repository` resource. |
 
-<!-- ### Agent sessions require an Anthropic API key {#agent-sessions} -->
-<!-- | `AgentSessions` | `false` | The `agent.hub.upbound.io/v1alpha1` API group, adding session and message endpoints under `/apis/agent.hub.upbound.io/v1alpha1/` for Crossplane troubleshooting. Requires an Anthropic API key (see below). | -->
-
-<!-- The agent feature calls the Anthropic API and `hub-core` exits at startup when -->
-<!-- the gate is on and no key is set. The chart has no dedicated value for the key; -->
-<!-- `hub-core` reads `AGENT_SESSIONS_ANTHROPIC_API_KEY` from the environment, so -->
-<!-- `api.extraEnv` is how you supply it. Point `api.extraEnv` at a Secret you create -->
-<!-- in the `hub-core` namespace, then run `helm upgrade`. See [Agent -->
-<!-- sessions](../products/insights/agent-sessions/overview.md) for what the feature does. -->
-
 ### Aggregated types
 
 The `AggregatedTypes` gate serves the fleet-wide `typedefinitions` and
