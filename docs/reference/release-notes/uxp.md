@@ -14,6 +14,70 @@ Any important warnings or necessary information
 - User-facing changes
 -->
 
+## v2.3.4-up.2
+
+### Release Date: 2026-08-05
+
+#### What's Changed
+
+Based on Crossplane [v2.3.4](https://github.com/crossplane/crossplane/releases/tag/v2.3.4).
+
+- Fixed a deletion-protection false positive. The field index that maps a resource to the `Usage` objects protecting it built its key by joining group, kind, name, and namespace with `.`, which is ambiguous because API groups and resource names can contain `.` themselves. Two distinct resources could collapse to the same key, so the webhook could refuse a deletion on the strength of an unrelated resource's `Usage`. The separator is now `/`.
+- Security: Crossplane core and Upbound Controller Manager dependency updates — `github.com/sigstore/sigstore-go` v1.2.1 (CVE-2026-54787), `github.com/klauspost/compress` v1.18.7 (GHSA-259r-337f-4rfw), and `cel-go` (GHSA-gcjh-h69q-9w9g).
+- Security: the `uxp-apollo` subchart updated to v0.4.20, bumping `chi` to v5.3.0 (GO-2026-5775, GO-2026-5777) and `golang.org/x/text` to v0.39.0 (CVE-2026-56852).
+- Security: refreshed the `gcr.io/distroless/static` base image of the Upbound Controller Manager.
+
+## v2.2.4-up.2
+
+### Release Date: 2026-08-05
+
+#### What's Changed
+
+Based on Crossplane [v2.2.4](https://github.com/crossplane/crossplane/releases/tag/v2.2.4).
+
+- Fixed a deletion-protection false positive. The field index that maps a resource to the `Usage` objects protecting it built its key by joining group, kind, name, and namespace with `.`, which is ambiguous because API groups and resource names can contain `.` themselves. Two distinct resources could collapse to the same key, so the webhook could refuse a deletion on the strength of an unrelated resource's `Usage`. The separator is now `/`.
+- Security: Crossplane core and Upbound Controller Manager dependency updates — `github.com/sigstore/sigstore-go` v1.2.1 (CVE-2026-54787), `github.com/klauspost/compress` v1.18.7 (GHSA-259r-337f-4rfw), and `cel-go` (GHSA-gcjh-h69q-9w9g).
+- Security: the `uxp-apollo` subchart updated to v0.4.20, bumping `chi` to v5.3.0 (GO-2026-5775, GO-2026-5777) and `golang.org/x/text` to v0.39.0 (CVE-2026-56852).
+- Security: refreshed the `gcr.io/distroless/static` base image of the Upbound Controller Manager.
+
+## v2.1.8-up.2
+
+### Release Date: 2026-08-05
+
+#### What's Changed
+
+Based on Crossplane [v2.1.8](https://github.com/crossplane/crossplane/releases/tag/v2.1.8).
+
+- Fixed a deletion-protection false positive. The field index that maps a resource to the `Usage` objects protecting it built its key by joining group, kind, name, and namespace with `.`, which is ambiguous because API groups and resource names can contain `.` themselves. Two distinct resources could collapse to the same key, so the webhook could refuse a deletion on the strength of an unrelated resource's `Usage`. The separator is now `/`.
+- Security: Crossplane core dependency updates — `github.com/sigstore/sigstore-go` v1.2.1 (CVE-2026-54787), plus a broader sweep clearing CVE-2026-41178, GHSA-259r-337f-4rfw, GO-2026-5774, GO-2026-5775, GO-2026-5777, and GHSA-gcjh-h69q-9w9g.
+- Security: Upbound Controller Manager dependency updates — `github.com/klauspost/compress` v1.18.7 (GHSA-259r-337f-4rfw).
+- Security: the `uxp-apollo` subchart updated to v0.2.22, bumping `chi` to v5.3.0 (GO-2026-5775, GO-2026-5777) and `golang.org/x/text` to v0.39.0 (CVE-2026-56852).
+- Security: refreshed the `gcr.io/distroless/static` base image of the Upbound Controller Manager.
+
+## v2.0.8-up.7
+
+### Release Date: 2026-08-05
+
+#### What's Changed
+
+Based on Crossplane [v2.0.8](https://github.com/crossplane/crossplane/releases/tag/v2.0.8).
+
+- Security: Crossplane core and Upbound Controller Manager dependency updates — `github.com/sigstore/sigstore-go` v1.2.1 (CVE-2026-54787), `github.com/klauspost/compress` v1.18.7 (GHSA-259r-337f-4rfw), and `cel-go` (GHSA-gcjh-h69q-9w9g).
+- Security: the `uxp-apollo` subchart updated to v0.2.22, bumping `chi` to v5.3.0 (GO-2026-5775, GO-2026-5777) and `golang.org/x/text` to v0.39.0 (CVE-2026-56852).
+- Security: refreshed the `gcr.io/distroless/static` base image of both the Crossplane core and Upbound Controller Manager images.
+
+## v1.20.11-up.2
+
+### Release Date: 2026-08-05
+
+#### What's Changed
+
+Based on Crossplane [v1.20.11](https://github.com/crossplane/crossplane/releases/tag/v1.20.11).
+
+- Security: Crossplane core dependency updates clearing CVE-2026-54787, CVE-2026-41178, CVE-2026-23991, CVE-2026-23992, CVE-2026-24686, CVE-2026-39984, CVE-2026-49834, CVE-2026-49835, GHSA-259r-337f-4rfw, GO-2026-5774, GO-2026-5775, and GO-2026-5777.
+- Security: refreshed the `gcr.io/distroless/static` base image.
+- The chart's bundled `ControllerConfig` and `DeploymentRuntimeConfig` CRDs were regenerated from the Crossplane commit this release bundles, so they now match the shipped image. The change is additive — new pod spec schema fields and reworded descriptions from an `apimachinery` update. No existing schema was removed.
+
 ## v2.3.4-up.1
 
 ### Release Date: 2026-07-24
