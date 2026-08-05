@@ -81,7 +81,7 @@ In the same cluster where you installed the Spaces software, install the Upbound
 ```bash
 helm -n upbound-system upgrade --install agent \
   oci://xpkg.upbound.io/spaces-artifacts/agent \
-  --version "0.0.0-1149.g40e2d83" \
+  --version "0.0.0-1196.gbe68f9d" \
   --set "global.space=${UPBOUND_SPACE_NAME}" \
   --set "global.organization=${UPBOUND_ORG_NAME}" \
   --set "global.tokenSecret=connect-token" \
@@ -89,7 +89,6 @@ helm -n upbound-system upgrade --install agent \
   --set "registration.image.repository=xpkg.upbound.io/spaces-artifacts/register-init" \
   --set "registration.enabled=true" \
   --set "imagePullSecrets[0].name=upbound-pull-secret" \
-  --set "billing.enabled=false" \
   --wait
 ```
 
@@ -128,7 +127,7 @@ Install or upgrade using that file:
 ```bash
 helm -n upbound-system upgrade --install agent \
   oci://xpkg.upbound.io/spaces-artifacts/agent \
-  --version "0.0.0-1149.g40e2d83" \
+  --version "0.0.0-1196.gbe68f9d" \
   --set "global.space=${UPBOUND_SPACE_NAME}" \
   --set "global.organization=${UPBOUND_ORG_NAME}" \
   --set "global.tokenSecret=connect-token" \
@@ -136,7 +135,6 @@ helm -n upbound-system upgrade --install agent \
   --set "registration.image.repository=xpkg.upbound.io/spaces-artifacts/register-init" \
   --set "registration.enabled=true" \
   --set "imagePullSecrets[0].name=upbound-pull-secret" \
-  --set "billing.enabled=false" \
   -f agent-proxy-values.yaml \
   --wait
 ```
