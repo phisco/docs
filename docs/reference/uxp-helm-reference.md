@@ -153,7 +153,7 @@ This reference provides detailed documentation on the UXP Helm chart. This Helm 
 | image.ignoreTag | bool | `false` | Do not use the {{ .image.tag }} value to compute the image uri. |
 | image.pullPolicy | string | `"IfNotPresent"` | The image pull policy used for Crossplane and RBAC Manager pods. |
 | image.repository | string | `"xpkg.upbound.io/upbound/crossplane"` | Repository for the Crossplane pod image. |
-| image.tag | string | `"v2.3.4-up.1"` | The Crossplane image tag. Defaults to the value of `appVersion` in `Chart.yaml`. |
+| image.tag | string | `"v2.3.4-up.2"` | The Crossplane image tag. Defaults to the value of `appVersion` in `Chart.yaml`. |
 | imagePullSecrets | list | `[]` | The imagePullSecret names to add to the Crossplane ServiceAccount. |
 | leaderElection | bool | `true` | Enable [leader election](https://docs.crossplane.io/latest/guides/pods/#leader-election) for the Crossplane pod. |
 | metrics.enabled | bool | `true` | Enable Prometheus path, port and scrape annotations and expose port 8080 for both the Crossplane and RBAC Manager pods. |
