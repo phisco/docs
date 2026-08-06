@@ -3,7 +3,7 @@ title: CLI Reference
 sidebar_position: 3
 ---
 
-This documentation is for the `up` CLI v0.53.0.
+This documentation is for the `up` CLI v0.53.1.
 
 The latest version of `up` can be installed by running:
 

@@ -24,6 +24,19 @@ Any important warnings or necessary information
 
 -->
 
+## v0.53.1
+
+### Release Date: 2026-08-06
+
+##### What's Changed
+
+- Fixed a bug where the `-f` flag to project-related commands was not
+  respected. For example, `up dependency add` would update `upbound.yaml` even
+  when a different project file was specified.
+- Improved media type detection in `up xpkg append`, so that the command works
+  with registries that don't correctly set the `Content-type` header in their
+  responses.
+
 ## v0.53.0
 
 ### Release Date: 2026-07-28
