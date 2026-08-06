@@ -22,6 +22,17 @@ Any important warnings or necessary information
 
 -->
 
+## v1.17.2
+
+### Release Date: 2026-08-05
+
+#### What's Changed
+
+- Control plane images updated (VCluster, CoreDNS, etcd, external-secrets-operator).
+- Bumped Apollo (Query API) to v0.4.20.
+- Bumped supported Crossplane versions to latest patches.
+- Resolved CVEs in `opentelemetry-collector-spaces` and `hyperspace` images.
+
 ## v1.17.1
 
 ### Release Date: 2026-07-09
@@ -157,6 +168,17 @@ Any important warnings or necessary information
 - XGQL is fully removed from control planes and no longer required for connected
   Spaces.
 - Upgraded OTEL Collector images to v0.152.0.
+
+## v1.16.3
+
+### Release Date: 2026-08-05
+
+#### What's Changed
+
+- Control plane images updated (VCluster, CoreDNS, etcd, external-secrets-operator).
+- Bumped Apollo (Query API) to v0.4.20.
+- Bumped supported Crossplane versions to latest patches.
+- Resolved CVEs in `opentelemetry-collector-spaces` and `hyperspace` images.
 
 ## v1.16.2
 
@@ -305,6 +327,17 @@ Any important warnings or necessary information
 
 - Default resource requests added to `external-secrets-operator` Deployments.
 - Spaces Apollo image registry updated to `xpkg.upbound.io/spaces-artifacts`.
+
+## v1.15.6
+
+### Release Date: 2026-08-05
+
+#### What's Changed
+
+- Control plane images updated (VCluster, CoreDNS, etcd, external-secrets-operator).
+- Bumped Apollo (Query API) to v0.4.20.
+- Bumped supported Crossplane versions to latest patches.
+- Resolved CVEs in `opentelemetry-collector-spaces` and `hyperspace` images.
 
 ## v1.15.5
 
