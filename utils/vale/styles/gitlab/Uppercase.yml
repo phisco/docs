@@ -260,3 +260,6 @@ exceptions:
   - GMP
   - AMP
   - APS
+  - MFA
+  - GCC
+  - HMAC

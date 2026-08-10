@@ -274,4 +274,4 @@ different counts. See [RBAC][rbac] for how realm permissions map to roles.
 [featureFlags]: ../../reference/feature-flags.md
 [featureReleases]: ../../reference/feature-releases.md
 [query]: ./resource-exploration/query.md
-[rbac]: ../../howtos/rbac.md
+[rbac]: ../../iam/access-management/overview.md

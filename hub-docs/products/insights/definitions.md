@@ -129,8 +129,8 @@ distribution detail, only include control planes in realms you can reach.
 :::warning
 Unless you have access to every control plane in the organization, the counts
 are partial. A type that looks consistent to you may have variants on control
-planes you can't view. See [Access and
-authorization](/hub/howtos/rbac).
+planes you can't view. See [Access
+management](/hub/iam/access-management/overview).
 :::
 
 ## Common tasks

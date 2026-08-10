@@ -55,8 +55,8 @@ in realms where you're authorized.
 Unless you have access to every control plane in the organization, deployment
 counts are partial. A package showing "Not deployed" may still be running on
 control planes you don't have permission to view. Organization administrators
-see a complete picture. For details on how access scoping works, see [Access and
-authorization](/hub/howtos/rbac).
+see a complete picture. For details on how access scoping works, see [Access
+management](/hub/iam/access-management/overview).
 :::
 
 - **"Deployed on 5 control planes"**: five control planes that you have

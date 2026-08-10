@@ -56,8 +56,9 @@ flowchart TB
   Database for PostgreSQL). See [the databases overview][overview] for the
   version, extensions, and authentication modes Hub supports.
 - **An OIDC provider** Any OIDC-compliant provider with a discovery endpoint,
-  email claim, and configurable group claim works. See [the OIDC
-  overview][oidc-configuration] for the contract and the per-provider guides.
+  email claim, and configurable group claim works. See [Upbound
+  Identity][identity] for how Hub consumes those tokens, and
+  [prerequisites][prerequisites] for what to register per provider.
 - **Ingress** Provide a Gateway API setup or an
   Ingress controller, plus a CA-signed certificate attached to hostnames that
   will expose your API and (optionally) the UI.
@@ -103,7 +104,8 @@ Work through the section in order:
 
 - [Prerequisites][prerequisites]. The full pre-flight checklist for cluster,
   network, storage, and dependencies.
-- [OIDC configuration][oidc-configuration]. Provider contract and per-provider setup.
+- [Upbound Identity][identity]. How Hub authenticates callers, and the
+  per-provider setup pages.
 - [Databases overview][overview]. Postgres requirements and the AWS
   RDS guide.
 - [Install][install]. `helm install` against externally managed Postgres and
@@ -114,7 +116,7 @@ overview][production-overview] covers sizing, high availability,
 autoscaling, RBAC, and upgrades.
 
 [install]: /hub/howtos/install
-[oidc-configuration]: /hub/howtos/oidc-configuration
+[identity]: /hub/iam/identity/overview
 [overview]: /hub/howtos/databases/overview
 [prerequisites]: /hub/howtos/prerequisites
 [production-overview]: /hub/howtos/production-overview

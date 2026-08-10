@@ -12,6 +12,53 @@ module.exports = {
     },
     {
       type: "category",
+      label: "Identity and Access Management (IAM)",
+      link: { type: "doc", id: "iam/overview" },
+      items: [
+        {
+          type: "category",
+          label: "Identity",
+          link: { type: "doc", id: "iam/identity/overview" },
+          items: [
+            // Mirrors the reading order of the overview: configure a provider,
+            // log in, verify who Hub thinks you are, then sync a directory.
+            "iam/identity/identityprovider",
+            "iam/identity/multiple-providers",
+            "iam/identity/cli-agent-login",
+            "iam/identity/workload-identities",
+            "iam/identity/verifying-your-identity",
+            "iam/identity/directory-sync",
+            {
+              // Worked IdentityProvider examples, alphabetical by product
+              // name. Reference rather than reading order, so they sit last
+              // in a category of their own.
+              type: "category",
+              label: "Sample Identity Providers",
+              items: [
+                "iam/identity/amazon-cognito",
+                "iam/identity/google-workspace",
+                "iam/identity/keycloak",
+                "iam/identity/entra-id",
+                "iam/identity/okta",
+              ],
+            },
+          ],
+        },
+        {
+          type: "category",
+          label: "Access Management",
+          link: { type: "doc", id: "iam/access-management/overview" },
+          items: [
+            "iam/access-management/roles-reference",
+            "iam/access-management/filtering",
+            "iam/access-management/workload-identities",
+            "iam/access-management/troubleshooting",
+          ],
+        },
+      ],
+    },
+    {
+      type: "category",
       label: "Products",
       items: [
         {
@@ -67,7 +114,6 @@ module.exports = {
       label: "Deploy",
       items: [
         "howtos/prerequisites",
-        "howtos/oidc-configuration",
         {
           type: "category",
           label: "Databases",
@@ -88,7 +134,6 @@ module.exports = {
         "howtos/sizing",
         "howtos/high-availability",
         "howtos/autoscaling",
-        "howtos/rbac",
         "howtos/upgrades",
         "howtos/observability",
       ],

@@ -106,7 +106,7 @@ CA. `HUB_INSECURE=1` disables TLS verification, so don't set it.
 The agent acts with your Hub token, so it sees the realms your permissions grant
 and nothing else. The same question returns different answers for users with 
 different access, so account for that before you compare fleet numbers with a
-colleague. See [Access and authorization](../../../howtos/rbac.md).
+colleague. See [Access and authorization](../../../iam/access-management/overview.md).
 
 ## What the agent can change
 
@@ -147,7 +147,7 @@ operation to find out.
 
 - [Query your fleet with an agent](query-with-an-agent.md)
 - [Query your fleet](../resource-exploration/query.md)
-- [Access and authorization](../../../howtos/rbac.md)
+- [Access and authorization](../../../iam/access-management/overview.md)
 
 **Linked concepts**
 

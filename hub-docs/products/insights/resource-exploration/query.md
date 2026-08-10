@@ -271,4 +271,4 @@ things:
 [connectCtp]: ../../../howtos/connect-control-plane.md
 [connectSpace]: ../../../howtos/connect-space.md
 [insights]: ./overview.md
-[rbac]: ../../../howtos/rbac.md
+[rbac]: ../../../iam/access-management/overview.md

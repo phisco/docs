@@ -276,5 +276,5 @@ it to `[]` to sync everything, then upgrade the release.
 
 ## Next steps
 
-- [RBAC and OIDC group mapping](rbac.md): Grant users and groups access to the
+- [Access management](../iam/access-management/overview.md): Grant users and groups access to the
   control plane and its resources.

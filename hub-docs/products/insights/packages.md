@@ -109,8 +109,8 @@ the Versions tab only include control planes in realms you can reach.
 :::warning
 Unless you have access to every control plane in the organization, the counts
 are partial. A package that looks consistent at one version may sit at another
-version on control planes you can't view. See [Access and
-authorization](/hub/howtos/rbac).
+version on control planes you can't view. See [Access
+management](/hub/iam/access-management/overview).
 :::
 
 ## Common tasks
@@ -140,6 +140,23 @@ Catalog is a preview feature and, unlike Packages, it's disabled by default. See
 
 Enabling Catalog doesn't replace Packages. Catalog appears as an extra
 destination alongside it.
+
+## Access and counts
+
+Counts reflect your access. A package reaches this view through the Provider,
+Configuration, Function, or AddOn object that declares it, so you see a package
+only where you can already see one of those objects. The control plane and
+version counts, and the rows on the distribution detail, cover just those
+installs.
+
+:::warning
+Unless you have access to every control plane in the organization, the counts
+are partial — a package may be declared on control planes you can't view. An
+`org-admin` with no realm role sees no packages at all: this view is
+realm-scoped, and the organization role doesn't cascade into a realm. Bind
+yourself a realm role to reach it. See [Access
+management](/hub/iam/access-management/overview).
+:::
 
 ## Querying the API
 

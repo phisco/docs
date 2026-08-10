@@ -300,5 +300,5 @@ that the control planes you expect exist on the space cluster.
 
 ## Next steps
 
-- [RBAC and OIDC group mapping](rbac.md): Grant users and groups access to the
+- [Access management](../iam/access-management/overview.md): Grant users and groups access to the
   space and its control planes.

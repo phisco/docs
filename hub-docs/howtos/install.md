@@ -24,15 +24,14 @@ confirm each item is ready. This page assumes you have:
   pointing at the cluster's load balancer or Gateway address
 - A provisioned PostgreSQL database, following [the databases
   overview][overview] and the provider page it links to
-- An OIDC provider registered with Hub's callback URL
-  `https://api.<your-domain>/oidc/callback`, with a group claim configured,
-  following [the OIDC configuration page][oidc-configuration]
+- An OIDC-compliant identity provider you can register Hub with, and admin
+  access to it. Step 3 walks the registration; [Upbound Identity][identity]
+  explains what Hub does with the resulting tokens
 
-Those two pages each end with a table of values to record. Have both tables in
-front of you before you start. Between them they supply every placeholder in
-step 4:
+Have the values from both of those pages in front of you before you start.
+Between them they supply every placeholder in step 5:
 
-| From the OIDC page | From the database page |
+| From your OIDC provider | From the database page |
 | --- | --- |
 | `providerName` | Authentication mode (`password` or `iam`) |
 | `issuerURL` | Database host and port |
@@ -78,7 +77,7 @@ kubectl -n hub create secret generic hub-core-postgres \
   --from-literal=password='<your-postgres-password>'
 ```
 
-You reference this Secret from `values.yaml` in step 4 via
+You reference this Secret from `values.yaml` in step 5 via
 `hub-core.postgresql.auth.password.existingSecretRef`.
 
 :::note
@@ -87,7 +86,30 @@ namespace as the release works as long as the name and key match the
 `existingSecretRef` fields you set in values.
 :::
 
-### 3. Create the OIDC client-secret secret
+### 3. Register Hub with your OIDC provider
+
+Do this in your provider's console, before touching Helm. Each provider emits
+group claims its own way, so follow its page for the specifics: [Microsoft Entra
+ID][entra-id] (groups need explicit app-registration configuration and arrive as
+object IDs), [Amazon Cognito][amazon-cognito] (groups arrive under
+`cognito:groups`), [Google Workspace][google-workspace] (no group claim at all —
+bind users by email, or inject `groups` upstream), [Keycloak][keycloak]
+(standards-compliant with the group-membership mapper enabled), or
+[Okta][okta] (standards-compliant once you add a `groups` claim to the
+authorization server).
+
+Whichever you use:
+
+1. Register Hub as a confidential authorization-code client and record the
+   client ID and client secret.
+2. Set the redirect URI to `https://api.<your-domain>/oidc/callback`. It must
+   match `hub-core.api.externalURL` from step 5 exactly.
+3. Configure the provider to emit group membership in a claim, and note the
+   claim name.
+4. Create the group you intend to make Hub administrators.
+5. Record the issuer URL from the provider's discovery document.
+
+### 4. Create the OIDC client-secret secret
 
 <!-- vale Microsoft.Adverbs = NO -->
 Hub reads the OIDC client secret directly out of Helm values when it builds the
@@ -110,9 +132,9 @@ OIDC_CLIENT_SECRET=$(kubectl -n hub get secret hub-core-oidc \
   -o jsonpath='{.data.clientSecret}' | base64 -d)
 ```
 
-The `helm install` command in step 5 uses the `OIDC_CLIENT_SECRET` variable.
+The `helm install` command in step 6 uses the `OIDC_CLIENT_SECRET` variable.
 
-### 4. Assemble `values.yaml`
+### 5. Assemble `values.yaml`
 
 Save the following as `values.yaml`.
 It carries the ingress and OIDC settings, and you complete it with the Postgres
@@ -160,16 +182,21 @@ hub-core:
     # redirect URI registered with your provider.
     externalURL: https://api.<your-domain>
 
-    # Values recorded on the OIDC configuration page.
+    # Values recorded in step 3. Renders a complete IdentityProvider
+    # for you; see the notes below the template.
     sampleEmailBasedOIDCConfig:
+      # Prefixes every username and group Hub derives from this
+      # provider, as "<providerName>:". Immutable once installed.
       providerName: oidc
       issuerURL: <your-oidc-issuer-url>
       clientID: <your-oidc-client-id>
       # Client secret is injected on the helm install command line
-      # via --set in step 5, not committed here.
+      # via --set in step 6, not committed here.
       clientSecret: ""
       # Optional. Restrict logins to a single email domain.
       allowedDomain: <your-email-domain>
+      # Defaults to "groups". Amazon Cognito needs "cognito:groups".
+      groupsClaim: groups
 
   # First administrators. Without at least one entry here, the first
   # user to log in has no permissions and no way to grant any.
@@ -247,11 +274,33 @@ Notes on the template:
   Gateway, set `create: true` and supply `gatewayClassName`.
 - `hub-core.api.externalURL` must match the hostname clients (browsers and CLI
   tools) use to reach `hub-core`.
+- `hub-core.api.sampleEmailBasedOIDCConfig` is a convenience layer over the
+  [`IdentityProvider`][identity] resource. It renders one provider for the
+  common case — email as the username, one group claim, and a required
+  `email_verified` — and renders it only when both `issuerURL` and `clientID`
+  are set.
 - `hub-core.bootstrap.admins` accepts `Group` and `User` entries. Group names
   come from your provider's group claim and user names are the user's email,
-  both prefixed with `<providerName>:`. From this one list the chart renders an
+  both prefixed with `<providerName>:`, so a group `platform-admins` becomes
+  `oidc:platform-admins`. From this one list the chart renders an
   `OrganizationRoleBinding` bound to `org-admin` and a `RealmRoleBinding` bound
   to `realm-admin` on the `default` realm.
+
+:::warning
+Without at least one entry in `hub-core.bootstrap.admins`, the first user to log
+in has no permissions and no way to grant themselves any. Set it before the
+first install.
+:::
+
+Reach past the sample layer and write a full `IdentityProvider` when you need
+[more than one provider][multiple-providers], a username that isn't the email
+claim, [directory search][identity-directories], validation beyond
+`email_verified` and `allowedDomain`, or issuer plumbing such as a private CA
+bundle or an in-cluster `backendIssuerURL`. Supply it through
+`hub-core.bootstrap.files`: naming your file `oidc-idp.yaml` replaces the
+generated one, and any other name adds a provider alongside it. Bootstrap files
+are reapplied every five minutes, so they stay the source of truth over changes
+made through the API.
 
 :::note
 The chart exposes many more values than the ones shown here. See the values
@@ -259,7 +308,7 @@ reference for the full surface. Anything not set in
 `values.yaml` falls back to the chart default.
 :::
 
-### 5. Install the chart
+### 6. Install the chart
 
 Install the chart with `values.yaml` and the OIDC client secret passed inline:
 
@@ -270,7 +319,7 @@ helm install hub oci://xpkg.upbound.io/upbound/hub \
   --set hub-core.api.sampleEmailBasedOIDCConfig.clientSecret="$OIDC_CLIENT_SECRET"
 ```
 
-If you didn't extract the OIDC client secret into a shell variable in step 3,
+If you didn't extract the OIDC client secret into a shell variable in step 4,
 substitute the literal value (quoted) for `$OIDC_CLIENT_SECRET`.
 
 Wait for the install to finish and for all Pods to become Ready:
@@ -336,7 +385,7 @@ Save as `bootstrap-controlplane.yaml`:
 <!--- TODO(nickthomson): set up connection to the hub API server to apply resources --->
 
 ```yaml
-apiVersion: hub.upbound.io/v1alpha1
+apiVersion: hub.upbound.io/v1beta1
 kind: ControlPlane
 metadata:
   name: production
@@ -365,7 +414,7 @@ is what `hub-connector` presents when it first contacts `hub-core`:
 
 ```bash
 kubectl create -f - <<'EOF'
-apiVersion: hub.upbound.io/v1alpha1
+apiVersion: hub.upbound.io/v1beta1
 kind: RegistrationToken
 metadata:
   generateName: production-
@@ -405,8 +454,15 @@ observed cluster with the registration token you minted above. For self-hosted i
 instead, and `connector.hub.allowInsecure` stays at its default of `false`.
 
 [aws-rds]: /hub/howtos/databases/aws-rds
-[oidc-configuration]: /hub/howtos/oidc-configuration
+[amazon-cognito]: /hub/iam/identity/amazon-cognito
+[entra-id]: /hub/iam/identity/entra-id
+[google-workspace]: /hub/iam/identity/google-workspace
+[identity]: /hub/iam/identity/overview
+[identity-directories]: /hub/iam/identity/directory-sync
+[keycloak]: /hub/iam/identity/keycloak
+[multiple-providers]: /hub/iam/identity/multiple-providers
+[okta]: /hub/iam/identity/okta
 [overview]: /hub/howtos/databases/overview
 [prerequisites]: /hub/howtos/prerequisites
 [production-overview]: /hub/howtos/production-overview
-[rbac]: /hub/howtos/rbac
+[rbac]: /hub/iam/access-management/overview

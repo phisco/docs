@@ -121,29 +121,33 @@ per-cloud provisioning steps. That page is the source of truth.
 
 Hub doesn't include its own identity provider in the self-hosted path.
 Configure Hub against an OIDC-compliant provider you already operate or
-subscribe to.
+subscribe to. Any provider works that offers a stable issuer URL publishing
+`.well-known/openid-configuration`, the authorization code flow, and a claim
+carrying group membership. Microsoft Entra ID, Amazon Cognito, Google Workspace,
+Keycloak, and Okta all qualify.
 
-The provider needs OIDC discovery, plus `email` and group claims. It also has to
-accept a redirect URI Hub computes from your `hub-core` hostname. Common
-providers (Amazon Cognito, Microsoft Entra ID, Google Workspace, Okta, Auth0,
-Keycloak) all qualify. The full contract, the staged setup order, and the
-per-provider walkthroughs are on [the OIDC overview][oidc-configuration]. That
-page is the source of truth.
+[Upbound Identity][identity] is the source of truth for how Hub turns provider
+tokens into Hub identities, and its per-provider pages carry the
+app-registration steps and group-claim quirks for each one. Have a provider
+registered and its issuer URL, client ID, client secret, and group claim
+recorded before you install; [Installing Hub][installation] turns those into
+Helm values.
+
+The redirect URI Hub expects is `https://api.<your-domain>/oidc/callback`,
+derived from the `hub-core` hostname you settled on under [DNS](#dns).
 
 ## Next step
 
 With every requirement above understood, set up each dependency before you
-install. Start with your identity provider:
+install:
 
-- [OIDC configuration][oidc-configuration]. The provider contract and
-  per-provider setup.
+- [Upbound Identity][identity]. Register your provider and record its values.
 - [Databases][overview]. Postgres requirements and provisioning.
 
 Once your provider and database are ready, [install Hub][installation].
 
 [cert-manager]: https://cert-manager.io/
-[cert-manager-docs]: https://cert-manager.io/docs/
 [gateway-api-project]: https://gateway-api.sigs.k8s.io/
+[identity]: /hub/iam/identity/overview
 [installation]: /hub/howtos/install
-[oidc-configuration]: /hub/howtos/oidc-configuration
 [overview]: /hub/howtos/databases/overview

@@ -81,6 +81,6 @@ it produces.
 [high-availability]: /hub/howtos/high-availability
 [install]: /hub/howtos/install
 [observability]: /hub/howtos/observability
-[rbac]: /hub/howtos/rbac
+[rbac]: /hub/iam/access-management/overview
 [sizing]: /hub/howtos/sizing
 [upgrades]: /hub/howtos/upgrades

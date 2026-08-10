@@ -330,7 +330,7 @@ carry per-resource or per-request labels before you add it.
 | `404` on the metrics API group | Enable the `Metrics` gate (`hub-core.api.featureFlags.gates.Metrics=true`). |
 | `hub-core` fails to start after enabling the gate | The gate needs `hub-core.otelGateway.enabled=true`. `hub-core` exits when the gate is on and the gateway URLs are unset. |
 | Chart fails to render with a missing-backend error | Set `hub-core.otelGateway.metrics.backend` to `prometheus`, `gmp`, or `amp`. |
-| `403` on every query | The caller has no authorized control planes. Grant access to a realm or a control plane. See [RBAC](rbac.md). |
+| `403` on every query | The caller has no authorized control planes. Grant access to a realm or a control plane. See [Access management](../iam/access-management/overview.md). |
 | Queries succeed but return no series | Confirm `collector.enabled=true` on the connector, that the target Pods carry `prometheus.io/scrape: "true"`, and that their namespace is in `collector.scrapeNamespaces`. |
 | A specific metric never arrives | Add it to both `collector.metricAllowlist` and `otelGateway.metricAllowlist`. |
 | Writes work, queries fail on Amazon Managed Prometheus | Annotate `api.serviceAccount` with an IRSA role granting `aps:QueryMetrics`. The gateway's role only covers writes. |

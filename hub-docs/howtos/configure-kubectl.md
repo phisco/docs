@@ -122,7 +122,9 @@ refresh token expires.
 With no browser to complete the device flow, skip the interactive login. Write an
 IdP-issued JWT (such as a mounted Kubernetes ServiceAccount token) to a file and
 add `--token-file=/path/to/token` to the exec args when you create the kubectl
-context in the next step. The helper exchanges it for a hub token.
+context in the next step. The helper exchanges it for a hub token. See
+[Workload identities](../iam/identity/workload-identities.md) for how a CI job
+or ServiceAccount gets that JWT and what its hub username looks like.
 :::
 
 ## Step 3: Add the hub context to your kubeconfig
@@ -206,7 +208,9 @@ KUBECONFIG=hub.kubeconfig kubectl get controlplanes
 Confirm the context authenticates and reaches the hub.
 
 `kubectl auth whoami` shows your username and groups as the hub sees them, which
-confirms authentication works:
+confirms authentication works. See [Verifying your
+identity](../iam/identity/verifying-your-identity.md) for how to read the
+output:
 
 ```bash
 kubectl --context=hub auth whoami
@@ -217,6 +221,17 @@ A read such as `get controlplanes` confirms the context reaches the hub API:
 ```bash
 kubectl --context=hub get controlplanes
 ```
+
+The same context works against IAM resources too:
+
+```bash
+kubectl --context=hub get realmrolebindings -n <realm>
+kubectl --context=hub get identityproviders
+```
+
+What a `get` returns depends on the caller's access, not just the resource
+type. See [Filtering and self-review](../iam/access-management/filtering.md)
+for why.
 
 ## Troubleshooting
 
@@ -265,5 +280,8 @@ hub-credential-helper login --hub-url="$HUB_URL"
 - [Query your fleet](../products/insights/resource-exploration/query.md): Search,
   filter, and count the resources the hub aggregates from your connected control
   planes.
-- [RBAC and OIDC group mapping](rbac.md): Grant users and groups access across
-  the hub.
+- [Access management](../iam/access-management/overview.md): Grant users and
+  groups access across the hub.
+- [CLI and AI agent login](../iam/identity/cli-agent-login.md): Log in
+  interactively and print a token for other clients, instead of wiring up a
+  kubectl context.

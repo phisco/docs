@@ -20,7 +20,7 @@ agents](overview.md#supported-agents) for the state of the others.
 - The base URL clients use to reach `hub-core`, the same value as
   `hub-core.api.externalURL`
 - An account with read access to at least one realm. See [Access and
-  authorization](../../../howtos/rbac.md)
+  authorization](../../../iam/access-management/overview.md)
 - At least one [connected control plane](../../../howtos/connect-control-plane.md),
   or the answers have nothing to report on
 

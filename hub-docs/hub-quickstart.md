@@ -560,6 +560,6 @@ kind delete cluster --name hub
 [install]: ./howtos/install.md
 [connect]: ./howtos/connect-control-plane.md
 [production]: ./howtos/production-overview.md
-[rbac]: ./howtos/rbac.md
+[rbac]: ./iam/access-management/overview.md
 [catalog]: ./products/insights/catalog/overview.md
 [upCli]: /manuals/cli/overview

@@ -24,7 +24,7 @@ Two resources describe how Hub reaches a registry.
 | `Connection` | How Hub authenticates to a registry: a host, an optional path scope, and credentials. |
 | `Repository` | What to index: the full OCI path of a repository, and optionally which `Connection` to use for it. |
 
-Both resources belong to a [realm](../../../howtos/rbac.md). For example,
+Both resources belong to a [realm](../../../iam/access-management/overview.md). For example,
 credentials declared in one realm are never used to pull for another implicitly.
 
 ## How the catalog uses connections
