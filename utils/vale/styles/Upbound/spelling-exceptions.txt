@@ -227,8 +227,9 @@ reachability
 plaintext
 unschedulable
 lookups
-Keycloak
 Dex
+Keycloak
+keycloak
 UUIDs
 PDBs
 retarget

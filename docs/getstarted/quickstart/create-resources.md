@@ -8,9 +8,9 @@ pagination_next: null
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The second cluster reports to the hub but runs no Crossplane resources. In this
+The second cluster reports to the Hub but runs no Crossplane resources. In this
 part, you install UXP and a Configuration on it, then create a composite
-resource. The hub shows the composite resource and the managed resource it
+resource. The Hub shows the composite resource and the managed resource it
 composes.
 
 Complete [part two](connect-a-second-control-plane.md) first.
@@ -177,7 +177,7 @@ NAME                                                   CHART   VERSION   SYNCED 
 release.helm.m.crossplane.io/quickstart-f5d6f18853b0   ghost   25.0.4    True     True    deployed   1          Install complete   2m
 ```
 
-## See it in the hub
+## See it in the Hub
 
 Open the [resources page](https://hub.127.0.0.1.nip.io:8443/explore/resources).
 The `quickstart` App appears there, reported by the connector you installed in
@@ -216,9 +216,9 @@ kind delete cluster --name hub-quickstart
 - [Insights][insights] for everything the **Explore** pages can do.
 - [Builders workshop](/getstarted/builders-workshop/project-foundations) for real cloud
   resources.
-- Explore the [hub][hub] for the centralized management installation.
+- Explore the [Hub][Hub] for the centralized management installation.
 
-[hub]: /hub/
+[Hub]: /hub/
 [insights]: /hub/products/insights/overview
 [packages]: /hub/products/insights/packages
 [workshop]: /getstarted/builders-workshop/project-foundations

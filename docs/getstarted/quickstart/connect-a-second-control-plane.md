@@ -7,20 +7,21 @@ pagination_next: null
 import CardGrid from '@site/src/components/CardGrid';
 import GetUpboundHero from '@site/src/components/GetUpboundHero';
 
-This section adds a second kind cluster to the hub you installed in
+This section adds a second kind cluster to the Hub you installed in
 [part one](install-the-hub.md), installs
-`hub-connector` in it, and registers it with your running hub.
+`hub-connector` in it, and registers it with your running Hub.
 
 ## Create the second cluster
 
-Create a new kind cluster the hub API reaches over the
+Create a new kind cluster the Hub API reaches over the
 Docker network.
 
 ```shell
 kind create cluster --name hub-quickstart-extra
 ```
-
-## Expose the hub API
+<!-- vale Google.Headings = NO -->
+## Expose the Hub API
+<!-- vale Google.Headings = YES -->
 
 :::important
 A production install routes all traffic through a Gateway. This step exists only
@@ -72,13 +73,13 @@ Services route to the running API without changing the originals.
 ## Create a registration token
 
 Every control plane gets its own registration token. The connector presents that
-token the first time it contacts the hub API, which tells the hub which control
+token the first time it contacts the Hub API, which tells the Hub which control
 plane the connector speaks for.
 
 1. Open the [control planes page](https://hub.127.0.0.1.nip.io:8443/infrastructure/control-planes)
    and sign in as `admin` / `admin`.
 2. Register a ControlPlane in the `default` realm and name it `extra`.
-3. Copy the registration token. The hub displays it once.
+3. Copy the registration token. The Hub displays it once.
 
 ![The Register a Control Plane dialog with realm and name fields](/img/quickstart/register-control-plane.png)
 
@@ -111,7 +112,7 @@ helm install hub-connector oci://xpkg.upbound.io/upbound/hub-connector \
   --wait --timeout 2m
 ```
 
-Refresh the hub and confirm the second cluster is online.
+Refresh the Hub and confirm the second cluster is online.
 
 Navigate to the [resources
 page](https://hub.127.0.0.1.nip.io:8443/explore/resources). You can filter by
@@ -133,7 +134,7 @@ Select `extra` to see its resource counts and details:
 <CardGrid sections={[
   {
     title: 'Create a composite resource',
-    description: 'Install UXP and a configuration. Then watch a resource reach the hub.',
+    description: 'Install UXP and a configuration. Then watch a resource reach the Hub.',
     link: '/getstarted/quickstart/create-resources'
   }
 ]} />
@@ -144,7 +145,7 @@ to delete what you created.
 
 - [Builders workshop](/getstarted/builders-workshop/project-foundations) for real cloud
   resources.
-- Explore the [hub][hub] for the centralized management installation.
+- Explore the [Hub][Hub] for the centralized management installation.
 
-[hub]: /hub/
+[Hub]: /hub/
 [workshop]: /getstarted/builders-workshop/project-foundations
