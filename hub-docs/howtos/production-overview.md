@@ -64,8 +64,8 @@ rollbacks. See [Upgrades][upgrades].
 
 <!-- vale write-good.Passive = NO -->
 <!-- vale gitlab.Uppercase = NO -->
-Once you've hardened hub and it serves traffic, watch its health. On
-`hub-core:8085`, hub emits framework metrics (HTTP RED and Go runtime) alongside
+Once you've hardened Hub and it serves traffic, watch its health. On
+`hub-core:8085`, Hub emits framework metrics (HTTP RED and Go runtime) alongside
 its own ingest and query instruments. The observability page catalogs those
 metrics. It also covers a turnkey dashboards chart for viewing them and how to
 export them to your own monitoring backend. See [Observability][observability].

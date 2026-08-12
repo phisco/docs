@@ -8,7 +8,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 Metrics needs configuration on both sides of the connector: a gateway and
-a storage backend on the hub, and a collector on each control plane you want to
+a storage backend on the Hub, and a collector on each control plane you want to
 collect from. This page covers both. See
 [Metrics](../products/insights/metrics/overview.md) for what the feature does and how to
 query it.
@@ -24,8 +24,8 @@ Before you start, have the following ready:
 - A running Hub installation. See [Installing Hub](install.md).
 - Helm access to the Hub release, so you can run `helm upgrade`. See [the chart
   reference](install.md#the-chart-reference) for what `<chart-ref>` stands for.
-- At least one connected control plane or space. See [Connect a control
-  plane](connect-control-plane.md) and [Connect a space](connect-space.md).
+- At least one connected control plane or Space. See [Connect a control
+  plane](connect-control-plane.md) and [Connect a Space](connect-space.md).
 - A Prometheus-compatible backend that accepts remote-write and serves the
   Prometheus HTTP query API, reachable from the Hub cluster.
 - The feature flag server enabled. The server is on by default; the `Metrics`
@@ -47,7 +47,7 @@ Both come from `hub-core.otelGateway.metrics`.
 write endpoint on every backend. For self-hosted Prometheus the two usually
 share a host. For managed Prometheus they don't.
 
-## Step 2: Configure the hub
+## Step 2: Configure the Hub
 
 Enable the `Metrics` gate, the OTel gateway, and a backend. The gate turns on
 the `metrics.hub.upbound.io` API group; the gateway receives, labels, and
@@ -170,7 +170,7 @@ kubectl --namespace hub get pods --selector app.kubernetes.io/component=otel-gat
 
 ## Step 3: Turn on collection for control planes
 
-The hub side receives, but nothing sends until you enable the collector on the
+The Hub side receives, but nothing sends until you enable the collector on the
 connector. The collector is off by default in the `hub-connector` chart.
 
 <Tabs groupId="metrics-source">
@@ -188,11 +188,11 @@ helm upgrade hub-connector oci://xpkg.upbound.io/upbound/hub-connector \
 ```
 
 </TabItem>
-<TabItem value="space" label="A connected space">
+<TabItem value="space" label="A connected Space">
 
-A space connector provisions a metrics pipeline into each member control plane,
-using the same values. Set them once on the space connector and every control
-plane in the space collects:
+A Space connector provisions a metrics pipeline into each member control plane,
+using the same values. Set them once on the Space connector and every control
+plane in the Space collects:
 
 ```shell
 helm upgrade hub-connector oci://xpkg.upbound.io/upbound/hub-connector \
@@ -203,7 +203,7 @@ helm upgrade hub-connector oci://xpkg.upbound.io/upbound/hub-connector \
   --set rsm.enabled=true
 ```
 
-The space connector applies the change to control planes as it reconciles them.
+The Space connector applies the change to control planes as it reconciles them.
 New control planes get the pipeline when it provisions their connector.
 
 </TabItem>
@@ -341,7 +341,7 @@ carry per-resource or per-request labels before you add it.
 - [Metrics](../products/insights/metrics/overview.md)
 - [Feature flags](../reference/feature-flags.md)
 - [Connect a control plane](connect-control-plane.md)
-- [Connect a space](connect-space.md)
+- [Connect a Space](connect-space.md)
 
 [gmp-frontend]: https://cloud.google.com/stackdriver/docs/managed-prometheus/query#promql-ui
 [rsm]: https://github.com/kubernetes-sigs/resource-state-metrics

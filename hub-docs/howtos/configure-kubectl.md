@@ -1,7 +1,7 @@
 ---
-title: Configure kubectl for the hub
+title: Configure kubectl for the Hub
 sidebar_position: 6
-description: Configure a kubectl context that accesses the Upbound Platform hub.
+description: Configure a kubectl context that accesses the Upbound Hub.
 ---
 
 import Tabs from '@theme/Tabs';
@@ -10,23 +10,23 @@ import TabItem from '@theme/TabItem';
 ## Overview
 
 This page configures a kubectl context named `hub` that talks to the Upbound
-Platform hub. The hub serves a Kubernetes-style API, so once you configure
-kubectl, standard commands like `get` and `describe` work with hub resources
+Platform Hub. The Hub serves a Kubernetes-style API, so once you configure
+kubectl, standard commands like `get` and `describe` work with Hub resources
 like `controlplanes`, `spaces`, and `resources`.
 
 ## Prerequisites
 
-- The hub's API URL, such as `https://<hub-host>`. If the hub isn't served with a
+- The Hub's API URL, such as `https://<hub-host>`. If the Hub isn't served with a
   publicly trusted certificate, you also need its CA certificate.
-- An identity in an OIDC provider registered with the hub, for interactive login.
+- An identity in an OIDC provider registered with the Hub, for interactive login.
   For machine or CI environments, provide an IdP-issued JWT instead, covered
-  under [Log in to the hub](#step-2-log-in-to-the-hub).
+  under [Log in to the Hub](#step-2-log-in-to-the-hub).
 - [kubectl](https://kubernetes.io/releases/download/#kubectl) installed.
 
 ## Step 1: Install hub-credential-helper
 
-`hub-credential-helper` is a CLI that authenticates you to the hub. It runs the
-device-authorization and token-exchange flows to get a hub token, caches it, and
+`hub-credential-helper` is a CLI that authenticates you to the Hub. It runs the
+device-authorization and token-exchange flows to get a Hub token, caches it, and
 refreshes it as it expires.
 
 Download the binary for your platform:
@@ -99,9 +99,9 @@ hub-credential-helper --help
 `hub-credential-helper --help` also documents the full flag set, environment
 variables, and token-resolution order.
 
-## Step 2: Log in to the hub
+## Step 2: Log in to the Hub
 
-Set the hub URL used by the commands that follow:
+Set the Hub URL used by the commands that follow:
 
 ```bash
 HUB_URL=https://<hub-host>
@@ -114,20 +114,20 @@ hub-credential-helper login --hub-url="$HUB_URL"
 ```
 
 The helper prints a verification URL and code and opens your browser. Approve the
-request there to sign in through the hub's identity provider. The helper then
-caches a hub access token and a refresh token, so you don't log in again until the
+request there to sign in through the Hub's identity provider. The helper then
+caches a Hub access token and a refresh token, so you don't log in again until the
 refresh token expires.
 
 :::note[CI and headless environments]
 With no browser to complete the device flow, skip the interactive login. Write an
 IdP-issued JWT (such as a mounted Kubernetes ServiceAccount token) to a file and
 add `--token-file=/path/to/token` to the exec args when you create the kubectl
-context in the next step. The helper exchanges it for a hub token. See
+context in the next step. The helper exchanges it for a Hub token. See
 [Workload identities](../iam/identity/workload-identities.md) for how a CI job
-or ServiceAccount gets that JWT and what its hub username looks like.
+or ServiceAccount gets that JWT and what its Hub username looks like.
 :::
 
-## Step 3: Add the hub context to your kubeconfig
+## Step 3: Add the Hub context to your kubeconfig
 
 Add a `hub` context that runs `hub-credential-helper` to fetch and refresh tokens,
 so kubectl authenticates on its own.
@@ -154,7 +154,7 @@ kubectl config set-credentials hub-user \
 kubectl config set-context hub --cluster=hub --user=hub-user
 ```
 
-For a hub served with a private CA, include its certificate on the cluster:
+For a Hub served with a private CA, include its certificate on the cluster:
 
 ```bash
 kubectl config set-cluster hub --server="$HUB_URL" \
@@ -164,7 +164,7 @@ kubectl config set-cluster hub --server="$HUB_URL" \
 </TabItem>
 <TabItem value="file" label="Write a kubeconfig file">
 
-Write a standalone kubeconfig file for the hub context:
+Write a standalone kubeconfig file for the Hub context:
 
 ```bash
 cat > hub.kubeconfig <<EOF
@@ -194,7 +194,7 @@ current-context: hub
 EOF
 ```
 
-Run kubectl against the hub by setting `KUBECONFIG` for the command:
+Run kubectl against the Hub by setting `KUBECONFIG` for the command:
 
 ```bash
 KUBECONFIG=hub.kubeconfig kubectl get controlplanes
@@ -205,9 +205,9 @@ KUBECONFIG=hub.kubeconfig kubectl get controlplanes
 
 ## Step 4: Verify the context
 
-Confirm the context authenticates and reaches the hub.
+Confirm the context authenticates and reaches the Hub.
 
-`kubectl auth whoami` shows your username and groups as the hub sees them, which
+`kubectl auth whoami` shows your username and groups as the Hub sees them, which
 confirms authentication works. See [Verifying your
 identity](../iam/identity/verifying-your-identity.md) for how to read the
 output:
@@ -216,7 +216,7 @@ output:
 kubectl --context=hub auth whoami
 ```
 
-A read such as `get controlplanes` confirms the context reaches the hub API:
+A read such as `get controlplanes` confirms the context reaches the Hub API:
 
 ```bash
 kubectl --context=hub get controlplanes
@@ -248,18 +248,18 @@ If this prints nothing, reinstall the binary or move it onto your `PATH`.
 
 ### `auth whoami` fails
 
-Check the identity the hub resolves for you:
+Check the identity the Hub resolves for you:
 
 ```bash
 kubectl --context=hub auth whoami
 ```
 
-A failure points to the wrong hub URL (check `--hub-url` and the cluster
-`server`) or an identity provider the hub doesn't recognize.
+A failure points to the wrong Hub URL (check `--hub-url` and the cluster
+`server`) or an identity provider the Hub doesn't recognize.
 
-### Certificate errors reaching the hub
+### Certificate errors reaching the Hub
 
-A hub served with a private CA needs its certificate in the cluster stanza.
+A Hub served with a private CA needs its certificate in the cluster stanza.
 Confirm you set `--certificate-authority` (or `certificate-authority` in the
 kubeconfig file) to the correct path.
 
@@ -275,13 +275,13 @@ hub-credential-helper login --hub-url="$HUB_URL"
 
 - [Connect a control plane](connect-control-plane.md): Register a control plane
   and deploy a connector to observe its resources.
-- [Connect a space](connect-space.md): Register a space and deploy a connector to
+- [Connect a Space](connect-space.md): Register a Space and deploy a connector to
   observe its resources and control planes.
 - [Query your fleet](../products/insights/resource-exploration/query.md): Search,
-  filter, and count the resources the hub aggregates from your connected control
+  filter, and count the resources the Hub aggregates from your connected control
   planes.
 - [Access management](../iam/access-management/overview.md): Grant users and
-  groups access across the hub.
+  groups access across the Hub.
 - [CLI and AI agent login](../iam/identity/cli-agent-login.md): Log in
   interactively and print a token for other clients, instead of wiring up a
   kubectl context.

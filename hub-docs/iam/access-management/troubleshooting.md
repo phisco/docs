@@ -164,7 +164,7 @@ status:
 | `Error` | Projection failed. The binding doesn't take effect in that Space. |
 
 A Space stuck outside `Synced`, or missing from the list entirely, points at the
-connector rather than at your binding. Check that the space connector is running
+connector rather than at your binding. Check that the Space connector is running
 with Spaces integration enabled and can reach both the Hub API and the Spaces API
 server.
 

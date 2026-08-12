@@ -1,33 +1,33 @@
 ---
 title: Connect a control plane
 sidebar_position: 4
-description: Connect a control plane to Upbound Platform to observe its resources.
+description: Connect a control plane to Upbound Hub to observe its resources.
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Connecting a Kubernetes cluster as a control plane to the Upbound platform
-allows you to observe its resources in the Console or hub API.
+Connecting a Kubernetes cluster as a control plane to the Upbound Hub
+allows you to observe its resources in the Console or Hub API.
 
 :::note
 To connect control planes managed by Upbound Spaces, see [how to connect a
-space](connect-space.md).
+Space](connect-space.md).
 :::
 
 ## Prerequisites
 
 - A control plane to connect: the Kubernetes cluster whose resources you want to
   observe, and a kubeconfig context for it.
-- Upbound Platform hub, reachable from the control plane.
+- Upbound Hub, reachable from the control plane.
 - A realm for the control plane, and admin permissions within that realm.
 - Access to the Console, or `kubectl` [configured with a `hub` context](configure-kubectl.md)
-  that targets the hub.
+  that targets the Hub.
 - [Helm](https://helm.sh/) 3.
 
 ## Step 1: Declare the control plane
 
-Declare the control plane in Upbound Platform to assign its realm and name, then
+Declare the control plane in Upbound Hub to assign its realm and name, then
 get a connector registration token.
 
 <Tabs groupId="connect-ui">
@@ -143,7 +143,7 @@ kubectl --context="$CONTROL_PLANE_CONTEXT" --namespace upbound-system \
   --from-literal=registrationToken="$REGISTRATION_TOKEN"
 ```
 
-Install the connector chart, pointing it at the hub:
+Install the connector chart, pointing it at the Hub:
 
 ```bash
 helm install hub-connector oci://xpkg.upbound.io/upbound/hub-connector \
@@ -176,9 +176,9 @@ kubectl --context="$CONTROL_PLANE_CONTEXT" --namespace upbound-system \
   get pods --selector app.kubernetes.io/name=hub-connector
 ```
 
-## Step 5: Observe from Upbound Platform
+## Step 5: Observe from Insights
 
-View the control plane and its resources in Upbound Platform.
+View the control plane and its resources in Insights.
 
 <Tabs groupId="connect-ui">
 <TabItem value="console" label="Console">
@@ -186,7 +186,7 @@ View the control plane and its resources in Upbound Platform.
 1. Open the control planes view. The control plane you created shows a status of
    **Ready**.
 
-   ![The Upbound Platform control planes view showing the connected control plane with a Ready status.](/img/hub/connect-control-plane/ready.png)
+   ![The Upbound Hub control planes view showing the connected control plane with a Ready status.](/img/hub/connect-control-plane/ready.png)
 
 2. Open its resources view to see the resources synced from the control plane.
 
@@ -251,13 +251,13 @@ kubectl --context=hub --namespace <realm> \
 
 If it doesn't become `Ready`, the connector hasn't completed registration.
 Confirm the connector pods are `Ready` (Step 4). If the pods are `Ready` but the
-phase stays `Pending`, the connector can't reach the hub. See the next section.
+phase stays `Pending`, the connector can't reach the Hub. See the next section.
 
-### The connector can't reach the hub
+### The connector can't reach the Hub
 
-The connector pushes to the hub at `connector.hub.url`. From the control plane,
+The connector pushes to the Hub at `connector.hub.url`. From the control plane,
 confirm that URL is correct and reachable, and that any firewall or network
-policy allows egress to the hub. Correct the value and upgrade the release:
+policy allows egress to the Hub. Correct the value and upgrade the release:
 
 ```bash
 helm upgrade hub-connector oci://xpkg.upbound.io/upbound/hub-connector \

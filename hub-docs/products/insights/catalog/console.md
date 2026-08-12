@@ -6,7 +6,7 @@ description: Find, filter, and inspect packages across your fleet from the Conso
 
 Once Catalog is [enabled](../../../reference/feature-flags.md), the Console has a **Catalog**
 entry in the navigation sidebar and on the home page.
-Open either one to see every Crossplane package image the hub has
+Open either one to see every Crossplane package image the Hub has
 indexed, along with where each one runs and the APIs it declares.
 
 :::note
@@ -16,7 +16,7 @@ Catalog is a preview feature. Its interface may change between releases. See the
 
 ## The package list
 
-The Catalog page shows a table of every package image the hub has indexed. For
+The Catalog page shows a table of every package image the Hub has indexed. For
 each package you can see its name, version, type (Provider, Configuration, or
 Function), and how many control planes it's deployed on. On larger screens, a
 summary panel on the right shows aggregate counts across the full catalog.
@@ -77,10 +77,10 @@ The first tab shows metadata for the selected package:
 - **Type**: Provider, Configuration, or Function.
 - **Deployed**: the access-scoped control plane count.
 - **APIs**: how many Kubernetes APIs (CRDs) the package declares.
-- **Enrichment**: whether the hub has fetched additional metadata from the
+- **Enrichment**: whether the Hub has fetched additional metadata from the
   upstream registry.
 - **Digest**: the full image digest.
-- **Discovered**: when the hub first indexed this image.
+- **Discovered**: when the Hub first indexed this image.
 
 ![Package detail drawer showing the metadata tab](/img/hub/catalog/detail-overview.png)
 

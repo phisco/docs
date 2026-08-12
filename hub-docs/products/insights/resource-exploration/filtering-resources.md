@@ -14,7 +14,7 @@ filter expressions overview](overview.md) for the full field list.
 ## Before you start
 
 The examples use a `hub` kubectl context. See [Configure kubectl for the
-hub](../../../howtos/configure-kubectl.md) to set one up.
+Hub](../../../howtos/configure-kubectl.md) to set one up.
 
 `filter` values need URL encoding, which makes long expressions hard to read on
 a command line. Define a helper that encodes for you:
