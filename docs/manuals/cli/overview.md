@@ -35,7 +35,7 @@ Install a specific version of `up` by providing the version.
 For example, to install version {versions.cli} use the following command:
 
 <CodeBlock language="bash">
-{`curl -sL "https://cli.upbound.io" | VERSION=v${versions.cli} sh`}
+{`curl -sL "https://cli.upbound.io" | VERSION=${versions.cli} sh`}
 </CodeBlock>
 
 Find the full list of versions in the <a href="https://cli.upbound.io/?prefix=stable/">Up command-line repository</a>.
@@ -47,7 +47,7 @@ Find the full list of versions in the <a href="https://cli.upbound.io/?prefix=st
 Upbound provides a Windows executable.
 
 <CodeBlock language="bash">
-{`curl.exe -sLo up.exe "https://cli.upbound.io/stable/v${versions.cli}/bin/windows_amd64/up.exe"`}
+{`curl.exe -sLo up.exe "https://cli.upbound.io/stable/${versions.cli}/bin/windows_amd64/up.exe"`}
 </CodeBlock>
 
 Find the full list of Windows versions in the [Up command-line
@@ -74,14 +74,14 @@ Downloading packages requires both the [version][version] and CPU architecture (
 ### Debian package install
 
 <CodeBlock language="bash">
-{`curl -sLo up.deb "https://cli.upbound.io/stable/v${versions.cli}/deb/up_${versions.cli}_linux_\${ARCH}.deb"`}
+{`curl -sLo up.deb "https://cli.upbound.io/stable/${versions.cli}/deb/up_${versions.cli}_linux_\${ARCH}.deb"`}
 </CodeBlock>
 
 <!-- vale Microsoft.HeadingAcronyms = NO -->
 ### RPM package install
 
 <CodeBlock language="bash">
-{`curl -sLo up.rpm "https://cli.upbound.io/stable/v${versions.cli}/rpm/up_${versions.cli}_linux_\${ARCH}.rpm"`}
+{`curl -sLo up.rpm "https://cli.upbound.io/stable/${versions.cli}/rpm/up_${versions.cli}_linux_\${ARCH}.rpm"`}
 </CodeBlock>
 
 </TabItem>
@@ -110,14 +110,14 @@ brew install upbound/tap/docker-credential-up
 ### Debian package install
 
 <CodeBlock language="bash">
-{`curl -sLo up.deb "https://cli.upbound.io/stable/v${versions.cli}/deb/docker-credential-up_${versions.cli}_linux_\${ARCH}.deb"`}
+{`curl -sLo up.deb "https://cli.upbound.io/stable/${versions.cli}/deb/docker-credential-up_${versions.cli}_linux_\${ARCH}.deb"`}
 </CodeBlock>
 
 <!-- vale Microsoft.HeadingAcronyms = NO -->
 ### RPM package install
 <!-- vale Microsoft.HeadingAcronyms = YES -->
 <CodeBlock language="bash">
-{`curl -sLo up.rpm "https://cli.upbound.io/stable/v${versions.cli}/rpm/docker-credential-up_${versions.cli}_linux_\${ARCH}.rpm"`}
+{`curl -sLo up.rpm "https://cli.upbound.io/stable/${versions.cli}/rpm/docker-credential-up_${versions.cli}_linux_\${ARCH}.rpm"`}
 </CodeBlock>
 
 </TabItem>
