@@ -1,0 +1,11 @@
+{
+  "label": "Workload Identity Configuration",
+  "position": 2,
+  "collapsed": true,
+    "customProps": {
+      "plan": "business"
+  }
+
+}
+
+

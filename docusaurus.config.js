@@ -105,7 +105,7 @@ const config = {
                 lastVersion: "current",
                 versions: {
                     current: {
-                        label: "1.17",
+                        label: "1.18",
                     },
                 },
             },

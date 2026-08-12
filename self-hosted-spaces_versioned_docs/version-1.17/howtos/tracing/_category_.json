@@ -1,0 +1,8 @@
+{
+  "label": "Distributed Tracing",
+  "position": 50,
+  "collapsed": true,
+  "customProps": {
+    "plan": "business"
+  }
+}

@@ -18,7 +18,7 @@ const LATEST = 'latest';
 const VERSIONED_DOCS = [
   {
     basePath: 'self-hosted-spaces',
-    latestLabel: '1.17',
+    latestLabel: '1.18',
     versions: require('../../../../../self-hosted-spaces_versions.json'),
   },
   {
