@@ -1,0 +1,244 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: environments.scheduling.upbound.io
+spec:
+  group: scheduling.upbound.io
+  names:
+    categories:
+    - scheduling
+    - envs
+    kind: Environment
+    listKind: EnvironmentList
+    plural: environments
+    shortNames:
+    - env
+    singular: environment
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Environment specifies where remote claims are scheduled to.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: EnvironmentSpec defines the desired state of Environment.
+            properties:
+              dimensions:
+                additionalProperties:
+                  type: string
+                description: |-
+                  Dimensions are the label keys and values to select control planes
+                  implementing the desired API resource group. These dimensions apply to
+                  all resource groups uniformly. Per resource group dimensions can
+                  be specified in the resource group configuration.
+                type: object
+              resourceGroups:
+                description: |-
+                  ResourceGroups define label keys and values and potentially other
+                  properties to select a control plane along dimensions for individual
+                  API resource groups.
+
+                  A resource group not specified in this list will not be scheduled.
+                items:
+                  description: ResourceGroup defines the desired scheduling of a resource
+                    group.
+                  properties:
+                    dimensions:
+                      additionalProperties:
+                        type: string
+                      description: |-
+                        Dimensions are the label keys and values to select control planes
+                        implementing the desired API resource group. These are in addition to
+                        the dimensions specified at the .spec level and override them.
+                      type: object
+                    name:
+                      description: Name is the name of the resource group.
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - name
+                x-kubernetes-list-type: map
+              schedule:
+                description: |-
+                  Schedule defines the scheduling result of the resource group. It is
+                  set by the scheduler and cannot be mutated by the user. But the user
+                  can unset it to allow the scheduler to reschedule the resource group.
+
+                  If unset, the resource group will be rescheduled by first setting the
+                  proposed schedule in the status and then setting this field here.
+
+                  If no scheduling is possible, the Ready condition will be set to False
+                  with the NoControlPlaneAvailable reason.
+
+                  A schedule will never change unless the user unsets it.
+                items:
+                  description: |-
+                    ResourceSchedule indicates where instances of a resource group are scheduled to,
+                    i.e. by which control plane and in which group and space claims will be
+                    implemented.
+                  properties:
+                    controlPlane:
+                      description: |-
+                        ControlPlane is the name of the control plane in which the resource group is scheduled.
+                        This is empty if the resource group cannot be scheduled.
+                      type: string
+                    group:
+                      description: |-
+                        Group is the name of the group in which the resource group is scheduled.
+                        This is empty if the resource group cannot be scheduled.
+                      type: string
+                    name:
+                      description: Name is the name of the resource group.
+                      minLength: 1
+                      type: string
+                    space:
+                      description: |-
+                        Space is the name of the space in which the resource group is scheduled.
+                        This is empty if the resource group cannot be scheduled.
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - name
+                x-kubernetes-list-type: map
+            type: object
+          status:
+            description: EnvironmentStatus defines the observed state of the Environment.
+            properties:
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+              resourceGroups:
+                description: |-
+                  ProposedSchedule indicates where instances of a resource group according
+                  to the current dimensions are proposed to be scheduled to.
+                items:
+                  description: ResourceStatus represents the status of one individual
+                    resource group.
+                  properties:
+                    message:
+                      description: Message is a human-readable message for the scheduling
+                        decision.
+                      type: string
+                    name:
+                      description: Name is the name of the resource group.
+                      minLength: 1
+                      type: string
+                    proposed:
+                      description: |-
+                        Proposed is the proposed schedule for the resource group. This either
+                        matches the schedule in the spec or is a new proposal by the scheduler.
+
+                        In the later case, the user can accept the proposal by removing the
+                        existing schedule in the spec for the given resource group.
+                      properties:
+                        controlPlane:
+                          description: |-
+                            ControlPlane is the name of the control plane in which the resource group is scheduled.
+                            This is empty if the resource group cannot be scheduled.
+                          type: string
+                        group:
+                          description: |-
+                            Group is the name of the group in which the resource group is scheduled.
+                            This is empty if the resource group cannot be scheduled.
+                          type: string
+                        space:
+                          description: |-
+                            Space is the name of the space in which the resource group is scheduled.
+                            This is empty if the resource group cannot be scheduled.
+                          type: string
+                      type: object
+                    reason:
+                      description: Reason is a machine-readable reason for the scheduling
+                        decision.
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
