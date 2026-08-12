@@ -12,7 +12,7 @@ allows you to observe its resources in the Console or Hub API.
 
 :::note
 To connect control planes managed by Upbound Spaces, see [how to connect a
-space](connect-space.md).
+Space](connect-space.md).
 :::
 
 ## Prerequisites

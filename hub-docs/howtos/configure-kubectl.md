@@ -275,7 +275,7 @@ hub-credential-helper login --hub-url="$HUB_URL"
 
 - [Connect a control plane](connect-control-plane.md): Register a control plane
   and deploy a connector to observe its resources.
-- [Connect a space](connect-space.md): Register a space and deploy a connector to
+- [Connect a Space](connect-space.md): Register a Space and deploy a connector to
   observe its resources and control planes.
 - [Query your fleet](../products/insights/resource-exploration/query.md): Search,
   filter, and count the resources the Hub aggregates from your connected control
