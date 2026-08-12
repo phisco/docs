@@ -78,7 +78,7 @@ see" is always trustworthy.
 Fleet-wide aggregates inherit this predicate rather than defining one of their
 own, though they attach to it at a different scope. Hub gates
 `typedefinitions` on the control planes you can reach. A user can see `crossplanepackages`
-in the hub if they can see the corresponding `Provider`, `Configuration`,
+in the Hub if they can see the corresponding `Provider`, `Configuration`,
 `Function`, or `AddOn` CRD in the control plane otherwise.
 
 ## Pass Hub identities through to a control plane

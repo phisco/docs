@@ -1,14 +1,14 @@
 ---
 title: Connect a space
 sidebar_position: 5
-description: Connect a space to Upbound Platform to observe its resources and control planes.
+description: Connect a space to Upbound Hub to observe its resources and control planes.
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Connecting a self-hosted Spaces cluster to the Upbound platform
-allows you to observe its resources in the Console or hub API and automatically
+Connecting a self-hosted Spaces cluster to the Upbound Hub
+allows you to observe its resources in the Console or Hub API and automatically
 connects the control planes it manages.
 
 Resources in a connected space appear in the `default` realm under a control
@@ -26,14 +26,14 @@ connect a control plane](connect-control-plane.md).
 - A space to connect: the Kubernetes cluster running Upbound Spaces whose
   resources and control planes you want to observe, and a kubeconfig context for
   it.
-- Upbound Platform hub, reachable from the space.
+- Upbound Hub, reachable from the space.
 - Access to the Console, or `kubectl` [configured with a `hub` context](configure-kubectl.md)
-  that targets the hub.
+  that targets the Hub.
 - [Helm](https://helm.sh/) 3.
 
 ## Step 1: Declare the space
 
-Declare the space in Upbound Platform to assign its name and get a connector
+Declare the space in Upbound Hub to assign its name and get a connector
 registration token.
 
 <Tabs groupId="connect-ui">
@@ -178,16 +178,16 @@ kubectl --context="$SPACE_CONTEXT" --all-namespaces \
   get pods --selector app.kubernetes.io/name=hub-connector
 ```
 
-## Step 5: Observe from Upbound Platform
+## Step 5: Observe from Insights
 
-View the space, its resources, and control planes in Upbound Platform.
+View the space, its resources, and control planes in Insights.
 
 <Tabs groupId="connect-ui">
 <TabItem value="console" label="Console">
 
-1. Open the spaces view. The space you created shows a status of **Ready**.
+1. Open the Spaces view. The space you created shows a status of **Ready**.
 
-   ![The Upbound Platform spaces view showing the connected space with a Ready status.](/img/hub/connect-space/ready.png)
+   ![The Upbound Hub Spaces view showing the connected space with a Ready status.](/img/hub/connect-space/ready.png)
 
 2. Open the control planes view. Two kinds of control plane appear for the space:
    - The representative control plane for the space, named `space-<space-name>`,
@@ -266,14 +266,14 @@ kubectl --context=hub get space <space-name> -o jsonpath='{.status.phase}'
 
 If it doesn't become `Ready`, the connector hasn't completed registration.
 Confirm the space connector pods are `Ready` (Step 4). If the pods are `Ready`
-but the phase stays `Pending`, the connector can't reach the hub. See the next
+but the phase stays `Pending`, the connector can't reach the Hub. See the next
 section.
 
-### The connector can't reach the hub
+### The connector can't reach the Hub
 
-The connector pushes to the hub at `connector.hub.url`. From the space cluster,
+The connector pushes to the Hub at `connector.hub.url`. From the space cluster,
 confirm that URL is correct and reachable, and that any firewall or network
-policy allows egress to the hub. Correct the value and upgrade the release:
+policy allows egress to the Hub. Correct the value and upgrade the release:
 
 ```bash
 helm upgrade hub-connector oci://xpkg.upbound.io/upbound/hub-connector \
@@ -287,7 +287,7 @@ helm upgrade hub-connector oci://xpkg.upbound.io/upbound/hub-connector \
 
 The connector deploys a per-control-plane connector into each control plane's
 system namespace on the space cluster. If the space is `Ready` but its member
-control planes don't appear in the hub, confirm the per-control-plane
+control planes don't appear in the Hub, confirm the per-control-plane
 connectors came up:
 
 ```bash

@@ -4,7 +4,7 @@ sidebar_position: 1
 description: Reference material for Hub, including feature flags and the feature lifecycle.
 ---
 
-Reference material for operating the hub.
+Reference material for operating the Hub.
 
 <!-- vale Upbound.Spelling = NO -->
 - [Feature flags][feature-flags]. Enable optional features through Helm

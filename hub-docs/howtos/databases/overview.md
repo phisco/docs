@@ -115,7 +115,7 @@ Cloud SQL, or Azure Database for PostgreSQL.
 <!-- vale write-good.Passive = NO -->
 Set `hub-core.postgresql.auth.mode=iam` and `hub-core.postgresql.auth.cloud=aws`
 to authenticate using short-lived IAM tokens minted per connection. No static
-password is stored anywhere, and the hub forces `sslmode=require` at minimum, since
+password is stored anywhere, and the Hub forces `sslmode=require` at minimum, since
 cloud Postgres providers reject IAM auth over plaintext.
 <!-- vale write-good.Passive = YES -->
 

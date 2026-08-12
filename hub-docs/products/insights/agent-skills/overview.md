@@ -129,7 +129,7 @@ builds its own kubeconfig pointing at your Hub endpoint, so it ignores the
 contexts in your `KUBECONFIG` and you need no cluster access to any control
 plane. What it does need is `kubectl` on your `PATH`, network reach to Hub and
 Hub permissions for the verb. To keep a `hub` context of your own alongside it,
-[Configure kubectl for the hub](../../../howtos/configure-kubectl.md) sets one up
+[Configure kubectl for the Hub](../../../howtos/configure-kubectl.md) sets one up
 with the same credential helper.
 
 Hub's differences from a cluster show up here. It serves no `patch` verb, so

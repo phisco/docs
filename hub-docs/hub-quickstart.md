@@ -1,9 +1,9 @@
 ---
-title: Try the hub
+title: Try the Hub
 description: Run Hub on kind, connect two Crossplane control planes, and query the fleet from one screen.
 ---
 
-This quickstart installs and runs the hub API locally and connects two
+This quickstart installs and runs the Hub API locally and connects two
 Crossplane control planes to it. By the end you have a three control plane fleet
 and a Console that queries across the fleet. You can check which resources
 exist, types and where they exist, and which control plane runs an older package
@@ -16,14 +16,14 @@ cloud credentials.
 This quickstart uses the chart's demo mode. Demo mode bundles PostgreSQL,
 Keycloak, and the Envoy Gateway controller with fixed credentials, ephemeral
 storage, and a self-signed certificate. Don't run it in production. For a real
-install, see [Installing hub][install].
+install, see [Installing Hub][install].
 :::
 
 ## What you build
 
 | Cluster | Role |
 | --- | --- |
-| `hub` | Runs hub, the bundled Postgres and Keycloak, and the Console. Registers itself as the `default` control plane. |
+| `hub` | Runs Hub, the bundled Postgres and Keycloak, and the Console. Registers itself as the `default` control plane. |
 | `ctp-payments` | Crossplane control plane running `provider-nop` v0.4.0. |
 | `ctp-analytics` | Crossplane control plane running `provider-nop` v0.5.0. |
 
@@ -40,13 +40,13 @@ versions. That difference is what the fleet views surface later.
 - [Helm](https://helm.sh/docs/intro/install/) 3
 - The [up CLI][upCli] and an Upbound account
 
-Log in before you start. The hub chart lives in Upbound's registry:
+Log in before you start. The Hub chart lives in Upbound's registry:
 
 ```shell
 up login
 ```
 
-## Step 1: Create the hub cluster
+## Step 1: Create the Hub cluster
 
 Demo mode exposes the Console through an Envoy Gateway on node port `30443`. Map
 that node port to a host port so you can open the Console in a browser.
@@ -76,7 +76,7 @@ that node port to a host port so you can open the Console in a browser.
    control plane clusters you create in step 4 reach this one at
    `hub-control-plane`.
 
-## Step 2: Install hub
+## Step 2: Install Hub
 
 1. Install the umbrella chart with demo mode on.
 
@@ -121,7 +121,7 @@ that node port to a host port so you can open the Console in a browser.
 Demo mode bootstraps four things for you:
 
 - A Keycloak identity provider named `keycloak`, with a set of demo users.
-- A `default` control plane in the `default` realm, representing the hub cluster
+- A `default` control plane in the `default` realm, representing the Hub cluster
   itself.
 - An `OrganizationRoleBinding` granting the `keycloak:admin` group organization
   admin.
@@ -139,14 +139,14 @@ authorization][rbac].
 
 1. Open `https://hub.127.0.0.1.nip.io:8443`.
 
-   Demo mode serves the Console, the hub API, and Keycloak from this one
+   Demo mode serves the Console, the Hub API, and Keycloak from this one
    hostname, routed by path. The gateway presents a self-signed certificate, so
    your browser warns you on first visit. Choose **Advanced**, then proceed.
 
 2. Sign in as `admin` with the password `admin`.
 
 3. Open the control planes view. One control plane, `default`, is already
-   registered and `Ready`. Its resources are the hub cluster's own.
+   registered and `Ready`. Its resources are the Hub cluster's own.
 
 Demo mode also creates users with narrower access. Keep them for step 7:
 
@@ -291,7 +291,7 @@ versions give the fleet views something to compare.
 
 ## Step 5: Register each control plane
 
-Registering a control plane in hub returns a one-time registration token. The
+Registering a control plane in Hub returns a one-time registration token. The
 connector presents that token the first time it contacts `hub-core`.
 
 Do this once per cluster.
@@ -321,7 +321,7 @@ Do this once per cluster.
 ## Step 6: Install the connector
 
 The connector runs inside each control plane cluster, exchanges its registration
-token for a hub credential, and streams resource state to `hub-core`.
+token for a Hub credential, and streams resource state to `hub-core`.
 
 1. Install the connector in `ctp-payments`.
 
@@ -342,7 +342,7 @@ token for a hub credential, and streams resource state to `hub-core`.
    ```
 
    `$HUB_API_PORT` and `$HUB_TOKEN_PORT` come from step 2.
-   `connector.hub.allowInsecure` permits plaintext HTTP to the hub. It's needed
+   `connector.hub.allowInsecure` permits plaintext HTTP to the Hub. It's needed
    here because the node ports you exposed in step 2 don't end TLS. A real
    install points the connector at an HTTPS gateway and leaves this at its
    default of `false`.
@@ -550,10 +550,10 @@ kind delete cluster --name hub
 
 ## Next steps
 
-- [Installing the hub API][install] to run against your own PostgreSQL, OIDC
+- [Installing the Hub API][install] to run against your own PostgreSQL, OIDC
   provider, and gateway.
 - [Connect a control plane][connect] for the connector install against a real
-  hub, including the kubectl path for minting registration tokens.
+  Hub, including the kubectl path for minting registration tokens.
 - [Production overview][production] for sizing, high availability, autoscaling,
   and upgrades.
 

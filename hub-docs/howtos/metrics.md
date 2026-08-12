@@ -8,7 +8,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 Metrics needs configuration on both sides of the connector: a gateway and
-a storage backend on the hub, and a collector on each control plane you want to
+a storage backend on the Hub, and a collector on each control plane you want to
 collect from. This page covers both. See
 [Metrics](../products/insights/metrics/overview.md) for what the feature does and how to
 query it.
@@ -47,7 +47,7 @@ Both come from `hub-core.otelGateway.metrics`.
 write endpoint on every backend. For self-hosted Prometheus the two usually
 share a host. For managed Prometheus they don't.
 
-## Step 2: Configure the hub
+## Step 2: Configure the Hub
 
 Enable the `Metrics` gate, the OTel gateway, and a backend. The gate turns on
 the `metrics.hub.upbound.io` API group; the gateway receives, labels, and
@@ -170,7 +170,7 @@ kubectl --namespace hub get pods --selector app.kubernetes.io/component=otel-gat
 
 ## Step 3: Turn on collection for control planes
 
-The hub side receives, but nothing sends until you enable the collector on the
+The Hub side receives, but nothing sends until you enable the collector on the
 connector. The collector is off by default in the `hub-connector` chart.
 
 <Tabs groupId="metrics-source">

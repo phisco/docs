@@ -1,23 +1,23 @@
 ---
 title: Observability
 sidebar_position: 16
-description: Collect hub's service metrics, install the hub-observability chart, and export them to your monitoring backend.
+description: Collect Hub's service metrics, install the hub-observability chart, and export them to your monitoring backend.
 ---
 
 Hub's components emit their own Prometheus metrics: request rates and latency, Go
-runtime health, and hub-specific counters for ingestion, queries, and internal
-work. This page covers what hub exposes, a turnkey chart to view it, and how to
+runtime health, and Hub-specific counters for ingestion, queries, and internal
+work. This page covers what Hub exposes, a turnkey chart to view it, and how to
 wire it into your own monitoring backend for production.
 
 :::note[This page isn't the Metrics pipeline]
-This page is about the health of the **hub software itself**. It's separate from
+This page is about the health of the **Hub software itself**. It's separate from
 the [Metrics pipeline](metrics.md), which collects **control-plane** metrics from
 connected control planes and serves them through the Metrics Query API. The two
 are independent: you can run either, both, or neither, and they never share
 storage.
 :::
 
-## What the hub exposes today
+## What the Hub exposes today
 
 `hub-core` serves a Prometheus metrics endpoint on port `8085`. It carries two
 kinds of metrics:
@@ -30,7 +30,7 @@ kinds of metrics:
 - **Hub instruments** (prefixed `hub_core_`) for the ingest and query paths and
   the internal subsystems, catalogued below.
 
-All hub metric names below are the Prometheus-exposition form. Counters end in
+All Hub metric names below are the Prometheus-exposition form. Counters end in
 `_total`; histograms expose `_bucket`, `_sum`, and `_count` series.
 
 [otel-http-metrics]: https://opentelemetry.io/docs/specs/semconv/http/http-metrics/
@@ -45,13 +45,13 @@ All hub metric names below are the Prometheus-exposition form. Counters end in
 | `hub_core_ingest_resource_by_type_total` | counter | `group`, `kind`, `crossplane_type`, `op` | The same ingests broken down by resource type. |
 | `hub_core_ingest_rejected_total` | counter | `reason` | Ingest requests rejected before commit. |
 | `hub_core_ingest_stale_write_dropped_total` | counter | `control_plane`, `realm` | Upserts dropped because the incoming resource version wasn't newer than the stored one. Spikes indicate out-of-order delivery or a connector resync storm. |
-| `hub_core_ingest_event_lag_seconds` | histogram | - | Lag between event generation at the source and receipt by hub. |
+| `hub_core_ingest_event_lag_seconds` | histogram | - | Lag between event generation at the source and receipt by Hub. |
 <!-- vale Upbound.Spelling = YES -->
 <!-- vale Microsoft.Dashes = YES -->
 
 ### Metrics ingestion
 
-The ingest side of the Metrics pipeline, measured as hub's own operational
+The ingest side of the Metrics pipeline, measured as Hub's own operational
 counters.
 
 <!-- vale Microsoft.Dashes = NO -->
@@ -79,8 +79,8 @@ counters.
 ### Internals
 
 Hub extracts relationship edges (owner references, Crossplane composite → claim →
-managed-resource links) at ingest. When an edge points at a resource hub hasn't
-ingested yet, hub holds the edge in a backlog, and a background sweeper promotes
+managed-resource links) at ingest. When an edge points at a resource Hub hasn't
+ingested yet, Hub holds the edge in a backlog, and a background sweeper promotes
 it once the target arrives.
 
 | Metric | Type | Measures |
@@ -103,8 +103,8 @@ The pod scrapes `hub-core:8085` into its own Prometheus. It comes with three
 preloaded dashboards: **Hub Service Health**, **Hub Ingest**, and **Hub Query**.
 <!-- vale Upbound.Spelling = YES -->
 
-The chart discovers hub pods in its **own release namespace**, so install it in
-the same namespace as the hub:
+The chart discovers Hub pods in its **own release namespace**, so install it in
+the same namespace as the Hub:
 
 ```bash
 helm install hub-observability oci://xpkg.upbound.io/upbound/hub-observability \
@@ -113,7 +113,7 @@ kubectl -n hub port-forward svc/hub-observability-hub-observability 3000:3000
 # → http://localhost:3000
 ```
 
-To run it in a separate namespace instead, point it at the namespace where hub
+To run it in a separate namespace instead, point it at the namespace where Hub
 runs with `scrape.namespace`:
 
 ```bash
@@ -133,7 +133,7 @@ For production, scrape `hub-core:8085` with your own agent and send the metrics
 to the **observability backend of your choice**.
 
 The pipeline below is **only an example**. An OpenTelemetry Collector that
-scrapes the hub pods and remote-writes to a Prometheus-compatible endpoint. Swap
+scrapes the Hub pods and remote-writes to a Prometheus-compatible endpoint. Swap
 the exporter for one that matches your backend (OTLP, Google Cloud, Datadog, and
 so on):
 
@@ -189,5 +189,5 @@ subject to change:
 
 If you haven't yet, work through [Production hardening](production-overview.md) for
 sizing, high availability, autoscaling, RBAC, and upgrades. 
-Once you've prepared your hub install for production, come back and configure
+Once you've prepared your Hub install for production, come back and configure
 watching for your hardened install.
