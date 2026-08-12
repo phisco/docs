@@ -14,7 +14,7 @@ This reference provides detailed documentation on the Upbound Space Helm chart. 
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://xpkg.upbound.io/spaces-artifacts | apollo(uxp-apollo) | 0.4.15 |
+| oci://xpkg.upbound.io/spaces-artifacts | apollo(uxp-apollo) | 0.4.20 |
 
 ## Values
 
@@ -74,7 +74,7 @@ This reference provides detailed documentation on the Upbound Space Helm chart. 
 | apollo.apollo.storage.postgres.create | bool | `true` |  |
 | apollo.apollo.storage.postgres.sidecar | bool | `false` |  |
 | apollo.apollo.syncer.enabled | bool | `false` |  |
-| apollo.apollo.syncer.image.tag | string | `"v0.4.15"` |  |
+| apollo.apollo.syncer.image.tag | string | `"v0.4.20"` |  |
 | apollo.registry | string | `"xpkg.upbound.io/spaces-artifacts"` |  |
 | authentication.hubIdentities | bool | `true` | This enables respecting built in Kubernetes identities (clientcertificate, managed kubernetes OIDC, Kubernetes Groups, etc) specified within the Connected Space's hub. |
 | authentication.structuredConfig | string | `""` | Enables consumption of JWT Authenticators via Authentication Configuration per https://kubernetes.io/docs/reference/access-authn-authz/authentication/#using-authentication-configuration <br> The below property takes the name of a configmap that contains a structured authentication configuration. |
@@ -149,10 +149,10 @@ This reference provides detailed documentation on the Upbound Space Helm chart. 
 | controlPlanes.kubeStateMetrics.resources.requests.cpu | string | `"100m"` | CPU request for the spaces control plane kube-state-metrics pod. |
 | controlPlanes.kubeStateMetrics.resources.requests.memory | string | `"50Mi"` | Memory request for the spaces control plane kube-state-metrics pod. |
 | controlPlanes.mxpController.affinity | object | `{}` | Configure [affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) rules for mxp-controller Pods. |
-| controlPlanes.mxpController.apisInitResources.limits.cpu | string | `nil` | CPU limit for the mxp-controller apis-init initContainer. |
-| controlPlanes.mxpController.apisInitResources.limits.memory | string | `nil` | Memory limit for the mxp-controller apis-init initContainer. |
-| controlPlanes.mxpController.apisInitResources.requests.cpu | string | `nil` | CPU request for the mxp-controller apis-init initContainer. |
-| controlPlanes.mxpController.apisInitResources.requests.memory | string | `nil` | Memory request for the mxp-controller apis-init initContainer. |
+| controlPlanes.mxpController.apisInitResources.limits.cpu | string | `nil` | DEPRECATED, ignored, removed in 1.19. CPU limit for the mxp-controller apis-init initContainer. |
+| controlPlanes.mxpController.apisInitResources.limits.memory | string | `nil` | DEPRECATED, ignored, removed in 1.19. Memory limit for the mxp-controller apis-init initContainer. |
+| controlPlanes.mxpController.apisInitResources.requests.cpu | string | `nil` | DEPRECATED, ignored, removed in 1.19. CPU request for the mxp-controller apis-init initContainer. |
+| controlPlanes.mxpController.apisInitResources.requests.memory | string | `nil` | DEPRECATED, ignored, removed in 1.19. Memory request for the mxp-controller apis-init initContainer. |
 | controlPlanes.mxpController.command | list | `[]` | The command to run for the mxp controller. |
 | controlPlanes.mxpController.debug | bool | `false` | Whether mxp-controller syncers should be deployed in debug mode. |
 | controlPlanes.mxpController.pod.customLabels | object | `{}` | Custom labels to be added to the mxp-controller pod. |
@@ -203,6 +203,7 @@ This reference provides detailed documentation on the Upbound Space Helm chart. 
 | controlPlanes.uxp.v2.enabled | bool | `true` | Whether users should be able to create ControlPlanes with the v2 UXP. |
 | controlPlanes.vcluster.affinity | object | `{}` | Configure [affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) rules for vcluster Pods. |
 | controlPlanes.vcluster.extraSyncLabels | string | `""` | Extra pod labels to be synced by the vcluster. This is a string consisting of a comma-separated list of label keys. |
+| controlPlanes.vcluster.probes.livenessProbe.enabled | bool | `true` | Whether to enable the liveness probe on the syncer pod. |
 | controlPlanes.vcluster.resources.limits.cpu | string | `"3000m"` | CPU limit for the spaces control plane vcluster pod. |
 | controlPlanes.vcluster.resources.requests.cpu | string | `"170m"` | CPU request for the spaces control plane vcluster pod. |
 | controlPlanes.vcluster.resources.requests.memory | string | `"1320Mi"` | Memory request for the spaces control plane vcluster pod. This is the initial memory request for the control plane pod. The memory request of the vcluster pod may be dynamically adjusted by the autoscaler controller based on the number of CRDs. |
@@ -250,7 +251,7 @@ This reference provides detailed documentation on the Upbound Space Helm chart. 
 | controller.controller.verticalPodAutoscaler.maxAllowed | object | `{}` | Upper bound for VPA memory recommendations; set higher than controller.controller.resources.limits.memory when enabling VPA. |
 | controller.controller.verticalPodAutoscaler.minAllowed | object | `{}` | Optional lower bound for VPA memory recommendations. Omit memory or leave unset when not needed. |
 | controller.controller.verticalPodAutoscaler.updateMode | string | `"Off"` | The mode for the VerticalPodAutoscaler. |
-| controller.crossplane.supportedVersions | list | `["1.19.0-up.1","1.19.2-up.1","1.19.3-up.1","1.20.0-up.1","1.20.1-up.1","1.20.4-up.1","1.20.5-up.1","1.20.6-up.2","1.20.8-up.1","1.20.10-up.1","2.0.7-up.2","2.0.8-up.1","2.0.8-up.2","2.0.8-up.3","2.0.8-up.4","2.1.4-up.3","2.1.5-up.1","2.1.6-up.1","2.1.7-up.1","2.1.7-up.2","2.2.0-up.3","2.2.1-up.1","2.2.2-up.1"]` | List of supported Crossplane versions, will be automatically updated by the versionsController, if enabled. |
+| controller.crossplane.supportedVersions | list | `["1.19.0-up.1","1.19.2-up.1","1.19.3-up.1","1.20.0-up.1","1.20.1-up.1","1.20.4-up.1","1.20.5-up.1","1.20.6-up.2","1.20.8-up.1","1.20.10-up.1","1.20.11-up.1","1.20.11-up.2","2.0.7-up.2","2.0.8-up.1","2.0.8-up.2","2.0.8-up.3","2.0.8-up.4","2.0.8-up.6","2.0.8-up.7","2.1.4-up.3","2.1.5-up.1","2.1.6-up.1","2.1.7-up.1","2.1.7-up.2","2.1.8-up.1","2.1.8-up.2","2.2.0-up.3","2.2.1-up.1","2.2.2-up.1","2.2.4-up.1","2.2.4-up.2","2.3.4-up.1","2.3.4-up.2"]` | List of supported Crossplane versions, will be automatically updated by the versionsController, if enabled. |
 | controller.crossplane.versionsController.enabled | bool | `true` | This flag enables the versionsController. When set to true, the controller will manage Crossplane versions configmap. If disabled, default behavior will be supportedVersions will applied without automatic updates. |
 | controller.extraVolumes | list | `[]` | Extra volumes to be added to the spaces controller pods. |
 | controller.kcp.enabled | bool | `false` | Whether spaces controller should be KCP aware. |
@@ -343,6 +344,7 @@ This reference provides detailed documentation on the Upbound Space Helm chart. 
 | metering.storage.postgres.connection.url | string | `""` | The connection URL (host:port format, e.g., "postgres.example.com:5432"). |
 | metering.workerCount | int | `10` | Number of workers for parallel measurement collection. |
 | nameOverride | string | `""` | The name of the chart. |
+| networkPolicies.enabled | bool | `true` | Whether to install the NetworkPolicies that Spaces ships. This covers both the Space components in upbound-system and the policies installed into every control plane host namespace. |
 | observability.collectors | object | `{"apiServer":{"auditPolicy":""},"includeSystemTelemetry":false,"logCollector":{"resources":{"limits":{"cpu":null,"memory":null},"requests":{"cpu":"10m","memory":"100Mi"}},"tolerations":[]},"repository":"opentelemetry-collector-spaces","resources":{"limits":{"cpu":"100m","memory":"1Gi"},"requests":{"cpu":"10m","memory":"100Mi"}},"tag":""}` | Observability configuration to collect metrics and traces ( and logs in the future) from the Control Plane. <br> Use SharedTelemetryConfig API to configure the exporters for Control Planes and Control Plane Groups. <br> Control Plane telemetry collection is disabled by default and gated by the "features.alpha.observability.enabled" parameter. |
 | observability.collectors.includeSystemTelemetry | bool | `false` | If true, control plane telemetry will emit telemetry data from control plane system components, such as the api server, etcd. |
 | observability.collectors.logCollector | object | `{"resources":{"limits":{"cpu":null,"memory":null},"requests":{"cpu":"10m","memory":"100Mi"}},"tolerations":[]}` | Resource configuration for the control-plane-log-collector DaemonSet that runs on host nodes to aggregate logs from control planes with logging enabled. |
