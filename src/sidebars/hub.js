@@ -44,6 +44,7 @@ module.exports = {
               items: [
                 "products/insights/catalog/console",
                 "products/insights/catalog/external-registry",
+                "products/insights/catalog/scanning",
               ],
             },
             {

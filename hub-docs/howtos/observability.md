@@ -28,7 +28,7 @@ kinds of metrics:
   metrics (`go_*`: `goroutines`, heap, and GC). Consult those conventions for the
   full field list.
 - **Hub instruments** (prefixed `hub_core_`) for the ingest and query paths and
-  the internal subsystems, catalogued below.
+  the internal subsystems, cataloged below.
 
 All Hub metric names below are the Prometheus-exposition form. Counters end in
 `_total`; histograms expose `_bucket`, `_sum`, and `_count` series.
