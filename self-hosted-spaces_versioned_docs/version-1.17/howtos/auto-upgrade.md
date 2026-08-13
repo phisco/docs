@@ -69,17 +69,10 @@ Current Crossplane version support by Spaces version:
 
 | Spaces Version | Crossplane Version Min | Crossplane Version Max |
 |:--------------:|:----------------------:|:----------------------:|
-|       1.2      |          1.13          |          1.15          |
-|       1.3      |          1.13          |          1.15          |
-|       1.4      |          1.14          |          1.16          |
-|       1.5      |          1.14          |          1.16          |
-|       1.6      |          1.14          |          1.16          |
-|       1.7      |          1.14          |          1.16          |
-|       1.8      |          1.15          |          1.17          |
-|       1.9      |          1.16          |          1.18          |
-|      1.10      |          1.16          |          1.18          |
-|      1.11      |          1.16          |          1.18          |
-|      1.12      |          1.17          |          1.19          |
+|      1.14      |          1.18          |          1.20          |
+|      1.15      |          1.18          |          1.20          |
+|      1.16      |          1.18          |          1.20          |
+|      1.17      |          1.19          |           2.2          |
 
 
 Upbound offers extended support for all installed Crossplane versions released within a 12 month window since the last Spaces release. Contact your Upbound sales representative for more information on version support.

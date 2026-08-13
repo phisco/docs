@@ -16,6 +16,8 @@ Upbound tests each Spaces release against specific Kubernetes versions:
 
 | Spaces Version | Tested Kubernetes Versions |
 |----------------|----------------------------|
+| 1.18           | 1.33, 1.34, 1.35           |
+| 1.17           | 1.33, 1.34, 1.35           |
 | 1.16           | 1.33, 1.34, 1.35           |
 | 1.15           | 1.32, 1.33, 1.34, 1.35     |
 | 1.14           | 1.31, 1.32, 1.33, 1.34     |
