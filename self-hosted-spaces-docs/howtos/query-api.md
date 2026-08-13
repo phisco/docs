@@ -7,6 +7,13 @@ description: Use the `up` CLI to query objects and resources
 <!-- vale write-good.TooWordy = NO -->
 <!-- ignore "aggregate" -->
 
+:::warning Deprecated
+
+The Query API (`query.spaces.upbound.io`), backed by Apollo, is deprecated as of
+Spaces 1.18 and will be removed in a future release.
+
+:::
+
 Upbound's Query API allows users to inspect objects and resources within their control planes. The read-only `up alpha query` and `up alpha get` CLI commands allow you to gather information on your control planes in a fast and efficient package. These commands follow the [`kubectl` conventions][kubectl-conventions] for filtering, sorting, and retrieving information from your Space.
 
 

@@ -31,6 +31,13 @@ Any important warnings or necessary information
 - New control planes are created on Kubernetes 1.36. Existing control planes keep
   their current version and are not changed by this upgrade.
 
+#### Deprecations
+
+- **Query API (Apollo) is deprecated.** The Query API
+  (`query.spaces.upbound.io`), backed by Apollo, is deprecated as of Spaces 1.18
+  and will be removed in a future release. It remains an alpha feature gated by
+  `features.alpha.apollo.enabled` (off by default).
+
 #### Features
 
 - Added support for Crossplane (UXP) 2.3. The Rapid channel now moves to 2.3 and

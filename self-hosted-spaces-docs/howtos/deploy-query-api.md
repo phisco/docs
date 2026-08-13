@@ -11,6 +11,13 @@ aliases:
 <!-- vale write-good.TooWordy = NO -->
 <!-- ignore "aggregate" -->
 
+:::warning Deprecated
+
+The Query API (`query.spaces.upbound.io`), backed by Apollo, is deprecated as of
+Spaces 1.18 and will be removed in a future release.
+
+:::
+
 :::important
 
 This feature is in preview. The Query API is available in the Cloud Space offering in `v1.6` and enabled by default.
@@ -95,29 +102,29 @@ The default setup also uses the `PgBouncer` connection pooler to manage connecti
 ```mermaid
 graph LR
     User[User]
-    
+
     subgraph Cluster["Cluster (Spaces)"]
         direction TB
         Apollo[apollo]
-        
+
         subgraph ControlPlanes["Control Planes"]
             APIServer[API Server]
             Syncer[apollo-syncer]
         end
     end
-    
+
     PostgreSQL[(PostgreSQL)]
-    
+
     User -->|requests| Apollo
-    
+
     Apollo -->|connects| PostgreSQL
     Apollo -->|creates schemas & users| PostgreSQL
-    
+
     Syncer -->|watches| APIServer
     Syncer -->|writes| PostgreSQL
-    
+
     PostgreSQL -->|data| Apollo
-    
+
     style PostgreSQL fill:#e1f5ff,stroke:#333,stroke-width:2px,color:#000
     style Apollo fill:#ffe1e1,stroke:#333,stroke-width:2px,color:#000
     style Cluster fill:#f0f0f0,stroke:#333,stroke-width:2px,color:#000

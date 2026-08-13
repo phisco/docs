@@ -289,7 +289,7 @@ This reference provides detailed documentation on the Upbound Space Helm chart. 
 | externalTLS.tlsSecret | object | `{"name":""}` | TLS secret name that contains the serving certificate and key. |
 | externalTLS.tlsSecret.name | string | `""` | Name of the secret containing the TLS serving certificate and key. |
 | features.alpha | object | { ... } | NOTE: Alpha features are subject to removal or breaking changes without notice, and generally not considered ready for use in production. They have to be optional even if they are enabled. |
-| features.alpha.apollo.enabled | bool | `false` | This enables the apollo (query API) feature. |
+| features.alpha.apollo.enabled | bool | `false` | DEPRECATED: The apollo (Query API) feature is deprecated as of Spaces 1.18 and will be removed in a future release. This enables the apollo (query API) feature. |
 | features.alpha.argocdPlugin.enabled | bool | `false` | Wheather to enable the argocd plugin feature. |
 | features.alpha.argocdPlugin.target.externalCluster | object | `{"enabled":false,"secret":{"key":"kubeconfig","name":"kubeconfig"}}` | The secret name and key for the kubeconfig of the external cluster. This is used by the argocd plugin to connect to the external cluster in case ArgoCD does not run in the same cluster as Spaces. If not specified, defaults to in-cluster credentials. |
 | features.alpha.argocdPlugin.target.externalCluster.enabled | bool | `false` | Whether to use the provided kubeconfig secret for the argocd plugin, otherwise in-cluster credentials will be used. |
