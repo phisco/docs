@@ -1045,7 +1045,7 @@ Due to a technical glitch there was no 1.9.0 release image, and the first one av
 
 Please be aware of the following changes:
 
-- Spaces is no longer published to Google Artefact Registry and can only be accessed via xpkg.upbound.io.
+- Spaces is no longer published to Google Artifact Registry and can only be accessed via xpkg.upbound.io.
 - We've removed the following unused fields from the ControlPlane CRD:
     - spec.managementPolicies
     - spec.deletionPolicy

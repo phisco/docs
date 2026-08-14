@@ -35,7 +35,7 @@ Hub records its data in the catalog by pulling
 the package's manifest and content layers from the registry.
 <!-- vale gitlab.SentenceLength = YES -->
 
-Cataloguing is independent of whether the control plane's own image pull
+Cataloging is independent of whether the control plane's own image pull
 succeeds. A connected control plane uses its own `packagePullSecrets`, whereas
 Hub pulls with the set of `Connection` resources that make up the keychain in
 the realm.
@@ -43,7 +43,7 @@ the realm.
 ### The realm keychain
 
 Within a realm, all `Connection` resources form a keychain. When Hub needs to
-pull an image, for cataloguing or independently verifying a `Connection`, it
+pull an image, for cataloging or independently verifying a `Connection`, it
 selects the `Connection` whose `scope` is the longest prefix of the image path.
 One realm can hold multiple credentials for the same host, each scoped to a
 different path.
