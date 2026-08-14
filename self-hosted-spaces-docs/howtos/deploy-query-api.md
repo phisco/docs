@@ -252,7 +252,7 @@ helm upgrade --install ... \
   --set "apollo.apollo.storage.postgres.connection.credentials.user=apollo" \
 ```
 
-#### Common customizations
+#### Common customisations
 
 Below you can find references to how to customize this setup:
 

@@ -133,8 +133,7 @@ host, scope, authentication method, and any error information.
 
 <img src="/img/hub/catalog/connections.png" alt="Registry connection badge with hover details" style={{maxWidth: '500px', width: '100%'}} />
 
-To add or manage connections, see [Connect a
-registry](external-registry.md#connect-a-registry).
+To add or manage connections, see [External registries](external-registry.md).
 
 ## Good to know
 

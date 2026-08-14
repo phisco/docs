@@ -60,8 +60,6 @@ To start using Catalog, see:
 **How-to guides**
 
 - [Browsing the Catalog](console.md)
-- [External registries](external-registry.md)
-- [Scanning repositories](scanning.md)
 
 **Reference**
 

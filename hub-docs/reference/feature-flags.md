@@ -53,7 +53,6 @@ logs. Every gate in this release is alpha, and most default to `false`.
 | `Catalog` | `false` | The Catalog feature as a unit: the read API (`catalog.hub.upbound.io/v1alpha1`) covering Image list and get, usage, curated, OpenAPI subresources, and ImageSearch, plus the ingest and enrichment pipeline that populates it. |
 | `Metrics` | `false` | The metrics ingest endpoint and the `metrics.hub.upbound.io` API group. Requires `hub-core.otelGateway.enabled=true`. |
 | `Registry` | `false` | The `registry.hub.upbound.io` API group, providing the `Connection` resource (with its `verify` subresource) and the `Repository` resource. |
-| `RegistryScan` | `false` | The worker that periodically scans each `Repository` for new and moved tags and hands what it finds to the catalog. |
 
 ### Aggregated types
 
@@ -83,20 +82,7 @@ in the `hub-connector` chart. See [Metrics](../products/insights/metrics/overvie
 
 The `Registry` gate supplies the credentials Catalog uses to pull from private
 or self-hosted registries. See
-[External registries](../products/insights/catalog/external-registry.md).
-
-### Registry scan
-
-The `RegistryScan` gate runs the worker that watches each `Repository` for new
-and moved tags. It's separate from `Registry` so you can stop scanning without
-taking the registry API down. Enabling it alone does nothing; the resources it
-scans come from the `Registry` gate.
-
-The gate covers tag discovery and re-checking rather than every request Hub
-makes to a registry. Hub still pulls the images your control planes install
-under the `Catalog` gate, and the `verify` subresource still probes a
-`Connection` under `Registry`. See [Scanning
-repositories](../products/insights/catalog/scanning.md).
+[Registry].
 
 ## Enabling a feature gate
 
