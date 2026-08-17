@@ -87,7 +87,7 @@ that node port to a host port so you can open the Console in a browser.
    ```shell
    helm upgrade --install hub oci://xpkg.upbound.io/upbound/hub \
      --namespace hub --create-namespace \
-     --version 1.0.0 \
+     --version 1.0.1 \
      --set global.demo.enabled=true \
      --set hub-core.api.service.api.type=NodePort \
      --set hub-core.api.tokenExchange.service.type=NodePort
@@ -113,7 +113,7 @@ that node port to a host port so you can open the Console in a browser.
    ```
 
    :::note
-   Chart version 1.0.0 rejects an explicit
+   Chart version 1.0.1 rejects an explicit
    `hub-core.api.service.api.nodePort`, so you can't pin these ports at install
    time. Kubernetes allocates them from the node port range instead.
    :::
@@ -335,7 +335,7 @@ token for a Hub credential, and streams resource state to `hub-core`.
    helm install hub-connector oci://xpkg.upbound.io/upbound/hub-connector \
      --kube-context kind-ctp-payments \
      --namespace upbound-system \
-     --version 1.0.0 \
+     --version 1.0.1 \
      --set connector.hub.url=http://hub-control-plane:$HUB_API_PORT \
      --set connector.hub.tokenExchangeUrl=http://hub-control-plane:$HUB_TOKEN_PORT \
      --set connector.hub.allowInsecure=true
@@ -359,7 +359,7 @@ token for a Hub credential, and streams resource state to `hub-core`.
    helm install hub-connector oci://xpkg.upbound.io/upbound/hub-connector \
      --kube-context kind-ctp-analytics \
      --namespace upbound-system \
-     --version 1.0.0 \
+     --version 1.0.1 \
      --set connector.hub.url=http://hub-control-plane:$HUB_API_PORT \
      --set connector.hub.tokenExchangeUrl=http://hub-control-plane:$HUB_TOKEN_PORT \
      --set connector.hub.allowInsecure=true
@@ -531,7 +531,7 @@ Widen the filter and upgrade the release:
 
 ```shell
 helm upgrade hub-connector oci://xpkg.upbound.io/upbound/hub-connector \
-  --version 1.0.0 \
+  --version 1.0.1 \
   --kube-context kind-ctp-payments \
   --namespace upbound-system \
   --reuse-values \
