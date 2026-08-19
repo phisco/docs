@@ -72,6 +72,18 @@ const config = {
         ],
     ],
     plugins: [
+        ...(process.env.POSTHOG_API_KEY
+            ? [
+                  [
+                      "posthog-docusaurus",
+                      {
+                          apiKey: process.env.POSTHOG_API_KEY,
+                          appUrl: "https://us.i.posthog.com",
+                          enableInDevelopment: false,
+                      },
+                  ],
+              ]
+            : []),
         [
             "@docusaurus/plugin-content-docs",
             {
