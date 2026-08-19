@@ -26,6 +26,10 @@ Any important warnings or necessary information
 
 ### Release Date: 2026-08-20
 
+:::info
+**Up CLI:** The `up space mirror` command in up CLI was updated with new images for this Spaces version. Use up CLI v0.53.2 or later.
+:::
+
 #### Important Changes
 
 - New control planes are created on Kubernetes 1.36. Existing control planes keep
