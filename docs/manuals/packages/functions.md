@@ -25,7 +25,7 @@ Upbound is continually adding new functions to the ever growing list of Official
 
 ## Access
 
-The main branch version releases of the Upbound Official Functions are available for use by anyone with a `Community` plan on Upbound running on [Upbound Crossplane][uxp]. For full access and use details, read the [policies page][policies-page] on access, support and more.
+The main branch version releases of the Upbound Official Functions are available for use by anyone running [Upbound Crossplane][uxp], with or without a license. For full access and use details, read the [policies page][policies-page] on access, support and more.
 
 [functions]: /manuals/uxp/concepts/packages/functions
 [signed-by-upbound]: /manuals/packages/providers/signature-verification

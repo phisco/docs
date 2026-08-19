@@ -10,8 +10,8 @@ quickly triage issues in your control plane. The dashboard combines resource
 state with time-series metrics in one place.
 
 :::note
-Time-series metrics require a **Standard** license. Community edition users can
-access resource and package state views.
+Time-series metrics require a **Standard** license. Without a license, UXP
+serves the resource and package state views only.
 :::
 
 Observability views help with quick fault attribution, not as a
@@ -44,7 +44,7 @@ The observability dashboard displays data from two sources:
 2. Time-Series Metrics (Prometheus, Standard editions only)
 
     - Reconciliation metrics provides reconciliation rates per controller to identify stuck or overloaded controllers
-    - External API calls captures the volume of API calls per resource kind to spot providers under heavy load. This metric is only available for **provider-aws**—other upjet-based providers (Azure, GCP) don't emit `upjet_resource_external_api_calls_total`.
+    - External API calls captures the volume of API calls per resource kind to spot providers under heavy load. This metric is only available for **provider-aws**. Other upjet-based providers (Azure, GCP) don't emit `upjet_resource_external_api_calls_total`.
     - Function latency provides function execution times to identify performance issues
 <!-- vale write-good.Passive = YES -->
 
@@ -68,10 +68,10 @@ You can click into these views to see more information:
 
 ## Feature availability
 
-Observability features vary by edition:
+A **Standard** license unlocks the time-series charts:
 
-| Feature | Community | Standard |
-|---------|-----------|----------|
+| Feature | No license | Standard |
+|---------|------------|----------|
 | Resource health chart | ✓ | ✓ |
 | Package health chart | ✓ | ✓ |
 | Not Ready resources table | ✓ | ✓ |
@@ -102,7 +102,7 @@ webui:
 Your Prometheus needs to scrape UXP components and have these metrics available:
 
 - `controller_runtime_reconcile_total`
-- `upjet_resource_external_api_calls_total`—emitted by **provider-aws only**; Azure and GCP upjet-based providers don't support this metric.
+- `upjet_resource_external_api_calls_total` Emitted by **provider-aws only**. Azure and GCP upjet-based providers don't support this metric.
 - `function_run_function_seconds_bucket`, `_sum`, `_count`
 
 [web-ui]: /manuals/console/self-service

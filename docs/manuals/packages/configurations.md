@@ -32,9 +32,9 @@ query][this-query] in the Marketplace. <!-- vale Microsoft.Adverbs = YES -->
 
 ## Access
 
-The main branch version releases of the Upbound Configurations are available for
-use by anyone with a `Community` plan on Upbound running on [Upbound
-Crossplane][uxp]. For full access and use details, read the [policies
+The main branch version releases of the Upbound Configurations are available
+for use by anyone running [Upbound Crossplane][uxp], with or without a
+license. For full access and use details, read the [policies
 page][policies-page] on access, support and more.
 
 [configurations]: /manuals/uxp/concepts/packages/configurations/

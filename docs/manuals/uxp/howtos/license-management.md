@@ -9,7 +9,8 @@ including how to generate, apply, download, and verify licenses for
 Commercial plans.
 
 <!-- vale proselint.Cliches = NO -->
-* Upbound Enterprise, and Business Critical are commercial plans that let you create license keys that unlock additional features in Upbound Crossplane
+Upbound Standard, Enterprise, and Business Critical are commercial plans that
+let you create license keys unlocking additional features in Upbound Crossplane.
 <!-- vale proselint.Cliches = YES -->
 
 :::important
@@ -27,10 +28,10 @@ Before you begin, make sure you have:
 * a valid UXP license provided by Upbound 
 * Admin access for your organization in the Upbound Console (for Enterprise plans)
 
-## Community plan 
+## Run Upbound Crossplane without a license
 
-The Community plan on Upbound lets you run Upbound Crossplane without a license.
-This lets you use the free core features of Upbound Crossplane.
+Upbound Crossplane runs without a license and gives you the core Crossplane
+control plane. Commercial features stay locked until you apply a license.
 
 ### Enable a development license
 
@@ -203,7 +204,7 @@ Download your license file and apply the license with the up CLI:
 up uxp license apply /path/to/license.json
 ```
 
-If you don't provide a license key, UXP runs the `Community` edition.
+Without a license key, UXP runs with commercial features locked.
 
 
 :::important

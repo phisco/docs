@@ -15,7 +15,7 @@ const GetUpboundHero = () => {
         <p className={styles.description}>
           Upbound Crossplane is the AI-native distribution of Crossplane,
           Upbound&rsquo;s control plane framework for exposing infrastructure
-          across clouds as a single programmable API.
+          across clouds as a single programmable API. Build a platform that runs itself and serves both engineers and AI.
         </p>
       </div>
 
@@ -27,18 +27,21 @@ const GetUpboundHero = () => {
         </div>
         <div className={styles.terminalBody}>
           <p className={styles.command}>
+            $ up login
+          </p>
+          <p className={styles.output}>✓ Logged in to organization</p>
+          <p className={styles.command}>
             $ up project init -t project-template-k8s-webapp -l python
             my-webapp
           </p>
           <p className={styles.output}>✓ Created control plane project</p>
           <p className={styles.command}>
-            $ cd my-webapp &amp;&amp; up project run --local --ingress
+            $ cd my-webapp &amp;&amp; up project run --local
           </p>
           <p className={styles.output}>
             💻 Local dev control plane running in kind cluster
             &quot;my-webapp&quot;
           </p>
-          <p className={styles.command}>$ up uxp web-ui open</p>
         </div>
       </div>
     </div>

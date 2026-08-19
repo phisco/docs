@@ -46,7 +46,7 @@ The following policies govern how you can access, receive support for, and under
 
 ### Which Package Versions Can You Access
 
-- **Community user or no subscription?** You can pull all main releases published within the last 12 months.
+- **No subscription?** You can pull all main releases published within the last 12 months.
 - **Standard, Enterprise, or Business Critical subscription?** You can pull all main and backport releases (with configured pull secrets for backports).
 - **Need FIPS-compatible packages?** Requires a Business Critical subscription.
 
@@ -122,7 +122,7 @@ By default, Upbound backports security fixes to minor releases that were publish
 ### Requesting a fix or backport
 
 - Upbound customers with [Standard+ subscriptions][pricing-page] can [open a ticket][open-a-ticket] to request a fix and evaluation for creating a backport for a supported release.
-- Community users should file an issue upstream; fixes will be included in a future main release.
+- Users without a subscription should file an issue upstream. Fixes ship in a future main release.
 
 :::note
 Backports are cautious and patch-only by design. If a safe, targeted fix isn't possible, the change will ship in the next main release instead. For information about how long backport releases remain available, see the [Availability window](#availability-window) section.
@@ -133,10 +133,11 @@ Backports are cautious and patch-only by design. If a safe, targeted fix isn't p
 Your Upbound plan subscription level determines the level of access to the versions of each Official package in the
 Marketplace.
 
-### Anonymous and Community Tier subscribers
+### Users without a subscription
 
-**Access**: Anonymous Crossplane community members without an Upbound account, along with
-`Community` tier subscribers, can access all main releases of a package within the availability window.  
+**Access**: Anyone without an Upbound subscription, including anonymous Crossplane
+community members without an account, can access all main releases of a package
+within the availability window.  
 **Support**: Support is limited to help from the community in the Crossplane community Slack workspace or issues in the upstream repository.
 
 ### Standard, Enterprise, and Business Critical subscribers

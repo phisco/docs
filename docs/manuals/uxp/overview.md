@@ -23,7 +23,7 @@ Learn about UXP concepts by reading the [concept documentation][concepts].
 
 Upbound Crossplane includes features that help you start, run, and scale your control plane. Learn about UXP features in the [feature documentation][features].
 
-UXP is available to any users under Upbound's Community plan. Commercial licenses are available. Some features are available for Community plan users, while others require a commercial license. See [license management][licensing] for more details.
+UXP runs without a license and gives you the core Crossplane control plane. A commercial license unlocks the features that make a control plane production ready. See [license management][licensing] for what each plan includes.
 
 ## Commercial-only features
 

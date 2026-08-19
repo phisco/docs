@@ -10,10 +10,6 @@ import clsx from 'clsx';
 import styles from './Plans.module.css';
 
 const PLAN_CONFIG = {
-  community: {
-    label: 'Community',
-    className: 'planCommunity',
-  },
   standard: {
     label: 'Standard',
     className: 'planStandard', 

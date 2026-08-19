@@ -99,16 +99,6 @@ html[data-theme='dark'] .statusBadge {
 }
 
 /* Plan-specific badge styles */
-.planCommunity {
-  background-color: transparent;
-  color: inherit;
-  border-color: currentColor;
-}
-html[data-theme='dark'] .planCommunity {
-  background-color: transparent;
-  color: inherit;
-  border-color: currentColor;
-}
 
 .planStandard {
   background-color: transparent;
