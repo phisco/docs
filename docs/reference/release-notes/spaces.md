@@ -24,7 +24,7 @@ Any important warnings or necessary information
 
 ## v1.18.0
 
-### Release Date: 2026-08-xx
+### Release Date: 2026-08-20
 
 #### Important Changes
 
@@ -50,11 +50,10 @@ Any important warnings or necessary information
 
 - Control plane images updated (VCluster, CoreDNS, etcd, external-secrets-operator).
 - Resolved CVEs in `opentelemetry-collector-spaces` and `hyperspace` images.
-- Bumped Apollo (Query API) to v0.4.20:
+- Bumped Apollo (Query API) to v0.4.21:
   - Adds functionality to automatically reload Root CAs when they change.
 - Bumped the Spaces Router Envoy image to distroless-v1.38.3.
-- Re-enabled the vCluster syncer liveness probe so a control plane that fails to
-  come up after a restart is restarted automatically. It is on by default and
+- Enabled the vCluster syncer liveness probe. It is on by default and
   configurable via `controlPlanes.vcluster.probes.livenessProbe.enabled`.
 - Added configurable resources for the following components:
   - Spaces internal charts pod:

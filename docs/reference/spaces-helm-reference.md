@@ -14,7 +14,7 @@ This reference provides detailed documentation on the Upbound Space Helm chart. 
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://xpkg.upbound.io/spaces-artifacts | apollo(uxp-apollo) | 0.4.20 |
+| oci://xpkg.upbound.io/spaces-artifacts | apollo(uxp-apollo) | 0.4.21 |
 
 ## Values
 
@@ -74,7 +74,7 @@ This reference provides detailed documentation on the Upbound Space Helm chart. 
 | apollo.apollo.storage.postgres.create | bool | `true` |  |
 | apollo.apollo.storage.postgres.sidecar | bool | `false` |  |
 | apollo.apollo.syncer.enabled | bool | `false` |  |
-| apollo.apollo.syncer.image.tag | string | `"v0.4.20"` |  |
+| apollo.apollo.syncer.image.tag | string | `"v0.4.21"` |  |
 | apollo.registry | string | `"xpkg.upbound.io/spaces-artifacts"` |  |
 | authentication.hubIdentities | bool | `true` | This enables respecting built in Kubernetes identities (clientcertificate, managed kubernetes OIDC, Kubernetes Groups, etc) specified within the Connected Space's hub. |
 | authentication.structuredConfig | string | `""` | Enables consumption of JWT Authenticators via Authentication Configuration per https://kubernetes.io/docs/reference/access-authn-authz/authentication/#using-authentication-configuration <br> The below property takes the name of a configmap that contains a structured authentication configuration. |
