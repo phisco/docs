@@ -24,6 +24,15 @@ Any important warnings or necessary information
 
 -->
 
+## v0.53.2
+
+### Release Date: 2026-08-20
+
+##### What's Changed
+
+- Updated `up space mirror` to mirror the artifacts required for Spaces 1.18.
+- Updated the default hub version to 1.0.0.
+
 ## v0.53.1
 
 ### Release Date: 2026-08-06
