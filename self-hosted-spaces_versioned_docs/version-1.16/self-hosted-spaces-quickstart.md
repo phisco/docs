@@ -203,7 +203,7 @@ Install the connect agent:
 ```bash
 helm -n upbound-system upgrade --install agent \
   oci://xpkg.upbound.io/spaces-artifacts/agent \
-  --version "0.0.0-1196.gbe68f9d" \
+  --version "0.0.0-1208.g54c1262" \
   --set "global.space=${UPBOUND_SPACE_NAME}" \
   --set "global.organization=${UPBOUND_ORG_NAME}" \
   --set "global.tokenSecret=connect-token" \

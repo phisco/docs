@@ -22,6 +22,64 @@ Any important warnings or necessary information
 
 -->
 
+## v1.18.0
+
+### Release Date: 2026-08-20
+
+:::info
+**Up CLI:** The `up space mirror` command in up CLI was updated with new images for this Spaces version. Use up CLI v0.53.2 or later.
+:::
+
+#### Important Changes
+
+- New control planes are created on Kubernetes 1.36. Existing control planes keep
+  their current version and are not changed by this upgrade.
+
+#### Deprecations
+
+- **Query API (Apollo) is deprecated.** The Query API
+  (`query.spaces.upbound.io`), backed by Apollo, is deprecated as of Spaces 1.18
+  and will be removed in a future release. It remains an alpha feature gated by
+  `features.alpha.apollo.enabled` (off by default).
+
+#### Features
+
+- Added support for Crossplane (UXP) 2.3. The Rapid channel now moves to 2.3 and
+  Stable to 2.2.
+- Added `networkPolicies.enabled` (default `true`) to the Spaces chart, which
+  installs or removes every NetworkPolicy Spaces ships. Some NetworkPolicy
+  selectors now use minimal identifying labels.
+
+#### What's Changed
+
+- Control plane images updated (VCluster, CoreDNS, etcd, external-secrets-operator).
+- Resolved CVEs in `opentelemetry-collector-spaces` and `hyperspace` images.
+- Bumped Apollo (Query API) to v0.4.21:
+  - Adds functionality to automatically reload Root CAs when they change.
+- Bumped the Spaces Router Envoy image to distroless-v1.38.3.
+- Enabled the vCluster syncer liveness probe. It is on by default and
+  configurable via `controlPlanes.vcluster.probes.livenessProbe.enabled`.
+- Added configurable resources for the following components:
+  - Spaces internal charts pod:
+    - Helm value: `controlPlanes.container.mxpCharts.resources`
+  - Control Plane etcd defrag job:
+    - Helm value: `controlPlanes.etcd.defrag.resources`
+  - Control Planes mxp-controller pod init container
+    - Helm value: `controlPlanes.mxpController.apisInitResources`
+  - Spaces Controller init containers:
+    - Helm value: `controller.mxeInit.resources`
+    - Helm value: `controller.webhookInit.resources`
+  - Spaces Chart pre-upgrade job:
+    - Helm value: `controller.preUpgradeHook.resources`
+- The default limit range for a control plane now supports configuring
+  the memory limit via `controlPlanes.policies.limitRange.default.memory`.
+- Adjusted Spaces Router `RoleBinding` creation to match enabled features.
+
+#### Bug Fixes
+
+- Fixed a bug that could cause Helm releases to be uninstalled during retry.
+- Fixed `space.labels` so labels are now set on all pods managed by Spaces.
+
 ## v1.17.2
 
 ### Release Date: 2026-08-05

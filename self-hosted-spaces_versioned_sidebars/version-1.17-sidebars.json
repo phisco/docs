@@ -1,0 +1,130 @@
+{
+  "sidebar": [
+    {
+      "type": "doc",
+      "id": "overview/index",
+      "label": "Overview"
+    },
+    {
+      "type": "doc",
+      "id": "self-hosted-spaces-quickstart"
+    },
+    {
+      "type": "category",
+      "label": "Concepts",
+      "items": [
+        "concepts/control-planes",
+        "concepts/groups"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Deploy",
+      "items": [
+        "howtos/deployment-reqs",
+        "howtos/self-hosted-spaces-deployment",
+        "howtos/certs",
+        "howtos/attach-detach",
+        "howtos/ingress-nginx-migration",
+        "howtos/query-api",
+        "howtos/mirror-images"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Configure",
+      "items": [
+        "howtos/configure-ha",
+        "howtos/hub-rbac",
+        "howtos/oidc-configuration",
+        "howtos/scaling-resources",
+        "howtos/spaces-management"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Control Planes",
+      "items": [
+        "howtos/managed-service",
+        "howtos/control-plane-topologies",
+        "howtos/auto-upgrade",
+        "howtos/declarative-ctps",
+        "howtos/controllers",
+        "howtos/migrating-to-mcps",
+        "howtos/simulations"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Connect",
+      "items": [
+        "howtos/ctp-connector",
+        "howtos/mcp-connector-guide",
+        "howtos/query-api"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Observe & Debug",
+      "items": [
+        "howtos/observability",
+        "howtos/space-observability",
+        "howtos/ctp-audit-logs",
+        "howtos/debugging-a-ctp",
+        "howtos/troubleshooting",
+        {
+          "type": "category",
+          "label": "Tracing",
+          "items": [
+            "howtos/tracing/overview",
+            "howtos/tracing/query-api",
+            "howtos/tracing/spaces-api",
+            "howtos/tracing/spaces-router"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "GitOps & Automation",
+      "items": [
+        "howtos/automation-and-gitops/overview",
+        "howtos/gitops",
+        "howtos/use-argo"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Data & Security",
+      "items": [
+        "howtos/backup-and-restore",
+        "howtos/dr",
+        "howtos/secrets-management",
+        {
+          "type": "category",
+          "label": "Workload Identity",
+          "items": [
+            "howtos/workload-id/backup-restore-config",
+            "howtos/workload-id/billing-config",
+            "howtos/workload-id/eso-config"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Billing & Licensing",
+      "items": [
+        "howtos/billing",
+        "howtos/capacity-licensing"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "API Reference",
+      "items": [
+        "reference/index"
+      ]
+    }
+  ]
+}
