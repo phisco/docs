@@ -33,7 +33,7 @@
         "@upbound/ux": "0.0.2",
         "clsx": "^2.1.1",
         "gray-matter": "^4.0.3",
-        "js-yaml": "^4.3.0",
+        "js-yaml": "^4.3.1",
         "launchdarkly-js-client-sdk": "3.5.0",
         "lucide-react": "^0.525.0",
         "posthog-docusaurus": "^2.0.5",
