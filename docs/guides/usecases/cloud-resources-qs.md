@@ -437,7 +437,7 @@ from .model.io.upbound.aws.s3.bucketserversideencryptionconfiguration import (
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**resource.struct_to_dict(req.observed.composite.resource))
     params = observed_xr.spec.parameters
 
     desired_bucket = bucketv1beta1.Bucket(
@@ -577,7 +577,7 @@ from .model.com.example.platform.storagebucket import v1alpha1
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**resource.struct_to_dict(req.observed.composite.resource))
     params = observed_xr.spec.parameters
 
     # Create the resource group
@@ -675,7 +675,7 @@ from .model.com.example.platform.storagebucket import v1alpha1
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**resource.struct_to_dict(req.observed.composite.resource))
     params = observed_xr.spec.parameters
 
     desired_bucket = bucketv1beta1.Bucket(

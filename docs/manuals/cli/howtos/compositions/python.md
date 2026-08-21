@@ -198,7 +198,7 @@ from .model.org.example.storagebucket import v1alpha1
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**resource.struct_to_dict(req.observed.composite.resource))
 
     desired_bucket = bucketv1beta1.Bucket(
         spec=bucketv1beta1.Spec(
@@ -224,7 +224,7 @@ from .model.org.example.storagebucket import v1alpha1
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**resource.struct_to_dict(req.observed.composite.resource))
 
     region = "us-west-2"
     if observed_xr.spec.region is not None:
@@ -252,7 +252,7 @@ from .model.org.example.storagebucket import v1alpha1
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**resource.struct_to_dict(req.observed.composite.resource))
 
     desired_bucket = bucketv1beta1.Bucket(
         from .model.io.k8s.apimachinery.pkg.apis.meta import v1 as metav1
@@ -283,7 +283,7 @@ from .model.io.upbound.aws.s3.bucket import v1beta1 as bucketv1beta1
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
     # Load the observed XR into a Pydantic model.
-    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**resource.struct_to_dict(req.observed.composite.resource))
 
     # Create the cloud resource specification
     desired_bucket = bucketv1beta1.Bucket(
@@ -306,7 +306,7 @@ In the `RunFunctionRequest`, there are four _inputs_ that Crossplane can parse:
 
     ```python
     # The API request
-    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**resource.struct_to_dict(req.observed.composite.resource))
     ```
 
 2. **Desired state**: What resources should exist?
@@ -371,7 +371,7 @@ from .model.io.upbound.aws.s3.bucketserversideencryptionconfiguration import (
 
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**resource.struct_to_dict(req.observed.composite.resource))
     params = observed_xr.spec.parameters
 
     desired_bucket = bucketv1beta1.Bucket(

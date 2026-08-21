@@ -19,7 +19,7 @@ def default_metadata(name):
     }
 
 def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
-    observed_xr = v1alpha1.StorageBucket(**req.observed.composite.resource)
+    observed_xr = v1alpha1.StorageBucket(**resource.struct_to_dict(req.observed.composite.resource))
     params = observed_xr.spec.parameters
 
     # Create S3 Bucket
