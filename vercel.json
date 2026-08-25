@@ -436,11 +436,6 @@
             "permanent": true
         },
         {
-            "source": "/deploy/control-plane-topologies(/)?",
-            "destination": "/self-hosted-spaces/howtos/control-plane-topologies",
-            "permanent": true
-        },
-        {
             "source": "/operate/observability(/)?",
             "destination": "/self-hosted-spaces/howtos/observability",
             "permanent": true
@@ -723,11 +718,6 @@
         {
             "source": "/all-spaces/backup-and-restore(/)?",
             "destination": "/self-hosted-spaces/howtos/backup-and-restore",
-            "permanent": true
-        },
-        {
-            "source": "/all-spaces/control-plane-topologies(/)?",
-            "destination": "/self-hosted-spaces/howtos/control-plane-topologies",
             "permanent": true
         },
         {
