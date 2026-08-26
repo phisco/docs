@@ -153,7 +153,7 @@ This reference provides detailed documentation on the UXP Helm chart. This Helm 
 | image.ignoreTag | bool | `false` | Do not use the {{ .image.tag }} value to compute the image uri. |
 | image.pullPolicy | string | `"IfNotPresent"` | The image pull policy used for Crossplane and RBAC Manager pods. |
 | image.repository | string | `"xpkg.upbound.io/upbound/crossplane"` | Repository for the Crossplane pod image. |
-| image.tag | string | `"v2.3.4-up.2"` | The Crossplane image tag. Defaults to the value of `appVersion` in `Chart.yaml`. |
+| image.tag | string | `"v2.3.5-up.1"` | The Crossplane image tag. Defaults to the value of `appVersion` in `Chart.yaml`. |
 | imagePullSecrets | list | `[]` | The imagePullSecret names to add to the Crossplane ServiceAccount. |
 | leaderElection | bool | `true` | Enable [leader election](https://docs.crossplane.io/latest/guides/pods/#leader-election) for the Crossplane pod. |
 | metrics.enabled | bool | `true` | Enable Prometheus path, port and scrape annotations and expose port 8080 for both the Crossplane and RBAC Manager pods. |
@@ -228,7 +228,7 @@ This reference provides detailed documentation on the UXP Helm chart. This Helm 
 | upbound.manager.leaderElection | bool | `true` | Enable [leader election](https://docs.crossplane.io/latest/concepts/pods/#leader-election) for the Upbound Controller Manager pod. |
 | upbound.manager.measurement.enabled | bool | `true` | Enable the measurement server. |
 | upbound.manager.measurement.port | string | `""` | The port the measurement server listens on. |
-| upbound.manager.metering | object | `{"affinity":{},"args":[],"customAnnotations":{},"dnsPolicy":"","extraEnvVars":{},"extraVolumeMounts":[],"extraVolumes":[],"image":{"pullPolicy":"IfNotPresent","repository":"xpkg.upbound.io/upbound/controller-manager","tag":""},"imagePullSecrets":[],"meteringStorage":{"accessMode":"ReadWriteOnce","enabled":false,"size":"10Gi","storageClass":""},"nodeSelector":{},"podAnnotations":{},"podLabels":{},"podSecurityContext":{},"ports":[],"priorityClassName":"","resources":{"limits":{"cpu":"500m","memory":"1024Mi"},"requests":{"cpu":"50m","memory":"128Mi"}},"securityContext":{},"startupProbe":{},"tolerations":[],"topologySpreadConstraints":[]}` | Configuration for the UXP metering StatefulSet deployed by the licensing controller. |
+| upbound.manager.metering | object | `{"affinity":{},"args":[],"customAnnotations":{},"dnsPolicy":"","extraEnvVars":{},"extraVolumeMounts":[],"extraVolumes":[],"image":{"pullPolicy":"","repository":"","tag":""},"imagePullSecrets":[],"meteringStorage":{"accessMode":"ReadWriteOnce","enabled":false,"size":"10Gi","storageClass":""},"nodeSelector":{},"podAnnotations":{},"podLabels":{},"podSecurityContext":{},"ports":[],"priorityClassName":"","resources":{"limits":{"cpu":"500m","memory":"1024Mi"},"requests":{"cpu":"50m","memory":"128Mi"}},"securityContext":{},"startupProbe":{},"tolerations":[],"topologySpreadConstraints":[]}` | Configuration for the UXP metering StatefulSet deployed by the licensing controller. |
 | upbound.manager.metering.affinity | object | `{}` | Add `affinities` to the metering StatefulSet pods. |
 | upbound.manager.metering.args | list | `[]` | Add custom arguments to the Upbound Metering pod. |
 | upbound.manager.metering.customAnnotations | object | `{}` | Add custom `annotations` to the metering StatefulSet. |
@@ -236,10 +236,10 @@ This reference provides detailed documentation on the UXP Helm chart. This Helm 
 | upbound.manager.metering.extraEnvVars | object | `{}` | Add custom environmental variables to the metering pod. Replaces any `.` in a variable name with `_`. For example, `SAMPLE.KEY=value1` becomes `SAMPLE_KEY=value1`. |
 | upbound.manager.metering.extraVolumeMounts | list | `[]` | Add custom `volumeMounts` to the metering pod. |
 | upbound.manager.metering.extraVolumes | list | `[]` | Add custom `volumes` to the metering pod. |
-| upbound.manager.metering.image | object | `{"pullPolicy":"IfNotPresent","repository":"xpkg.upbound.io/upbound/controller-manager","tag":""}` | Container image for the metering StatefulSet. |
-| upbound.manager.metering.image.pullPolicy | string | `"IfNotPresent"` | The Upbound Metering image pull policy. |
-| upbound.manager.metering.image.repository | string | `"xpkg.upbound.io/upbound/controller-manager"` | Repository for the Upbound Metering pod image. |
-| upbound.manager.metering.image.tag | string | `""` | The metering container image tag. Defaults to the value of `appVersion` in `Chart.yaml`. |
+| upbound.manager.metering.image | object | `{"pullPolicy":"","repository":"","tag":""}` | Container image for the metering StatefulSet. The metering container runs the same binary as the Upbound Controller Manager, so every field below defaults to the corresponding `upbound.manager.image` field — mirroring UXP into a private registry only needs `upbound.manager.image`. |
+| upbound.manager.metering.image.pullPolicy | string | `""` | The Upbound Metering image pull policy. Defaults to `upbound.manager.image.pullPolicy`. |
+| upbound.manager.metering.image.repository | string | `""` | Repository for the Upbound Metering pod image. Defaults to `upbound.manager.image.repository`. |
+| upbound.manager.metering.image.tag | string | `""` | The metering container image tag. Defaults to `upbound.manager.image.tag`, or to the value of `appVersion` in `Chart.yaml`. |
 | upbound.manager.metering.imagePullSecrets | list | `[]` | The imagePullSecret names to add to the metering StatefulSet. |
 | upbound.manager.metering.meteringStorage.accessMode | string | `"ReadWriteOnce"` | Access mode for the PersistentVolume. |
 | upbound.manager.metering.meteringStorage.enabled | bool | `false` | Enable persistent storage for usage metering data. |
@@ -267,12 +267,15 @@ This reference provides detailed documentation on the UXP Helm chart. This Helm 
 | upbound.manager.packageCache.sizeLimit | string | `"20Mi"` | The size limit for the package cache. If medium is `Memory` the `sizeLimit` can't exceed Node memory. |
 | upbound.manager.podSecurityContext | object | `{}` | Add a custom `securityContext` to the Upbound Controller Manager pod. |
 | upbound.manager.priorityClassName | string | `""` | The PriorityClass name to apply to the Upbound Controller Manager pod. |
-| upbound.manager.prometheus | object | `{"disabled":false,"image":{"repository":"quay.io/prometheus/prometheus","tag":"v3.2.1"},"metricAllowlist":"controller_runtime_reconcile_total|upjet_resource_external_api_calls_total|function_run_function_seconds_.+","queryTimeout":"2m","resources":{"limits":{"cpu":"500m","memory":"512Mi"},"requests":{"cpu":"50m","memory":"256Mi"}},"retention":"12h","storage":{"accessMode":"ReadWriteOnce","size":"5Gi","storageClass":""}}` | Configuration for the UXP Prometheus instance deployed used for the webui metric dashboards. |
+| upbound.manager.prometheus | object | `{"disabled":false,"image":{"repository":"quay.io/prometheus/prometheus","tag":"v3.2.1"},"metricAllowlist":"controller_runtime_reconcile_total|upjet_resource_external_api_calls_total|function_run_function_seconds_.+","queryTimeout":"2m","reloaderImage":{"repository":"quay.io/prometheus-operator/prometheus-config-reloader","tag":"v0.80.1"},"resources":{"limits":{"cpu":"500m","memory":"512Mi"},"requests":{"cpu":"50m","memory":"256Mi"}},"retention":"12h","storage":{"accessMode":"ReadWriteOnce","size":"5Gi","storageClass":""}}` | Configuration for the UXP Prometheus instance deployed used for the webui metric dashboards. |
 | upbound.manager.prometheus.disabled | bool | `false` | Set to true to disable the Prometheus deployment entirely. |
 | upbound.manager.prometheus.image.repository | string | `"quay.io/prometheus/prometheus"` | Repository for the Prometheus image. |
 | upbound.manager.prometheus.image.tag | string | `"v3.2.1"` | The Prometheus image tag. |
 | upbound.manager.prometheus.metricAllowlist | string | `"controller_runtime_reconcile_total|upjet_resource_external_api_calls_total|function_run_function_seconds_.+"` | Regex allowlist for metrics to keep. Only matching metric names are ingested; everything else is dropped at scrape time. |
 | upbound.manager.prometheus.queryTimeout | string | `"2m"` | Prometheus query timeout. |
+| upbound.manager.prometheus.reloaderImage | object | `{"repository":"quay.io/prometheus-operator/prometheus-config-reloader","tag":"v0.80.1"}` | Image for the Prometheus `config-reload` sidecar. This is a separate image from `image` above, and clusters that mirror registries or enforce a registry allowlist need to override both. |
+| upbound.manager.prometheus.reloaderImage.repository | string | `"quay.io/prometheus-operator/prometheus-config-reloader"` | Repository for the Prometheus `config-reload` sidecar image. |
+| upbound.manager.prometheus.reloaderImage.tag | string | `"v0.80.1"` | The Prometheus `config-reload` sidecar image tag. |
 | upbound.manager.prometheus.resources.limits.cpu | string | `"500m"` | CPU resource limits for Prometheus. |
 | upbound.manager.prometheus.resources.limits.memory | string | `"512Mi"` | Memory resource limits for Prometheus. |
 | upbound.manager.prometheus.resources.requests.cpu | string | `"50m"` | CPU resource requests for Prometheus. |
@@ -336,6 +339,7 @@ This reference provides detailed documentation on the UXP Helm chart. This Helm 
 | webui.service.type | string | `"ClusterIP"` |  |
 | webui.tolerations | list | `[]` | Add `tolerations` to the webui pod deployment. |
 | webui.topologySpreadConstraints | list | `[]` | Add `topologySpreadConstraints` to the webui pod deployment. |
+
 </div>
 
 <!-- vale on -->
