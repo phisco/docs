@@ -80,6 +80,18 @@ Any important warnings or necessary information
 - Fixed a bug that could cause Helm releases to be uninstalled during retry.
 - Fixed `space.labels` so labels are now set on all pods managed by Spaces.
 
+## v1.17.3
+
+### Release Date: 2026-08-26
+
+#### What's Changed
+
+- Control plane images updated (VCluster, CoreDNS, external-secrets-operator).
+- Bumped Apollo (Query API) to v0.4.21.
+- Bumped ChartMuseum to v0.16.6 to resolve CVEs.
+- Bumped supported Crossplane versions to latest patches.
+- Resolved CVEs in `opentelemetry-collector-spaces` and `hyperspace` images.
+
 ## v1.17.2
 
 ### Release Date: 2026-08-05
