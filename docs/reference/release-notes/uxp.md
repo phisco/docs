@@ -14,6 +14,86 @@ Any important warnings or necessary information
 - User-facing changes
 -->
 
+## v2.3.5-up.1
+
+### Release Date: 2026-08-26
+
+#### What's Changed
+
+Based on Crossplane [v2.3.5](https://github.com/crossplane/crossplane/releases/tag/v2.3.5).
+
+- Corrected the published `crank` checksums for `linux_amd64` binaries. The `.sha256` files hadn't matched the binaries since v2.2.0, so any install script or Dockerfile that verified the amd64 checksum failed.
+- Fixed a deletion-protection false positive. The field index that maps a resource to the `Usage` objects protecting it built its key by joining group, kind, name, and namespace with `.`, which is ambiguous because API groups and resource names can contain `.` themselves. Two distinct resources could collapse to the same key, so the webhook could refuse a deletion on the strength of an unrelated resource's `Usage`. The separator is now `/`.
+- Fixed the metering pod ignoring a redirected image registry. The metering StatefulSet read `upbound.manager.metering.image`, an independent value that only happened to default to the same reference as the Upbound Controller Manager Deployment. Pointing `upbound.manager.image` at a private mirror moved the Deployment but left the metering pod pulling from `xpkg.upbound.io`, and the only workaround was to repeat the override. Each field of the metering image now defaults to its `upbound.manager.image` counterpart, and `upbound.manager.metering.image` still overrides it.
+- The bundled Prometheus `config-reload` sidecar image is now configurable through `upbound.manager.prometheus.reloaderImage.repository` and `upbound.manager.prometheus.reloaderImage.tag`. Previously only the Prometheus server image could be redirected, so the sidecar kept its upstream `quay.io` default. On clusters that enforce a registry allowlist the StatefulSet was rejected, and because Prometheus is installed before `License` status is written, the visible symptom was a valid enterprise license reporting `Unknown` or `community` with nothing pointing at Prometheus. Defaults are unchanged.
+- Fixed a valid `License` reporting no status when component provisioning failed. `License` status was written last, after the metering apply and Prometheus sync, both of which stop on error — so a provisioning failure left the `License` with no status and nothing naming the component that failed. Status is now written first on every path, and a provisioning failure records a `ProvisionComponents` warning event.
+- A `License` naming a plan the running build doesn't recognize no longer blocks provisioning. Version skew can produce an unknown plan, which previously stopped the reconcile before status was written. Licensed components read none of the plan's features, so they now install and the skew is reported through an `UnknownPlan` warning event.
+- Security: Crossplane core dependency updates — `cel-go`, `golang.org/x/mod`, `sigstore-go`, and a broader vulnerable-dependency sweep, plus `crossplane-runtime` v2.3.4, which carries its own updates.
+- Security: the Go toolchain updated to 1.25.13, and `golang.org/x/mod` v0.40.0 in the Upbound Controller Manager.
+- Security: the `uxp-apollo` subchart updated to v0.4.22.
+- Security: refreshed the `gcr.io/distroless/static` base image of the Upbound Controller Manager.
+
+## v2.2.5-up.1
+
+### Release Date: 2026-08-26
+
+#### What's Changed
+
+Based on Crossplane [v2.2.5](https://github.com/crossplane/crossplane/releases/tag/v2.2.5).
+
+- Corrected the published `crank` checksums for `linux_amd64` binaries. The `.sha256` files hadn't matched the binaries since v2.2.0, so any install script or Dockerfile that verified the amd64 checksum failed.
+- Fixed a deletion-protection false positive. The field index that maps a resource to the `Usage` objects protecting it built its key by joining group, kind, name, and namespace with `.`, which is ambiguous because API groups and resource names can contain `.` themselves. Two distinct resources could collapse to the same key, so the webhook could refuse a deletion on the strength of an unrelated resource's `Usage`. The separator is now `/`.
+- Fixed the metering pod ignoring a redirected image registry. The metering StatefulSet read `upbound.manager.metering.image`, an independent value that only happened to default to the same reference as the Upbound Controller Manager Deployment. Pointing `upbound.manager.image` at a private mirror moved the Deployment but left the metering pod pulling from `xpkg.upbound.io`, and the only workaround was to repeat the override. Each field of the metering image now defaults to its `upbound.manager.image` counterpart, and `upbound.manager.metering.image` still overrides it.
+- The bundled Prometheus `config-reload` sidecar image is now configurable through `upbound.manager.prometheus.reloaderImage.repository` and `upbound.manager.prometheus.reloaderImage.tag`. Previously only the Prometheus server image could be redirected, so the sidecar kept its upstream `quay.io` default. On clusters that enforce a registry allowlist the StatefulSet was rejected, and because Prometheus is installed before `License` status is written, the visible symptom was a valid enterprise license reporting `Unknown` or `community` with nothing pointing at Prometheus. Defaults are unchanged.
+- Fixed a valid `License` reporting no status when component provisioning failed. `License` status was written last, after the metering apply and Prometheus sync, both of which stop on error — so a provisioning failure left the `License` with no status and nothing naming the component that failed. Status is now written first on every path, and a provisioning failure records a `ProvisionComponents` warning event.
+- A `License` naming a plan the running build doesn't recognize no longer blocks provisioning. Version skew can produce an unknown plan, which previously stopped the reconcile before status was written. Licensed components read none of the plan's features, so they now install and the skew is reported through an `UnknownPlan` warning event.
+- Security: Crossplane core dependency updates — `cel-go`, `golang.org/x/mod`, `sigstore-go`, `go-git`, and a broader vulnerable-dependency sweep, plus `crossplane-runtime` v2.2.4, which carries its own updates.
+- Security: the Go toolchain updated to 1.25.13, and `golang.org/x/mod` v0.40.0 in the Upbound Controller Manager.
+- Security: the `uxp-apollo` subchart updated to v0.4.22.
+- Security: refreshed the `gcr.io/distroless/static` base image of the Upbound Controller Manager.
+
+## v2.1.8-up.3
+
+### Release Date: 2026-08-26
+
+#### What's Changed
+
+Based on Crossplane [v2.1.8](https://github.com/crossplane/crossplane/releases/tag/v2.1.8).
+
+This is a security re-bundle. The upstream Crossplane release tag is unchanged, but the Upbound fork tracks upstream's `release-2.1` branch, so this ships what upstream merged there after v2.1.8 together with Upbound's own dependency updates.
+
+- Fixed the metering pod ignoring a redirected image registry. The metering StatefulSet read `upbound.manager.metering.image`, an independent value that only happened to default to the same reference as the Upbound Controller Manager Deployment. Pointing `upbound.manager.image` at a private mirror moved the Deployment but left the metering pod pulling from `xpkg.upbound.io`, and the only workaround was to repeat the override. Each field of the metering image now defaults to its `upbound.manager.image` counterpart, and `upbound.manager.metering.image` still overrides it.
+- Security: the Go toolchain updated to 1.25.13 in the Upbound Controller Manager.
+- Security: the `uxp-apollo` subchart updated to v0.2.23.
+- Security: refreshed the `gcr.io/distroless/static` base image of the Upbound Controller Manager.
+
+## v2.0.8-up.8
+
+### Release Date: 2026-08-26
+
+#### What's Changed
+
+Based on Crossplane [v2.0.8](https://github.com/crossplane/crossplane/releases/tag/v2.0.8).
+
+This is a security re-bundle. The upstream Crossplane release tag is unchanged, but the Upbound fork tracks upstream's `release-2.0` branch, so this ships what upstream merged there after v2.0.8 together with Upbound's own dependency updates.
+
+- Fixed the metering pod ignoring a redirected image registry. The metering StatefulSet read `upbound.manager.metering.image`, an independent value that only happened to default to the same reference as the Upbound Controller Manager Deployment. Pointing `upbound.manager.image` at a private mirror moved the Deployment but left the metering pod pulling from `xpkg.upbound.io`, and the only workaround was to repeat the override. Each field of the metering image now defaults to its `upbound.manager.image` counterpart, and `upbound.manager.metering.image` still overrides it.
+- Security: the Go toolchain updated to 1.25.13 in the Upbound Controller Manager.
+- Security: the `uxp-apollo` subchart updated to v0.2.23.
+- Security: refreshed the `gcr.io/distroless/static` base image of the Upbound Controller Manager.
+
+## v1.20.12-up.1
+
+### Release Date: 2026-08-26
+
+#### What's Changed
+
+Based on Crossplane [v1.20.12](https://github.com/crossplane/crossplane/releases/tag/v1.20.12).
+
+- Security: Crossplane core dependency updates — the Go toolchain to 1.25.13, `go-git` v5.19.2, `golang.org/x/mod` v0.40.0, and two combined vulnerable-dependency sweeps, plus `crossplane-runtime` v1.20.11, which carries its own updates.
+- Security: `golang.org/x/mod` v0.40.0 in the Upbound Controller Manager.
+- Security: refreshed the `gcr.io/distroless/static` base image.
+
 ## v2.3.4-up.2
 
 ### Release Date: 2026-08-05
