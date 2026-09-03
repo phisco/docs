@@ -3,7 +3,7 @@ mdx:
   format: md
 ---
 
-Deprecated: use 'up mirror space-images' instead.
+Mirror all container images required for a specific version of Upbound Spaces.
 
 The `space-images` command mirrors all required container images for a
 specific version of Upbound Spaces.
@@ -36,7 +36,7 @@ up mirror space-images -v 1.9.0 --output-dir=/tmp/output --token-file=upbound-to
 
 #### Usage
 
-`up space mirror --version=STRING [flags]`
+`up mirror space-images --version=STRING [flags]`
 #### Flags
 
 | Flag | Short Form | Description |
@@ -50,5 +50,3 @@ up mirror space-images -v 1.9.0 --output-dir=/tmp/output --token-file=upbound-to
 | `--destination-registry` | `-r` | The target container registry where the artifacts will be mirrored. |
 | `--version` | `-v` | **Required** The specific Spaces version for which the artifacts will be mirrored. |
 | `--dry-run` | | Print what would be mirrored but do not take action. |
-| `--output-dir-alias` | `-t` |  |
-| `--destination-registry-alias` | `-d` |  |

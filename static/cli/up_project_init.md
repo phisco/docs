@@ -12,7 +12,7 @@ named after the project. You can specify which template to use with the
 
 #### Supported Languages
 
-The following slugs are accepted as arguments by the `--langauge` and
+The following slugs are accepted as arguments by the `--language` and
 `--test-language` flags:
 
 | Language | Slug |
@@ -28,14 +28,14 @@ Initialize a project called `my-new-project` using the AWS S3 bucket example
 with Python functions and tests:
 
 ```shell
-up project init my-new-project --template project-template-aws \
+up project init my-new-project --template project-template-aws-s3 \
     --language python
 ```
 
 Initialize a project called `my-new-project` with Go functions and Python tests:
 
 ```shell
-up project init my-new-project --template project-template-aws \
+up project init my-new-project --template project-template-aws-s3 \
     --language go --test-language python
 ```
 
@@ -43,7 +43,7 @@ Initialize a project using a public template repository at a specific ref:
 
 ```shell
 up project init my-new-project \
-    --template 'https://github.com/upbound/project-template-aws@main' \
+    --template 'https://github.com/upbound/project-template-aws-s3@main' \
     --language kcl
 ```
 
@@ -51,7 +51,7 @@ Initialize a project from a template using Git token authentication:
 
 ```shell
 up project init my-new-project \
-    --template 'https://github.com/template/project-template-private.git' \
+    --template 'https://github.com/your-org/your-private-template.git' \
     --language kcl  \
     --username 'username' \
     --password 'token'
@@ -61,7 +61,7 @@ Initialize a project from a template using SSH authentication:
 
 ```shell
 up project init my-new-project \
-    --template 'git@github.com:upbound/project-template-private.git' \
+    --template 'git@github.com:your-org/your-private-template.git' \
     --language kcl \
     --ssh-key /Users/username/.ssh/id_rsa
 ```
@@ -71,7 +71,7 @@ an SSH key password:
 
 ```shell
 up project init my-new-project \
-    --template 'git@github.com:upbound/project-template-private.git' \
+    --template 'git@github.com:your-org/your-private-template.git' \
     --language kcl \
     --ssh-key /Users/username/.ssh/id_rsa \
     --password 'ssh-key-password'

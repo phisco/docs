@@ -47,6 +47,13 @@ up composition render composition.yaml xr.yaml \
     --function-credentials=credentials.yaml
 ```
 
+Print each function container's stdout/stderr logs after rendering. Logs go
+to stderr, so stdout remains valid YAML that can be piped to other tools:
+
+```shell
+up composition render composition.yaml xr.yaml --function-logs
+```
+
 Override function annotations for a remote Docker daemon.
 ```shell
 DOCKER_HOST=tcp://192.168.1.100:2376 up composition render composition.yaml xr.yaml \
@@ -97,6 +104,7 @@ environment variables:
 | `--include-context` | `-c` | Include the context in the rendered output as a resource of kind: Context. |
 | `--function-credentials` | | A YAML file or directory of YAML files specifying credentials to use for Functions to render the XR. |
 | `--function-annotations` | | Override function annotations for all functions. Can be repeated. |
+| `--function-logs` | | Print stdout/stderr logs from Function containers to stderr after rendering. |
 | `--timeout` | | How long to run before timing out. |
 | `--max-concurrency` | | Maximum number of functions to build at once. |
 | `--project-file` | `-f` | Path to project definition file. |

@@ -3,7 +3,7 @@ title: CLI Reference
 sidebar_position: 3
 ---
 
-This documentation is for the `up` CLI v0.53.2.
+This documentation is for the `up` CLI v0.54.0.
 
 The latest version of `up` can be installed by running:
 
@@ -68,6 +68,11 @@ import UpHelp from '/cli/up_help.md';
 import UpLicense from '/cli/up_license.md';
 import UpLogin from '/cli/up_login.md';
 import UpLogout from '/cli/up_logout.md';
+import UpMirror from '/cli/up_mirror.md';
+import UpMirrorBuildImages from '/cli/up_mirror_build-images.md';
+import UpMirrorPackageImages from '/cli/up_mirror_package-images.md';
+import UpMirrorSpaceImages from '/cli/up_mirror_space-images.md';
+import UpMirrorUxpImages from '/cli/up_mirror_uxp-images.md';
 import UpOperation from '/cli/up_operation.md';
 import UpOperationGenerate from '/cli/up_operation_generate.md';
 import UpOperationRender from '/cli/up_operation_render.md';
@@ -361,6 +366,21 @@ import UpXrdGenerate from '/cli/up_xrd_generate.md';
 ## up logout
 
 <UpLogout />
+## up mirror
+
+<UpMirror />
+## up mirror build-images
+
+<UpMirrorBuildImages />
+## up mirror package-images
+
+<UpMirrorPackageImages />
+## up mirror space-images
+
+<UpMirrorSpaceImages />
+## up mirror uxp-images
+
+<UpMirrorUxpImages />
 ## up operation
 
 <UpOperation />

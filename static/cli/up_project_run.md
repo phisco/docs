@@ -207,7 +207,7 @@ up project run --local --no-default-mrap
 | `--control-plane-version` | | Version of Crossplane to use for the control plane. By default, the latest compatible version will be used. |
 | `--control-plane-label` | | Labels to set on the development control plane when it is created in a Space, specified as key=value pairs. Overrides labels from the project file's devControlPlane section. |
 | `--control-plane-annotation` | | Annotations to set on the development control plane when it is created in a Space, specified as key=value pairs. Overrides annotations from the project file's devControlPlane section. |
-| `--skip-control-plane-check` | | Allow running on a non-development control plane. |
+| `--skip-control-plane-check` | | Skip checks on the target control plane (development annotation and Crossplane version compatibility). |
 | `--local` | | Use a local dev control plane, even if Spaces is available. |
 | `--local-registry-path` | | Directory to use for local registry images. The default is system-dependent. |
 | `--no-update-kubeconfig` | | Do not update kubeconfig to use the dev control plane as its current context. |

@@ -36,6 +36,26 @@ Run all operation tests located in the 'tests/' directory:
 up test run tests/* --operation
 ```
 
+Save each test's rendered output and function container logs for debugging.
+Each run writes to a timestamped directory under `_output/composition_test/`
+(or `_output/operation_test/` with `--operation`) in the project directory,
+one subdirectory per test containing `render.log` and one `.log` file per
+function. The exact path is printed at the end of the run. Use
+`--output-dir` to change the base directory:
+
+```shell
+up test run tests/* --function-logs
+up test run tests/* --operation --function-logs --output-dir=/tmp/test-logs
+```
+
+Additionally print each test's rendered output (and, with `--function-logs`,
+the function container logs) to stderr after the run by passing the global
+`--debug` flag:
+
+```shell
+up test run tests/* --function-logs --debug
+```
+
 Run e2e tests in `tests/` while specifying custom paths for the `kubectl`
 binary:
 
@@ -111,7 +131,7 @@ example, each test creates its own control plane, so a shared
 | `--control-plane-group` | | The control plane group that the control plane to use is contained in. This defaults to the group specified in the current context. |
 | `--control-plane-name-prefix` | | Prefix of the control plane name to use. It will be created if not found. |
 | `--control-plane-version` | | Version of Crossplane to use for the control plane. By default, the latest compatible version will be used. |
-| `--skip-control-plane-check` | | Allow running on a non-development control plane. |
+| `--skip-control-plane-check` | | Skip checks on the target control plane (development annotation and Crossplane version compatibility). |
 | `--local` | | Use a local dev control plane, even if Spaces is available. |
 | `--cluster-admin` | | Allow Crossplane cluster admin privileges in the local dev control plane. Defaults to true. |
 | `--local-registry-path` | | Directory to use for local registry images. The default is system-dependent. |
@@ -119,6 +139,8 @@ example, each test creates its own control plane, so a shared
 | `--use-current-context` | | Run the project with the current kubeconfig context rather than creating a new dev control plane. |
 | `--cache-dir` | | Directory used for caching dependencies. |
 | `--function-annotations` | | Override function annotations for all functions (compositionTests and operationTests). Can be repeated. |
+| `--function-logs` | | Write rendered output and Function container logs for each test to the output directory. Not supported with --e2e. |
+| `--output-dir` | | Base directory for per-test render output and Function logs; each run writes to a timestamped subdirectory. Defaults to _output/composition_test or _output/operation_test in the project directory. |
 | `--kubectl` | | Absolute path to the kubectl binary. Defaults to the one in $PATH. |
 | `--public` | | Create new repositories with public visibility. |
 | `--e2e` | | Run E2E tests |

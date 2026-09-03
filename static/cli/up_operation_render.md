@@ -40,6 +40,13 @@ up operation render operations/op1/operation.yaml \
     --function-credentials=credentials.yaml
 ```
 
+Print each function container's stdout/stderr logs after rendering. Logs go
+to stderr, so stdout remains valid YAML that can be piped to other tools:
+
+```shell
+up operation render operations/op1/operation.yaml --function-logs
+```
+
 Include function results and context in the output:
 
 ```shell
@@ -99,6 +106,7 @@ environment variables:
 | `--include-context` | `-c` | Include the context in the rendered output as a resource of kind: Context. |
 | `--function-credentials` | | A YAML file or directory of YAML files specifying credentials to use for Functions to render the Operation. |
 | `--function-annotations` | | Override function annotations for all functions. Can be repeated. |
+| `--function-logs` | | Print stdout/stderr logs from Function containers to stderr after rendering. |
 | `--timeout` | | How long to run before timing out. |
 | `--max-concurrency` | | Maximum number of functions to build at once. |
 | `--project-file` | `-p` | Path to project definition file. |
