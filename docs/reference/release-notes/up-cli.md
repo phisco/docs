@@ -24,6 +24,81 @@ Any important warnings or necessary information
 
 -->
 
+## v0.54.0
+
+### Release Date: 2026-09-03
+
+##### What's Changed
+
+- Added a new `up mirror` command group for offline and airgapped
+  installations, with four subcommands:
+  - `up mirror build-images` mirrors the images needed to build projects.
+    Limit it to specific languages with `--language`, which defaults to all.
+  - `up mirror package-images <package>` mirrors a Crossplane package along
+    with its resolved transitive dependencies. Use `--concurrency` to control
+    how many packages are mirrored at once.
+  - `up mirror uxp-images -v <version>` mirrors the UXP Helm chart and every
+    image a default install needs, then prints a Helm values overlay for
+    installing from the mirror.
+  - `up mirror space-images -v <version>` mirrors the images required for a
+    given Upbound Spaces version.
+
+  All four accept `--output-dir`/`-o`, `--destination-registry`/`-r`, and
+  `--dry-run`.
+- Deprecated `up space mirror` in favor of `up mirror space-images`. The old
+  command still works, and still accepts `-t` for `--output-dir` and `-d` for
+  `--destination-registry`, but it now prints a deprecation warning. Note that
+  `up mirror space-images` uses `-o` and `-r` for those flags instead.
+- Added `--function-logs` to `up composition render` and `up operation render`,
+  which prints each function container's stdout and stderr to stderr after
+  rendering. Standard output stays valid YAML that can be piped to other
+  tools.
+- Added `--function-logs` to `up test run`, which writes each test's rendered
+  output and per-function logs to a timestamped directory under
+  `_output/composition_test`, or `_output/operation_test` with `--operation`.
+  Use the new `--output-dir` flag to change the base directory. Passing the
+  global `--debug` flag also prints each test's rendered output to stderr
+  after the run.
+- Projects can now declare embedded functions explicitly with `spec.functions`
+  in the project file. `Directory` sources build as before, and the new
+  `Tarball` sources load pre-built per-architecture OCI image tarballs
+  produced by external build systems. Setting the list disables function
+  auto-discovery.
+- Projects can now limit schema generation to specific languages with
+  `spec.schemas.languages`. All project commands respect the setting, and `up
+  function generate` refuses languages the project doesn't generate schemas
+  for.
+- `up project run` and `up test run --e2e` now honor the project's
+  `spec.crossplane.version` when deriving the control plane version
+  constraint, and accept an existing control plane whose Crossplane version
+  satisfies that constraint instead of requiring an exact spec match. The
+  control plane's auto-upgrade channel is no longer considered, mismatch errors
+  now say which versions and fields differ, and `--skip-control-plane-check`
+  skips this check as well.
+- Improved Python project build times by pre-building the Python build image
+  and preparing the build toolchain once per run rather than on every
+  invocation.
+- Updated the KCL base image to v0.12.3.
+- Fixed a bug where `spec.operation` was required in the `OperationTest` CRD,
+  and in the Python and KCL models generated from it, even though it's
+  optional at runtime. This rejected the scaffold that `up test generate
+  --operation` itself produces.
+- Fixed handling of watched and required resources in operation tests. Inline
+  `requiredResources` now reach the function pipeline, `watchedResourcePath`
+  is respected, and an empty `watchedResource` no longer overwrites the
+  required resources file.
+- Fixed `up space billing export` failing with `invalid character '\x1f'
+  looking for beginning of value` when storage objects are gzip-compressed but
+  stored without a recognized gzip content type.
+- Fixed `up test run --e2e` leaving a namespaced XR's composed resources
+  behind during cleanup.
+- Fixed `up project init` failing on Windows with a `path outside base dir`
+  error when cloning a template.
+- `up` now writes `~/.up/config.json` as indented JSON, so manual formatting
+  of the file is no longer flattened on the next write.
+- Fixed the `up project init` help text, which misspelled `--language` and
+  referenced the wrong AWS template repository.
+
 ## v0.53.2
 
 ### Release Date: 2026-08-20
