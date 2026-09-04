@@ -68,7 +68,7 @@ Based on Crossplane [v2.2.5](https://github.com/crossplane/crossplane/releases/t
 
 #### What's Changed
 
-Based on Crossplane [v2.1.8](https://github.com/crossplane/crossplane/releases/tag/v2.1.8).
+Based on Crossplane [v2.1.8](https://github.com/crossplane/crossplane/releases/tag/v2.1.8), plus Upbound security fixes that have no upstream equivalent — upstream Crossplane no longer publishes patches for the 2.1 line, so the Crossplane fixes below were made by Upbound in its Crossplane distribution.
 
 - Security: the Go toolchain updated to 1.26.7 in both Crossplane and the Upbound Controller Manager.
 - Security: `google.golang.org/grpc` v1.83.1 and `golang.org/x/crypto` v0.56.0 in Crossplane and the Upbound Controller Manager.
@@ -82,7 +82,7 @@ Based on Crossplane [v2.1.8](https://github.com/crossplane/crossplane/releases/t
 
 #### What's Changed
 
-Based on Crossplane [v2.0.8](https://github.com/crossplane/crossplane/releases/tag/v2.0.8).
+Based on Crossplane [v2.0.8](https://github.com/crossplane/crossplane/releases/tag/v2.0.8), plus Upbound security fixes that have no upstream equivalent — upstream Crossplane no longer publishes patches for the 2.0 line, so the Crossplane fixes below were made by Upbound in its Crossplane distribution.
 
 - Security: the Go toolchain updated to 1.26.7 in both Crossplane and the Upbound Controller Manager.
 - Security: `google.golang.org/grpc` v1.83.1 and `golang.org/x/crypto` v0.56.0 in Crossplane and the Upbound Controller Manager.
