@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Archived Spaces versions are near-duplicates of the current docs at
+# /self-hosted-spaces/. Prefix match covers every 1.x archive, so this needs
+# no edit when a new version is cut.
+Disallow: /self-hosted-spaces/1.
+
+Sitemap: https://docs.upbound.io/sitemap.xml

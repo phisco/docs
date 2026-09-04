@@ -1,8 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { ArrowUpRight, Bot, Check, ChevronDown, Code2, Copy, Sparkles } from 'lucide-react';
 import styles from './CopyPageMenu.module.css';
 
-const RAW_SOURCE_URL = 'https://raw.githubusercontent.com/upbound/docs/main/';
+// Markdown sources are published under this prefix by
+// scripts/doc-sources-plugin.js, mirroring the repo-relative path that
+// `metadata.source` already carries.
+//
+// Do NOT use a leading underscore here. Vercel reserves `/_src` and `/_logs`
+// on deployment URLs for its own inspector and 307s them to vercel.com before
+// static files are ever consulted, which silently breaks every preview build.
+const RAW_SOURCE_PATH = '/raw/';
 
 const AI_TARGETS = [
   {
@@ -29,6 +37,32 @@ export default function CopyPageMenu({ source, getText }) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const containerRef = useRef(null);
+  const markdownRef = useRef(null);
+  const fetchRef = useRef(null);
+
+  const { siteConfig } = useDocusaurusContext();
+
+  const sourcePath = source?.replace(/^@site\//, '');
+  // Same-origin for the fetch, so Copy page works in dev and on previews
+  // instead of pulling production content. The AI targets need an absolute,
+  // publicly reachable URL, so those get the configured site origin.
+  const rawPath = sourcePath && `${RAW_SOURCE_PATH}${sourcePath}`;
+  const rawUrl = rawPath && `${siteConfig.url}${rawPath}`;
+  const prompt = rawUrl && `Read ${rawUrl} so you can answer questions about it. Rely only on that page.`;
+
+  // Warmed on hover/focus so handleCopy can stay synchronous — Safari drops
+  // transient activation across an await, which would block the clipboard write.
+  const prefetchMarkdown = () => {
+    if (!rawPath || fetchRef.current) return;
+    fetchRef.current = fetch(rawPath)
+      .then((response) => (response.ok ? response.text() : null))
+      .then((text) => {
+        markdownRef.current = text;
+      })
+      .catch(() => {
+        // Leave markdownRef empty and let handleCopy fall back.
+      });
+  };
 
   useEffect(() => {
     if (!open) return undefined;
@@ -51,7 +85,9 @@ export default function CopyPageMenu({ source, getText }) {
   }, [open]);
 
   const handleCopy = () => {
-    const text = getText?.();
+    // Prefer the real markdown. Falls back to rendered text when the source
+    // is unavailable: local dev has no /raw/, and a tap never hovers first.
+    const text = markdownRef.current || getText?.();
     if (!text) return;
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
@@ -60,12 +96,13 @@ export default function CopyPageMenu({ source, getText }) {
     });
   };
 
-  const sourcePath = source?.replace(/^@site\//, '');
-  const rawUrl = sourcePath && `${RAW_SOURCE_URL}${sourcePath}`;
-  const prompt = rawUrl && `Read ${rawUrl} so you can answer questions about it. Rely only on that page.`;
-
   return (
-    <div className={styles.container} ref={containerRef}>
+    <div
+      className={styles.container}
+      ref={containerRef}
+      onPointerEnter={prefetchMarkdown}
+      onFocus={prefetchMarkdown}
+    >
       <div className={styles.trigger}>
         <button type="button" className={styles.triggerCopy} onClick={handleCopy}>
           {copied ? <Check size={14} /> : <Copy size={14} />}

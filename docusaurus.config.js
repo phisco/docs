@@ -137,6 +137,7 @@ const config = {
             },
         ],
                 "./scripts/plan-plugin.js",
+        "./scripts/doc-sources-plugin.js",
         function (context, options) {
             return {
                 name: "custom-webpack-config",

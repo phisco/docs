@@ -8,6 +8,7 @@ on:
       - 'docs/**'
       - 'src/**'
       - 'docusaurus.config.js'
+      - 'static/**'
   workflow_dispatch:
 
 jobs:
@@ -33,3 +34,12 @@ jobs:
         with:
           config: utils/htmltest/.htmltest.yml
           path: build
+
+      - name: Check llms.txt links resolve in the build
+        run: |
+          fail=0
+          while read -r url; do
+            [ -f "build${url%/}/index.html" ] || { echo "::error file=static/llms.txt::dead link: $url"; fail=1; }
+          done < <(grep -oE 'https://docs\.upbound\.io[^)]*' static/llms.txt |
+                   sed 's|https://docs.upbound.io||' | sort -u)
+          exit $fail
