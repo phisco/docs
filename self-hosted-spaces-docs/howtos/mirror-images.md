@@ -31,13 +31,13 @@ section of the CLI reference.
 To export artifacts as `.tar.gz` files into a directory:
 
 ```bash
-up space mirror -v <version> --output-dir=<path> --token-file=<path-to-token.json>
+up mirror space-images -v <version> --output-dir=<path> --token-file=<path-to-token.json>
 ```
 
 Example:
 
 <CodeBlock language="bash">
-{`up space mirror -v ${versions.spaces} --output-dir=/tmp/spaces-artifacts --token-file=upbound-token.json`}
+{`up mirror space-images -v ${versions.spaces} --output-dir=/tmp/spaces-artifacts --token-file=upbound-token.json`}
 </CodeBlock>
 
 ## Specify your internal registry
@@ -69,13 +69,13 @@ To push artifacts to your own container registry:
 2. Run the mirror command with `--destination-registry`:
 
 ```bash
-up space mirror -v <version> --destination-registry=<registry> --token-file=<path-to-token.json>
+up mirror space-images -v <version> --destination-registry=<registry> --token-file=<path-to-token.json>
 ```
 
 Example:
 
 <CodeBlock language="bash">
-{`up space mirror -v ${versions.spaces} --destination-registry=myregistry.io --token-file=upbound-token.json`}
+{`up mirror space-images -v ${versions.spaces} --destination-registry=myregistry.io --token-file=upbound-token.json`}
 </CodeBlock>
 
 :::tip
