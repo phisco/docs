@@ -14,6 +14,26 @@ Any important warnings or necessary information
 - User-facing changes
 -->
 
+## v2.4.0-up.1
+
+### Release Date: 2026-09-04
+
+#### What's Changed
+
+Based on Crossplane [v2.4.0](https://github.com/crossplane/crossplane/releases/tag/v2.4.0).
+
+- Backups can now be scoped by namespace. `includedNamespaces` and `excludedNamespaces` were added to the shared `ControlPlaneBackupConfig`, so both `Backup` and `BackupSchedule` can limit which namespaces a backup captures; `excludedNamespaces` merges with the system namespaces that are always excluded. The fields are immutable on `Backup`, mirroring `excludedResources`, and stay mutable on `BackupSchedule` so a schedule's scope can be adjusted over time.
+- Fixed restores that could never complete on larger control planes. A two-minute budget capped the whole import and truncated the importer's own longer per-step timeouts, so a restore needing more time restarted from scratch and never got further. The import is no longer bounded that way, failed attempts retry with backoff and keep retrying, and a failing import now reports the import error itself.
+- Reduced Upbound Controller Manager memory usage when the secrets proxy webhook is enabled. Replicating the proxy's `Secret` and CA bundle `ConfigMap` made the manager cache every `ConfigMap` and `Secret` in the cluster; both are now cached only for the source and injection namespaces.
+- Removed the `upbound.manager.metering.meteringStorage.enabled` chart value. It was documented as a toggle for persistent metering storage but nothing referenced it, so the metering StatefulSet always claimed a `PersistentVolume` — and on a cluster with no default `StorageClass` that claim never bound, leaving `uxp-metering` stuck `Pending`. Metering data can't be ephemeral, so the value is gone and the requirement documented instead: set `storageClass` on clusters without a default. Rendered output is unchanged.
+- Security: the Go toolchain updated to 1.26.7 in both Crossplane and the Upbound Controller Manager.
+- Security: Crossplane core dependency updates, including `golang.org/x/crypto` v0.56.0 — which addresses two denial-of-service issues in its SSH implementation — and `google.golang.org/grpc` v1.83.1.
+- Security: the same `golang.org/x/crypto` v0.56.0 and `google.golang.org/grpc` v1.83.1 updates in the Upbound Controller Manager, along with `golang.org/x/net` v0.55.0, `golang.org/x/text` v0.39.0, `golang.org/x/mod` v0.40.0, `oras.land/oras-go` v2.6.2, and the `sigstore` toolchain — `cosign` v3.0.6, `rekor` v1.5.2, `sigstore-go` v1.2.1 and `timestamp-authority` v2.1.0.
+- Security: the bundled Helm library updated to v3.21.4, which removes `containerd` from the Upbound Controller Manager image entirely.
+- Security: the `uxp-webui` subchart updated to 1.1.8, rebuilt against Alpine `libssl3` and `libcrypto3` 3.5.8-r0.
+- Security: the `uxp-apollo` subchart updated to 0.4.23.
+- Security: refreshed the `gcr.io/distroless/static` base image of the Upbound Controller Manager.
+
 ## v2.3.5-up.1
 
 ### Release Date: 2026-08-26

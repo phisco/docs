@@ -153,7 +153,7 @@ This reference provides detailed documentation on the UXP Helm chart. This Helm 
 | image.ignoreTag | bool | `false` | Do not use the {{ .image.tag }} value to compute the image uri. |
 | image.pullPolicy | string | `"IfNotPresent"` | The image pull policy used for Crossplane and RBAC Manager pods. |
 | image.repository | string | `"xpkg.upbound.io/upbound/crossplane"` | Repository for the Crossplane pod image. |
-| image.tag | string | `"v2.3.5-up.1"` | The Crossplane image tag. Defaults to the value of `appVersion` in `Chart.yaml`. |
+| image.tag | string | `"v2.4.0-up.3"` | The Crossplane image tag. Defaults to the value of `appVersion` in `Chart.yaml`. |
 | imagePullSecrets | list | `[]` | The imagePullSecret names to add to the Crossplane ServiceAccount. |
 | leaderElection | bool | `true` | Enable [leader election](https://docs.crossplane.io/latest/guides/pods/#leader-election) for the Crossplane pod. |
 | metrics.enabled | bool | `true` | Enable Prometheus path, port and scrape annotations and expose port 8080 for both the Crossplane and RBAC Manager pods. |
@@ -228,7 +228,7 @@ This reference provides detailed documentation on the UXP Helm chart. This Helm 
 | upbound.manager.leaderElection | bool | `true` | Enable [leader election](https://docs.crossplane.io/latest/concepts/pods/#leader-election) for the Upbound Controller Manager pod. |
 | upbound.manager.measurement.enabled | bool | `true` | Enable the measurement server. |
 | upbound.manager.measurement.port | string | `""` | The port the measurement server listens on. |
-| upbound.manager.metering | object | `{"affinity":{},"args":[],"customAnnotations":{},"dnsPolicy":"","extraEnvVars":{},"extraVolumeMounts":[],"extraVolumes":[],"image":{"pullPolicy":"","repository":"","tag":""},"imagePullSecrets":[],"meteringStorage":{"accessMode":"ReadWriteOnce","enabled":false,"size":"10Gi","storageClass":""},"nodeSelector":{},"podAnnotations":{},"podLabels":{},"podSecurityContext":{},"ports":[],"priorityClassName":"","resources":{"limits":{"cpu":"500m","memory":"1024Mi"},"requests":{"cpu":"50m","memory":"128Mi"}},"securityContext":{},"startupProbe":{},"tolerations":[],"topologySpreadConstraints":[]}` | Configuration for the UXP metering StatefulSet deployed by the licensing controller. |
+| upbound.manager.metering | object | `{"affinity":{},"args":[],"customAnnotations":{},"dnsPolicy":"","extraEnvVars":{},"extraVolumeMounts":[],"extraVolumes":[],"image":{"pullPolicy":"","repository":"","tag":""},"imagePullSecrets":[],"meteringStorage":{"accessMode":"ReadWriteOnce","size":"10Gi","storageClass":""},"nodeSelector":{},"podAnnotations":{},"podLabels":{},"podSecurityContext":{},"ports":[],"priorityClassName":"","resources":{"limits":{"cpu":"500m","memory":"1024Mi"},"requests":{"cpu":"50m","memory":"128Mi"}},"securityContext":{},"startupProbe":{},"tolerations":[],"topologySpreadConstraints":[]}` | Configuration for the UXP metering StatefulSet deployed by the licensing controller. |
 | upbound.manager.metering.affinity | object | `{}` | Add `affinities` to the metering StatefulSet pods. |
 | upbound.manager.metering.args | list | `[]` | Add custom arguments to the Upbound Metering pod. |
 | upbound.manager.metering.customAnnotations | object | `{}` | Add custom `annotations` to the metering StatefulSet. |
@@ -242,9 +242,8 @@ This reference provides detailed documentation on the UXP Helm chart. This Helm 
 | upbound.manager.metering.image.tag | string | `""` | The metering container image tag. Defaults to `upbound.manager.image.tag`, or to the value of `appVersion` in `Chart.yaml`. |
 | upbound.manager.metering.imagePullSecrets | list | `[]` | The imagePullSecret names to add to the metering StatefulSet. |
 | upbound.manager.metering.meteringStorage.accessMode | string | `"ReadWriteOnce"` | Access mode for the PersistentVolume. |
-| upbound.manager.metering.meteringStorage.enabled | bool | `false` | Enable persistent storage for usage metering data. |
 | upbound.manager.metering.meteringStorage.size | string | `"10Gi"` | Size of the PersistentVolume for metering data. |
-| upbound.manager.metering.meteringStorage.storageClass | string | `""` | Storage class for the PersistentVolume. If not specified, uses the default storage class. |
+| upbound.manager.metering.meteringStorage.storageClass | string | `""` | Storage class for the PersistentVolume backing the metering database. If empty, the cluster's default storage class is used; on a cluster without a default the claim stays `Pending` and `uxp-metering` never starts, so set this explicitly unless a default exists. |
 | upbound.manager.metering.nodeSelector | object | `{}` | Add `nodeSelectors` to the metering StatefulSet pods. |
 | upbound.manager.metering.podAnnotations | object | `{}` | Add custom annotations to the metering StatefulSet pods. |
 | upbound.manager.metering.podLabels | object | `{}` | Add custom labels to the metering StatefulSet pods. |
@@ -339,7 +338,6 @@ This reference provides detailed documentation on the UXP Helm chart. This Helm 
 | webui.service.type | string | `"ClusterIP"` |  |
 | webui.tolerations | list | `[]` | Add `tolerations` to the webui pod deployment. |
 | webui.topologySpreadConstraints | list | `[]` | Add `topologySpreadConstraints` to the webui pod deployment. |
-
 </div>
 
 <!-- vale on -->
