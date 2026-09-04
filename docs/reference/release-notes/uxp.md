@@ -34,6 +34,73 @@ Based on Crossplane [v2.4.0](https://github.com/crossplane/crossplane/releases/t
 - Security: the `uxp-apollo` subchart updated to 0.4.23.
 - Security: refreshed the `gcr.io/distroless/static` base image of the Upbound Controller Manager.
 
+## v2.3.5-up.2
+
+### Release Date: 2026-09-04
+
+#### What's Changed
+
+Based on Crossplane [v2.3.5](https://github.com/crossplane/crossplane/releases/tag/v2.3.5).
+
+- Security: the Go toolchain updated to 1.26.7 in both Crossplane and the Upbound Controller Manager.
+- Security: `google.golang.org/grpc` v1.83.1 and `golang.org/x/crypto` v0.56.0 in Crossplane and the Upbound Controller Manager.
+- Security: the bundled Helm library updated to v3.21.4, which removes `containerd` from the Upbound Controller Manager image entirely.
+- Security: the `uxp-webui` subchart updated to 1.1.8, rebuilt against Alpine `libssl3` and `libcrypto3` 3.5.8-r0.
+- Security: the `uxp-apollo` subchart updated to 0.4.23, which carries `google.golang.org/grpc` v1.83.1.
+
+## v2.2.5-up.2
+
+### Release Date: 2026-09-04
+
+#### What's Changed
+
+Based on Crossplane [v2.2.5](https://github.com/crossplane/crossplane/releases/tag/v2.2.5).
+
+- Security: the Go toolchain updated to 1.26.7 in both Crossplane and the Upbound Controller Manager.
+- Security: `google.golang.org/grpc` v1.83.1 and `golang.org/x/crypto` v0.56.0 in Crossplane and the Upbound Controller Manager.
+- Security: the bundled Helm library updated to v3.21.4, which removes `containerd` from the Upbound Controller Manager image entirely.
+- Security: the `uxp-webui` subchart updated to 1.1.8, rebuilt against Alpine `libssl3` and `libcrypto3` 3.5.8-r0.
+- Security: the `uxp-apollo` subchart updated to 0.4.23, which carries `google.golang.org/grpc` v1.83.1.
+
+## v2.1.8-up.4
+
+### Release Date: 2026-09-04
+
+#### What's Changed
+
+Based on Crossplane [v2.1.8](https://github.com/crossplane/crossplane/releases/tag/v2.1.8).
+
+- Security: the Go toolchain updated to 1.26.7 in both Crossplane and the Upbound Controller Manager.
+- Security: `google.golang.org/grpc` v1.83.1 and `golang.org/x/crypto` v0.56.0 in Crossplane and the Upbound Controller Manager.
+- Security: the bundled Helm library updated to v3.21.4, which removes `containerd` from the Upbound Controller Manager image entirely.
+- Security: the `uxp-webui` subchart updated to 1.0.7, rebuilt against Alpine `libssl3` and `libcrypto3` 3.5.8-r0.
+- Security: the `uxp-apollo` subchart updated to 0.2.24, which carries `google.golang.org/grpc` v1.83.1.
+
+## v2.0.8-up.9
+
+### Release Date: 2026-09-04
+
+#### What's Changed
+
+Based on Crossplane [v2.0.8](https://github.com/crossplane/crossplane/releases/tag/v2.0.8).
+
+- Security: the Go toolchain updated to 1.26.7 in both Crossplane and the Upbound Controller Manager.
+- Security: `google.golang.org/grpc` v1.83.1 and `golang.org/x/crypto` v0.56.0 in Crossplane and the Upbound Controller Manager.
+- Security: the bundled Helm library updated to v3.21.4, which removes `containerd` from the Upbound Controller Manager image entirely.
+- Security: the `uxp-webui` subchart updated to 1.0.7, rebuilt against Alpine `libssl3` and `libcrypto3` 3.5.8-r0.
+- Security: the `uxp-apollo` subchart updated to 0.2.24, which carries `google.golang.org/grpc` v1.83.1.
+
+## v1.20.12-up.2
+
+### Release Date: 2026-09-04
+
+#### What's Changed
+
+Based on Crossplane [v1.20.12](https://github.com/crossplane/crossplane/releases/tag/v1.20.12).
+
+- Security: the Go toolchain updated to 1.26.7.
+- Security: Crossplane core dependency updates — `google.golang.org/grpc` v1.83.1 and `golang.org/x/crypto` v0.56.0.
+
 ## v2.3.5-up.1
 
 ### Release Date: 2026-08-26
