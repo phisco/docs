@@ -259,7 +259,7 @@ const EditCode = ({ children, language = "" }) => {
       <pre style={{ 
         margin: 0,
         padding: '1rem 2.5rem 1rem 1rem', // Extra padding on right for copy button
-        fontFamily: 'SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+        fontFamily: 'Inconsolata, SFMono-Regular, Menlo, Monaco, monospace',
         fontSize: '0.9rem',
         lineHeight: 1.5,
         overflowX: 'auto',
