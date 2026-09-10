@@ -104,6 +104,7 @@ module.exports = {
           label: 'Workload Identity',
           items: [
             'howtos/workload-id/backup-restore-config',
+            'howtos/workload-id/space-backup-config',
             'howtos/workload-id/billing-config',
             'howtos/workload-id/eso-config',
           ],

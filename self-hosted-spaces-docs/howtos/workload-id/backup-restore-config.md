@@ -376,9 +376,11 @@ Now that you have a workload identity configured for the backup and restore
 component, visit the [Backup Configuration][backup-restore-guide] documentation.
 
 Other workload identity guides are:
+* [Space Backups][space-backup]
 * [Billing][billing]
 * [Shared Secrets][secrets]
 
 [backup-restore-guide]: /self-hosted-spaces/howtos/backup-and-restore
+[space-backup]: ./space-backup-config.md
 [billing]: /self-hosted-spaces/howtos/workload-id/billing-config
 [secrets]: /self-hosted-spaces/howtos/workload-id/eso-config

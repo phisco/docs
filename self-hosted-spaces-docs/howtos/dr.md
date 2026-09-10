@@ -153,6 +153,13 @@ This example assumes you've already created a Cloud bucket called
 "spaces-backup-bucket" and a service account with access to this bucket. Define the key file as a Secret in the specified Namespace
 (`upbound-system` in this example).
 
+#### Use workload identity instead of a Secret
+
+Set `spec.objectStorage.credentials.source` to `InjectedIdentity` to
+authenticate with the identity of the `spaces-controller` pod instead of a
+Secret. See [Space Backups Workload ID][space-backup-workload-id] for the
+cloud-provider setup.
+
 <!-- vale Google.Headings = NO -->
 ## Configure a Space Backup Schedule
 <!-- vale Google.Headings = YES -->
@@ -404,6 +411,7 @@ kubectl exec -ti -n upbound-system deployments/spaces-controller -c spaces
 
 [shared-backups]: /self-hosted-spaces/howtos/workload-id/backup-restore-config/
 [spacebackupconfig]: /self-hosted-spaces/reference/
+[space-backup-workload-id]: ./workload-id/space-backup-config.md
 [thanos-object-storage]: https://thanos.io/tip/thanos/storage.md/
 [spacebackupschedule]: /self-hosted-spaces/reference/
 [cron-formatted]: https://en.wikipedia.org/wiki/Cron
